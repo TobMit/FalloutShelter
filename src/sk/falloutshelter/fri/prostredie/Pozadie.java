@@ -1,4 +1,7 @@
-package sk.falloutshelter.fri;
+package sk.falloutshelter.fri.prostredie;
+
+import sk.falloutshelter.fri.Hra;
+import sk.falloutshelter.fri.grafika.IZobraz;
 
 import java.awt.*;
 
@@ -7,7 +10,7 @@ import java.awt.*;
  *
  * @author Tobias
  */
-public class Pozadie {
+public class Pozadie implements IZobraz {
 
     private boolean jeViditelne;
 
@@ -15,6 +18,7 @@ public class Pozadie {
 
     }
 
+    @Override
     public void zobraz(Graphics grafika) {
         if (this.jeViditelne) {
             this.vykreslovacPozadia(grafika);
@@ -28,6 +32,7 @@ public class Pozadie {
         grafika.fillRect(0 , Hra.GAME_VYSKA / 10, Hra.GAME_SIRKA, Hra.GAME_VYSKA);
     }
 
+    @Override
     public void jeVidetelne(boolean viditelne) {
 
         this.jeViditelne = viditelne;

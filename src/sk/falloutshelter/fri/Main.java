@@ -8,7 +8,6 @@ package sk.falloutshelter.fri;
 public class Main {
 
     public static void main(String[] args) {
-        //TODO Write your code
         Hra hra = new Hra();
         hra.hraj();
     }

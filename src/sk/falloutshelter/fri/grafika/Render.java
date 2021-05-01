@@ -1,4 +1,6 @@
-package sk.falloutshelter.fri;
+package sk.falloutshelter.fri.grafika;
+
+import sk.falloutshelter.fri.Hra;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,10 +19,10 @@ public class Render extends JPanel {
     }
 
     @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
+    protected void paintComponent(Graphics grafika) {
+        super.paintComponent(grafika);
 
-        this.hra.repaint(g);
+        this.hra.repaint(grafika);
         this.setBackground(Color.CYAN);
     }
 }

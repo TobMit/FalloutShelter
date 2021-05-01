@@ -1,5 +1,9 @@
 package sk.falloutshelter.fri;
 
+import sk.falloutshelter.fri.grafika.Render;
+import sk.falloutshelter.fri.prostredie.Bunker;
+import sk.falloutshelter.fri.prostredie.Pozadie;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -12,6 +16,9 @@ import java.awt.event.ActionListener;
  */
 public class Hra implements ActionListener {
 
+    //TODO úvodu obrazovku a načitavanie zo súboru na výber budú 3 save a viac nie, potom má hráč smolu
+
+
     private final Pozadie pozadie;
     private final JFrame jframe;
     private final Render render;
@@ -19,7 +26,9 @@ public class Hra implements ActionListener {
 
     public static final int GAME_SIRKA = 1920;
     public static final int GAME_VYSKA = 1080;
+    private final Bunker bunker;
 
+    //tik je pre animáciu
     private int tik;
 
     public Hra() {
@@ -31,6 +40,8 @@ public class Hra implements ActionListener {
 
         this.pozadie = new Pozadie();
         this.pozadie.jeVidetelne(true);
+
+        this.bunker = new Bunker();
         this.tik = 0;
 
 
@@ -49,6 +60,7 @@ public class Hra implements ActionListener {
     public void repaint(Graphics grafika) {
 
         this.pozadie.zobraz(grafika);
+        this.bunker.zobraz(grafika);
     }
 
     public void hraj() {
@@ -56,7 +68,7 @@ public class Hra implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        this.tik++;
+        //this.tik++;
         this.render.repaint();
     }
 }
