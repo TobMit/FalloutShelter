@@ -16,6 +16,9 @@ public class Bunker implements IZobraz {
     private final RozlozenieMiestnosti rozlozenieMiestnosti;
     private boolean jeVidetelne;
 
+    public static final int X_SURADNICA_BUNKRA = Hra.GAME_SIRKA / 3 - RozlozenieMiestnosti.SIRKA_MIESTNOSTI;
+    public static final int Y_SURADNICA_BUNKRA = Hra.GAME_VYSKA / 10 - RozlozenieMiestnosti.VYSKA_MIESTNOSTI  + 5;
+
 //    private static final int
 
     //TODO Pridať a sfunkčniť ludí.
@@ -29,14 +32,14 @@ public class Bunker implements IZobraz {
     public void zobraz(Graphics grafika) {
         if (this.jeVidetelne) {
             this.vykresliGrafiku(grafika);
+            this.rozlozenieMiestnosti.zobrazMiestnosti(grafika);
         }
     }
 
     private void vykresliGrafiku(Graphics grafika) {
         grafika.setColor(Color.decode("#7a674d"));
-        grafika.fillRect(Hra.GAME_SIRKA / 3, Hra.GAME_VYSKA / 10 - RozlozenieMiestnosti.VYSKA_MIESTNOSTI , 9 * RozlozenieMiestnosti.SIRKA_MIESTNOSTI, RozlozenieMiestnosti.VYSKA_MIESTNOSTI + 10);
-        grafika.fillRect(Hra.GAME_SIRKA / 3 - RozlozenieMiestnosti.SIRKA_MIESTNOSTI, Hra.GAME_VYSKA / 10 + 10 , 10 * RozlozenieMiestnosti.SIRKA_MIESTNOSTI, 10 * RozlozenieMiestnosti.VYSKA_MIESTNOSTI);
-
+        grafika.fillRect(Hra.GAME_SIRKA / 3, Hra.GAME_VYSKA / 10 - RozlozenieMiestnosti.VYSKA_MIESTNOSTI  + 5, 9 * RozlozenieMiestnosti.SIRKA_MIESTNOSTI, RozlozenieMiestnosti.VYSKA_MIESTNOSTI);
+        grafika.fillRect(Hra.GAME_SIRKA / 3 - RozlozenieMiestnosti.SIRKA_MIESTNOSTI, Hra.GAME_VYSKA / 10 + 5 , 10 * RozlozenieMiestnosti.SIRKA_MIESTNOSTI, 10 * RozlozenieMiestnosti.VYSKA_MIESTNOSTI);
     }
 
     @Override
