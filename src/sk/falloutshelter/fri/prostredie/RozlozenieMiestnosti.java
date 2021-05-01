@@ -1,5 +1,9 @@
 package sk.falloutshelter.fri.prostredie;
 
+import sk.falloutshelter.fri.prostredie.miestnosti.Miestnosti;
+import sk.falloutshelter.fri.prostredie.miestnosti.NullMiestnost;
+import sk.falloutshelter.fri.prostredie.miestnosti.Vchod;
+
 import java.awt.*;
 
 /**

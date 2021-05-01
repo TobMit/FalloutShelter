@@ -1,4 +1,4 @@
-package sk.falloutshelter.fri.prostredie;
+package sk.falloutshelter.fri.prostredie.miestnosti;
 
 import java.awt.*;
 

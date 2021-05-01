@@ -1,4 +1,4 @@
-package sk.falloutshelter.fri.prostredie;
+package sk.falloutshelter.fri.prostredie.miestnosti;
 
 import sk.falloutshelter.fri.grafika.IZobraz;
 
