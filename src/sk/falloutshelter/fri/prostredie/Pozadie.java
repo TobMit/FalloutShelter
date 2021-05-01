@@ -28,7 +28,7 @@ public class Pozadie implements IZobraz {
 
     private void vykreslovacPozadia(Graphics grafika) {
         grafika.setColor(Color.decode("#AE8F65"));
-        grafika.fillRect(Hra.GAME_SIRKA / 3 , 0, Hra.GAME_SIRKA, Hra.GAME_VYSKA);
+        grafika.fillRect(Hra.GAME_SIRKA / 3 - 10 , 0, Hra.GAME_SIRKA, Hra.GAME_VYSKA);
         grafika.fillRect(0 , Hra.GAME_VYSKA / 10, Hra.GAME_SIRKA, Hra.GAME_VYSKA);
     }
 

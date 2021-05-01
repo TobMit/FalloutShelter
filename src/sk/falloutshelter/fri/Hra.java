@@ -42,6 +42,7 @@ public class Hra implements ActionListener {
         this.pozadie.jeVidetelne(true);
 
         this.bunker = new Bunker();
+        this.bunker.jeVidetelne(true);
         this.tik = 0;
 
 
@@ -54,7 +55,6 @@ public class Hra implements ActionListener {
         this.jframe.setResizable(false);
         this.jframe.setTitle("Fallout Shelter");
         this.jframe.setVisible(true);
-        this.casovac.start();
     }
 
     public void repaint(Graphics grafika) {
@@ -64,6 +64,7 @@ public class Hra implements ActionListener {
     }
 
     public void hraj() {
+        this.casovac.start();
     }
 
     @Override
