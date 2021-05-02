@@ -1,8 +1,11 @@
 package sk.falloutshelter.fri.prostredie;
 
+import sk.falloutshelter.fri.prostredie.miestnosti.Elektraren;
 import sk.falloutshelter.fri.prostredie.miestnosti.Miestnosti;
 import sk.falloutshelter.fri.prostredie.miestnosti.NullMiestnost;
+import sk.falloutshelter.fri.prostredie.miestnosti.Ubytovanie;
 import sk.falloutshelter.fri.prostredie.miestnosti.Vchod;
+import sk.falloutshelter.fri.prostredie.miestnosti.Vytah;
 
 import java.awt.*;
 
@@ -10,6 +13,8 @@ import java.awt.*;
  *Táto tireda má nastorosť vytváranie usporiadanie miestnosti a informovať miestnosti o počte ludí v nej
  */
 public class RozlozenieMiestnosti {
+    //todo Pridať každej miestnosti svoj vhlad a grafiku
+    //todo Načitavanie miestnostií zo súboru
     public static final int SIRKA_MIESTNOSTI = 140;
     public static final int VYSKA_MIESTNOSTI = 90;
     private final Miestnosti[][] miestnosti;
@@ -22,10 +27,16 @@ public class RozlozenieMiestnosti {
         this.miestnosti[0][0] = new NullMiestnost(0 , 0);
         this.miestnosti[0][1] = new Vchod(0, 1);
         this.miestnosti[0][2] = this.miestnosti[0][1];
+        this.miestnosti[0][4] = new Ubytovanie(0, 4);
+
+        this.miestnosti[0][3] = new Vytah(0, 3);// výťah na prvom poschodí
+        this.miestnosti[1][3] = new Vytah(1, 3);
+        this.miestnosti[2][3] = new Vytah(2, 3);
+
+        this.miestnosti[1][2] = new Elektraren(1, 2);
     }
 
     public void nacitajMiestnosti() {
-
     }
 
     public void zobrazMiestnosti(Graphics grafika) {
@@ -36,5 +47,10 @@ public class RozlozenieMiestnosti {
                 }
             }
         }
+    }
+
+    public void pridajMiestnosti(Miestnosti miestnost, int riadok, int stlpec) {
+        //todo Pridať overovanie či sa dá na dané miesto pridať miestnosť alebo nie
+        this.miestnosti[riadok][stlpec] = miestnost;
     }
 }
