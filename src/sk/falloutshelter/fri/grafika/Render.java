@@ -5,11 +5,6 @@ import sk.falloutshelter.fri.Hra;
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * 1. 5. 2021 - 17:51
- *
- * @author Tobias
- */
 public class Render extends JPanel {
     private final Hra hra;
 

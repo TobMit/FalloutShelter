@@ -8,6 +8,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * 1. 5. 2021 - 17:51
@@ -33,9 +35,9 @@ public class Hra implements ActionListener {
 
     public Hra() {
         this.jframe = new JFrame();
-        this.casovac = new Timer(20, this);
 
         this.render = new Render(this);
+
         this.vytvorenieOkna();
 
         this.pozadie = new Pozadie();
@@ -43,6 +45,9 @@ public class Hra implements ActionListener {
 
         this.bunker = new Bunker();
         this.bunker.jeVidetelne(true);
+
+
+        this.casovac = new Timer(20, this);
         this.tik = 0;
 
 
@@ -50,17 +55,38 @@ public class Hra implements ActionListener {
 
     private void vytvorenieOkna() {
         this.jframe.add(this.render);
-        this.jframe.setDefaultCloseOperation(this.jframe.EXIT_ON_CLOSE);
+        this.jframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.jframe.setSize(Hra.GAME_SIRKA, Hra.GAME_VYSKA);
         this.jframe.setResizable(false);
         this.jframe.setTitle("Fallout Shelter");
         this.jframe.setVisible(true);
+
+        JPanel panel = new JPanel();
+        panel.setBounds(0, 0, Hra.GAME_SIRKA, Hra.GAME_VYSKA);
+        this.jframe.add(panel);
+        panel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                System.out.println(e.getX() + " " + e.getY());
+            }
+        });
     }
 
     public void repaint(Graphics grafika) {
 
-        this.pozadie.zobraz(grafika);
-        this.bunker.zobraz(grafika);
+        /*
+        * Odstranenie chyby Bunker = null. Niekedy sa repaint volalo skôr ako sa stihol bunker vôbec vytvoriť tak to pri prvom spustení hádzalo chybu.
+        */
+        if (this.tik != 0) {
+            this.pozadie.zobraz(grafika);
+            this.bunker.zobraz(grafika);
+        }
+        this.tik++;
+
+        if (this.tik > 60) {
+            this.tik = 1;
+        }
     }
 
     public void hraj() {
