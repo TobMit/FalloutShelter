@@ -66,6 +66,7 @@ public class RozlozenieMiestnosti {
     }
 
     public void vyberoveMenu() {
+        //todo môže vrátiť aj null treba to ošetriť
         ImageIcon icon = new ImageIcon("src/sk/falloutshelter/fri/obr/build-ico.png");
         Miestnosti[] test = {new Vytah(0, 0), new Elektraren(0, 0), new Ubytovanie(0 , 0)};
         Miestnosti miest = (Miestnosti)JOptionPane.showInputDialog (
