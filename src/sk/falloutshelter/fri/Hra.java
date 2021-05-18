@@ -1,6 +1,5 @@
 package sk.falloutshelter.fri;
 
-import sk.falloutshelter.fri.grafika.Render;
 import sk.falloutshelter.fri.prostredie.Bunker;
 import sk.falloutshelter.fri.prostredie.Pozadie;
 
@@ -23,7 +22,7 @@ public class Hra implements ActionListener {
 
     private final Pozadie pozadie;
     private final JFrame jframe;
-    private final Render render;
+    private final JPanel render;
     private final Timer casovac;
 
     public static final int GAME_SIRKA = 1920;
@@ -36,7 +35,16 @@ public class Hra implements ActionListener {
     public Hra() {
         this.jframe = new JFrame();
 
-        this.render = new Render(this);
+        this.render = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Hra.this.repaint(g);
+                this.setBackground(Color.CYAN);
+
+            }
+        };
+
 
         this.vytvorenieOkna();
 
@@ -97,5 +105,6 @@ public class Hra implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         //this.tik++;
         this.render.repaint();
+
     }
 }
