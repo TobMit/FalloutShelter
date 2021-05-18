@@ -3,6 +3,7 @@ package sk.falloutshelter.fri;
 import sk.falloutshelter.fri.screan.StavObrazovky;
 import sk.falloutshelter.fri.prostredie.Bunker;
 import sk.falloutshelter.fri.prostredie.Pozadie;
+import sk.falloutshelter.fri.screan.Tlacitka;
 import sk.falloutshelter.fri.screan.UvodnaObrazovka;
 
 import javax.swing.*;
@@ -30,6 +31,7 @@ public class Hra implements ActionListener {
     public static final int GAME_SIRKA = 1920;
     public static final int GAME_VYSKA = 1080;
     private final Bunker bunker;
+    private final Tlacitka builderButton;
     private StavObrazovky stavObrazokvy;
 
     //tik je pre animáciu
@@ -60,6 +62,8 @@ public class Hra implements ActionListener {
 
         this.bunker = new Bunker();
         this.bunker.jeVidetelne(false);
+
+        this.builderButton = new Tlacitka(10, 925, this, "src/sk/falloutshelter/fri/obr/build-ico.png");
 
         // delay: 16 pretože je to približne 60 FPS
         this.casovac = new Timer(16, this);
@@ -94,9 +98,11 @@ public class Hra implements ActionListener {
         this.uvodnaObraovka.jeVidetelne(false);
         this.pozadie.jeVidetelne(true);
         this.bunker.jeVidetelne(true);
+        this.builderButton.jeVidetelne(true);
     }
     private void klik(int x, int y) {
         this.uvodnaObraovka.klik(x, y);
+        this.builderButton.klik(x, y);
     }
 
     public void repaint(Graphics grafika) {
@@ -108,18 +114,27 @@ public class Hra implements ActionListener {
             /*
              * Odstranenie chyby Bunker = null. Niekedy sa repaint volalo skôr ako sa stihol bunker vôbec vytvoriť tak to pri prvom spustení hádzalo chybu.
              */
-            if (this.tik != 0) {
-                this.pozadie.zobraz(grafika);
-                this.bunker.zobraz(grafika);
-            }
+            this.pozadie.zobraz(grafika);
+            this.bunker.zobraz(grafika);
+            this.builderButton.zobraz(grafika);
             this.tik++;
 
             if (this.tik > 60) {
                 this.tik = 1;
             }
+
         }
 
 
+
+    }
+
+    public StavObrazovky getStavObrazokvy() {
+        return this.stavObrazokvy;
+    }
+
+    public void setStavObrazokvy(StavObrazovky stavObrazokvy) {
+        this.stavObrazokvy = stavObrazokvy;
     }
 
     public void hraj() {
