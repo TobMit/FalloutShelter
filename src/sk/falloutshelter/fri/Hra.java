@@ -19,7 +19,7 @@ import java.awt.event.MouseEvent;
  */
 public class Hra implements ActionListener {
 
-    //TODO úvodu obrazovku a načitavanie zo súboru na výber budú 3 save a viac nie, potom má hráč smolu
+    //TODO úvodu obrazovku a načitavanie zo súboru na výber budú 3 save a viac nie, potom má hráč smolu - zatiaľ iba jeden save
 
 
     private final Pozadie pozadie;
@@ -30,7 +30,7 @@ public class Hra implements ActionListener {
     public static final int GAME_SIRKA = 1920;
     public static final int GAME_VYSKA = 1080;
     private final Bunker bunker;
-    private final StavObrazovky stavObrazokvy;
+    private StavObrazovky stavObrazokvy;
 
     //tik je pre animáciu
     private int tik;
@@ -51,7 +51,7 @@ public class Hra implements ActionListener {
 
         this.stavObrazokvy = StavObrazovky.UvodnaObrazovka;
 
-        this.uvodnaObraovka = new UvodnaObrazovka();
+        this.uvodnaObraovka = new UvodnaObrazovka(this);
 
         this.vytvorenieOkna();
 
@@ -84,8 +84,19 @@ public class Hra implements ActionListener {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 System.out.println(e.getX() + " " + e.getY());
+                Hra.this.klik(e.getX(), e.getY());
             }
         });
+    }
+
+    public void prepinacObrazoviek() {
+        this.stavObrazokvy = StavObrazovky.HraBezi;
+        this.uvodnaObraovka.jeVidetelne(false);
+        this.pozadie.jeVidetelne(true);
+        this.bunker.jeVidetelne(true);
+    }
+    private void klik(int x, int y) {
+        this.uvodnaObraovka.klik(x, y);
     }
 
     public void repaint(Graphics grafika) {

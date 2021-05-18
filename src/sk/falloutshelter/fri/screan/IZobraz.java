@@ -9,6 +9,5 @@ import java.awt.*;
  */
 public interface IZobraz {
     void zobraz(Graphics grafika);
-
     void jeVidetelne(boolean viditelne);
 }

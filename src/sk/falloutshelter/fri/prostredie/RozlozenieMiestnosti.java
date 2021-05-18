@@ -6,6 +6,7 @@ import sk.falloutshelter.fri.prostredie.miestnosti.NullMiestnost;
 import sk.falloutshelter.fri.prostredie.miestnosti.Ubytovanie;
 import sk.falloutshelter.fri.prostredie.miestnosti.Vchod;
 import sk.falloutshelter.fri.prostredie.miestnosti.Vytah;
+import sk.falloutshelter.fri.screan.IZobraz;
 
 import java.awt.*;
 
