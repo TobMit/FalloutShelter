@@ -1,5 +1,6 @@
 package sk.falloutshelter.fri.prostredie.miestnosti;
 
+import sk.falloutshelter.fri.screan.IKlik;
 import sk.falloutshelter.fri.screan.IZobraz;
 
 
@@ -8,7 +9,7 @@ import sk.falloutshelter.fri.screan.IZobraz;
  *
  * @author Tobias
  */
-public abstract class Miestnosti implements IZobraz {
+public abstract class Miestnosti implements IZobraz, IKlik {
     public Miestnosti(int riadok, int stlpec) {
     }
 

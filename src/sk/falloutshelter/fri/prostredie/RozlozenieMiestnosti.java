@@ -2,11 +2,10 @@ package sk.falloutshelter.fri.prostredie;
 
 import sk.falloutshelter.fri.prostredie.miestnosti.Elektraren;
 import sk.falloutshelter.fri.prostredie.miestnosti.Miestnosti;
-import sk.falloutshelter.fri.prostredie.miestnosti.NullMiestnost;
+import sk.falloutshelter.fri.prostredie.miestnosti.VyplnaciaMiestnost;
 import sk.falloutshelter.fri.prostredie.miestnosti.Ubytovanie;
 import sk.falloutshelter.fri.prostredie.miestnosti.Vchod;
 import sk.falloutshelter.fri.prostredie.miestnosti.Vytah;
-import sk.falloutshelter.fri.screan.IZobraz;
 
 import java.awt.*;
 
@@ -25,7 +24,7 @@ public class RozlozenieMiestnosti {
     // veľkosť bunkra je 11 (vyska) x 10
     public RozlozenieMiestnosti() {
         this.miestnosti = new Miestnosti[11][10];
-        this.miestnosti[0][0] = new NullMiestnost(0 , 0);
+        this.miestnosti[0][0] = new VyplnaciaMiestnost(0 , 0);
         this.miestnosti[0][1] = new Vchod(0, 1);
         this.miestnosti[0][2] = this.miestnosti[0][1];
         this.miestnosti[0][4] = new Ubytovanie(0, 4);

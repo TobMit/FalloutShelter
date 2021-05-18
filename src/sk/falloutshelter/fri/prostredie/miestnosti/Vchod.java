@@ -37,4 +37,9 @@ public class Vchod extends Miestnosti {
     public void jeVidetelne(boolean viditelne) {
 
     }
+
+    @Override
+    public void klik(int x, int y) {
+
+    }
 }

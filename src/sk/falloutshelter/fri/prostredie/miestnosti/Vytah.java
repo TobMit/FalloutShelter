@@ -34,4 +34,9 @@ public class Vytah extends sk.falloutshelter.fri.prostredie.miestnosti.Miestnost
     public void jeVidetelne(boolean viditelne) {
 
     }
+
+    @Override
+    public void klik(int x, int y) {
+
+    }
 }

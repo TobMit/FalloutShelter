@@ -8,8 +8,8 @@ import java.awt.*;
  *
  * @author Tobias
  */
-public class NullMiestnost extends Miestnosti {
-    public NullMiestnost(int riadok, int stlpec) {
+public class VyplnaciaMiestnost extends Miestnosti {
+    public VyplnaciaMiestnost(int riadok, int stlpec) {
         super(riadok, stlpec);
     }
 
@@ -20,6 +20,11 @@ public class NullMiestnost extends Miestnosti {
 
     @Override
     public void jeVidetelne(boolean viditelne) {
+
+    }
+
+    @Override
+    public void klik(int x, int y) {
 
     }
 }
