@@ -1,7 +1,9 @@
 package sk.falloutshelter.fri;
 
+import sk.falloutshelter.fri.screan.StavObrazovky;
 import sk.falloutshelter.fri.prostredie.Bunker;
 import sk.falloutshelter.fri.prostredie.Pozadie;
+import sk.falloutshelter.fri.screan.UvodnaObrazovka;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,9 +30,11 @@ public class Hra implements ActionListener {
     public static final int GAME_SIRKA = 1920;
     public static final int GAME_VYSKA = 1080;
     private final Bunker bunker;
+    private final StavObrazovky stavObrazokvy;
 
     //tik je pre animáciu
     private int tik;
+    private UvodnaObrazovka uvodnaObraovka;
 
     public Hra() {
         this.jframe = new JFrame();
@@ -45,17 +49,20 @@ public class Hra implements ActionListener {
             }
         };
 
+        this.stavObrazokvy = StavObrazovky.UvodnaObrazovka;
+
+        this.uvodnaObraovka = new UvodnaObrazovka();
 
         this.vytvorenieOkna();
 
         this.pozadie = new Pozadie();
-        this.pozadie.jeVidetelne(true);
+        this.pozadie.jeVidetelne(false);
 
         this.bunker = new Bunker();
-        this.bunker.jeVidetelne(true);
+        this.bunker.jeVidetelne(false);
 
-
-        this.casovac = new Timer(20, this);
+        // delay: 16 pretože je to približne 60 FPS
+        this.casovac = new Timer(16, this);
         this.tik = 0;
 
 
@@ -83,18 +90,25 @@ public class Hra implements ActionListener {
 
     public void repaint(Graphics grafika) {
 
-        /*
-        * Odstranenie chyby Bunker = null. Niekedy sa repaint volalo skôr ako sa stihol bunker vôbec vytvoriť tak to pri prvom spustení hádzalo chybu.
-        */
-        if (this.tik != 0) {
-            this.pozadie.zobraz(grafika);
-            this.bunker.zobraz(grafika);
-        }
-        this.tik++;
+        if (this.stavObrazokvy == StavObrazovky.UvodnaObrazovka) {
+            this.uvodnaObraovka.jeVidetelne(true);
+            this.uvodnaObraovka.zobraz(grafika);
+        } else {
+            /*
+             * Odstranenie chyby Bunker = null. Niekedy sa repaint volalo skôr ako sa stihol bunker vôbec vytvoriť tak to pri prvom spustení hádzalo chybu.
+             */
+            if (this.tik != 0) {
+                this.pozadie.zobraz(grafika);
+                this.bunker.zobraz(grafika);
+            }
+            this.tik++;
 
-        if (this.tik > 60) {
-            this.tik = 1;
+            if (this.tik > 60) {
+                this.tik = 1;
+            }
         }
+
+
     }
 
     public void hraj() {

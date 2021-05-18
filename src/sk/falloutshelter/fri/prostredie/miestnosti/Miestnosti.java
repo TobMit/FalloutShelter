@@ -1,6 +1,6 @@
 package sk.falloutshelter.fri.prostredie.miestnosti;
 
-import sk.falloutshelter.fri.grafika.IZobraz;
+import sk.falloutshelter.fri.screan.IZobraz;
 
 
 /**

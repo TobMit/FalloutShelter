@@ -1,7 +1,7 @@
 package sk.falloutshelter.fri.prostredie;
 
 import sk.falloutshelter.fri.Hra;
-import sk.falloutshelter.fri.grafika.IZobraz;
+import sk.falloutshelter.fri.screan.IZobraz;
 
 import java.awt.*;
 
@@ -11,7 +11,7 @@ import java.awt.*;
  * @author Tobias
  */
 public class Pozadie implements IZobraz {
-
+    //todo Pridať obrázok pozadia
     private boolean jeViditelne;
 
     public Pozadie() {

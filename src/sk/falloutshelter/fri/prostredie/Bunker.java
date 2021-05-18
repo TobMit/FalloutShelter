@@ -1,7 +1,7 @@
 package sk.falloutshelter.fri.prostredie;
 
 import sk.falloutshelter.fri.Hra;
-import sk.falloutshelter.fri.grafika.IZobraz;
+import sk.falloutshelter.fri.screan.IZobraz;
 
 import java.awt.*;
 

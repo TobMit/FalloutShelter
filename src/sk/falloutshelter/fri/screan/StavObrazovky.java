@@ -1,4 +1,4 @@
-package sk.falloutshelter.fri.grafika;
+package sk.falloutshelter.fri.screan;
 
 /**
  * 1. 5. 2021 - 17:51

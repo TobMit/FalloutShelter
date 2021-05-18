@@ -1,4 +1,4 @@
-package sk.falloutshelter.fri.grafika;
+package sk.falloutshelter.fri.screan;
 
 import java.awt.*;
 
