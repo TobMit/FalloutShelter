@@ -1,5 +1,6 @@
 package sk.falloutshelter.fri.prostredie;
 
+import sk.falloutshelter.fri.Hra;
 import sk.falloutshelter.fri.prostredie.miestnosti.BuilderMiestnost;
 import sk.falloutshelter.fri.prostredie.miestnosti.Elektraren;
 import sk.falloutshelter.fri.prostredie.miestnosti.Miestnosti;
@@ -8,6 +9,7 @@ import sk.falloutshelter.fri.prostredie.miestnosti.Ubytovanie;
 import sk.falloutshelter.fri.prostredie.miestnosti.Vchod;
 import sk.falloutshelter.fri.prostredie.miestnosti.Vytah;
 
+import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -19,11 +21,13 @@ public class RozlozenieMiestnosti {
     public static final int SIRKA_MIESTNOSTI = 140;
     public static final int VYSKA_MIESTNOSTI = 90;
     private final Miestnosti[][] miestnosti;
+    private final Hra hra;
 
     //                                                prvý rad:      2, 1(vyťah ale ten môže byť kdekoľvek) 3, 3
     // Očakávané rozloženie všetkých miestností okrem prvého radu je 3, 1(vyťáh ale ten môže byť kdekoľvek) 3, 3  (čísla je dlžka miestnosti)
     // veľkosť bunkra je 11 (vyska) x 10
-    public RozlozenieMiestnosti() {
+    public RozlozenieMiestnosti(Hra hra) {
+        this.hra = hra;
         this.miestnosti = new Miestnosti[11][10];
 
         for (int i = 0; i < this.miestnosti.length; i++) {
@@ -59,6 +63,22 @@ public class RozlozenieMiestnosti {
                 }
             }
         }
+    }
+
+    public void vyberoveMenu() {
+        ImageIcon icon = new ImageIcon("src/sk/falloutshelter/fri/obr/build-ico.png");
+        Miestnosti[] test = {new Vytah(0, 0), new Elektraren(0, 0), new Ubytovanie(0 , 0)};
+        Miestnosti miest = (Miestnosti)JOptionPane.showInputDialog (
+                null,
+                "Vyber miestnosť kotru chceš postaviť: ",
+                "Postavenie miestnosti",
+                JOptionPane.WARNING_MESSAGE,
+                icon,
+                test,
+                test[0]
+
+        );
+        System.out.println(miest);
     }
 
     public void pridajMiestnosti(Miestnosti miestnost, int riadok, int stlpec) {

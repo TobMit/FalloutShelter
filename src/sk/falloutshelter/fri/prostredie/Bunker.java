@@ -21,9 +21,13 @@ public class Bunker implements IZobraz {
 
 //    private static final int
 
+    public RozlozenieMiestnosti getRozlozenieMiestnosti() {
+        return this.rozlozenieMiestnosti;
+    }
+
     //TODO Pridať a sfunkčniť ludí.
-    public Bunker() {
-        this.rozlozenieMiestnosti = new RozlozenieMiestnosti();
+    public Bunker(Hra hra) {
+        this.rozlozenieMiestnosti = new RozlozenieMiestnosti(hra);
         this.rozlozenieMiestnosti.nacitajMiestnostiZoSuboru();
 
     }

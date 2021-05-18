@@ -39,4 +39,9 @@ public class Vytah extends sk.falloutshelter.fri.prostredie.miestnosti.Miestnost
     public void klik(int x, int y) {
 
     }
+
+    @Override
+    public String toString() {
+        return "Vytah";
+    }
 }

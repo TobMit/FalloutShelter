@@ -60,10 +60,10 @@ public class Hra implements ActionListener {
         this.pozadie = new Pozadie();
         this.pozadie.jeVidetelne(false);
 
-        this.bunker = new Bunker();
+        this.bunker = new Bunker(this);
         this.bunker.jeVidetelne(false);
 
-        this.builderButton = new Tlacitka(10, 925, this, "src/sk/falloutshelter/fri/obr/build-ico.png");
+        this.builderButton = new Tlacitka(10, 925, this, this.bunker.getRozlozenieMiestnosti(), "src/sk/falloutshelter/fri/obr/build-ico.png");
 
         // delay: 16 pretože je to približne 60 FPS
         this.casovac = new Timer(16, this);

@@ -42,4 +42,9 @@ public class Vchod extends Miestnosti {
     public void klik(int x, int y) {
 
     }
+
+    @Override
+    public String toString() {
+        return "Vchod";
+    }
 }

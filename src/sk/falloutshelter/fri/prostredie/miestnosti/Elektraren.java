@@ -9,7 +9,7 @@ import java.awt.*;
  *
  * @author Tobias
  */
-public class Elektraren extends sk.falloutshelter.fri.prostredie.miestnosti.Miestnosti{
+public class Elektraren extends sk.falloutshelter.fri.prostredie.miestnosti.Miestnosti {
     private final int riadok;
     private final int stlpec;
 
@@ -33,5 +33,10 @@ public class Elektraren extends sk.falloutshelter.fri.prostredie.miestnosti.Mies
     @Override
     public void klik(int x, int y) {
 
+    }
+
+    @Override
+    public String toString() {
+        return "Elektraren";
     }
 }
