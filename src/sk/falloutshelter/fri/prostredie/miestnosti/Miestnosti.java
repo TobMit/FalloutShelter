@@ -10,7 +10,12 @@ import sk.falloutshelter.fri.screan.IZobraz;
  * @author Tobias
  */
 public abstract class Miestnosti implements IZobraz, IKlik {
+    private final int riadok;
+    private final int stlpec;
+
     public Miestnosti(int riadok, int stlpec) {
+        this.riadok = riadok;
+        this.stlpec = stlpec;
     }
 
 }

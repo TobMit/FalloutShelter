@@ -1,5 +1,6 @@
 package sk.falloutshelter.fri.prostredie;
 
+import sk.falloutshelter.fri.prostredie.miestnosti.BuilderMiestnost;
 import sk.falloutshelter.fri.prostredie.miestnosti.Elektraren;
 import sk.falloutshelter.fri.prostredie.miestnosti.Miestnosti;
 import sk.falloutshelter.fri.prostredie.miestnosti.VyplnaciaMiestnost;
@@ -24,6 +25,13 @@ public class RozlozenieMiestnosti {
     // veľkosť bunkra je 11 (vyska) x 10
     public RozlozenieMiestnosti() {
         this.miestnosti = new Miestnosti[11][10];
+
+        for (int i = 0; i < this.miestnosti.length; i++) {
+            for (int j = 0; j < this.miestnosti[i].length; j++) {
+                this.miestnosti[i][j] = new BuilderMiestnost(i, j);
+            }
+        }
+
         this.miestnosti[0][0] = new VyplnaciaMiestnost(0 , 0);
         this.miestnosti[0][1] = new Vchod(0, 1);
         this.miestnosti[0][2] = this.miestnosti[0][1];
@@ -36,7 +44,11 @@ public class RozlozenieMiestnosti {
         this.miestnosti[1][2] = new Elektraren(1, 2);
     }
 
-    public void nacitajMiestnosti() {
+    public void nacitajMiestnostiZoSuboru() {
+    }
+
+    public void ulozMiestnostiDoSuboru() {
+
     }
 
     public void zobrazMiestnosti(Graphics grafika) {

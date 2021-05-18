@@ -24,7 +24,7 @@ public class Bunker implements IZobraz {
     //TODO Pridať a sfunkčniť ludí.
     public Bunker() {
         this.rozlozenieMiestnosti = new RozlozenieMiestnosti();
-        this.rozlozenieMiestnosti.nacitajMiestnosti();
+        this.rozlozenieMiestnosti.nacitajMiestnostiZoSuboru();
 
     }
 
@@ -38,7 +38,7 @@ public class Bunker implements IZobraz {
 
     private void vykresliGrafiku(Graphics grafika) {
         //grafika.setColor(Color.decode("#7a674d"));
-        // hodnota a: 127 je 50% priehladnosť
+        // hodnota a: 127 je 50% priehladnosť - čí menšia hodnota tým menšia priehladnosť
         grafika.setColor(new Color(122, 103, 77, 50));
         grafika.fillRect(Hra.GAME_SIRKA / 3, Hra.GAME_VYSKA / 10 - RozlozenieMiestnosti.VYSKA_MIESTNOSTI  + 5, 9 * RozlozenieMiestnosti.SIRKA_MIESTNOSTI, RozlozenieMiestnosti.VYSKA_MIESTNOSTI);
         grafika.fillRect(Hra.GAME_SIRKA / 3 - RozlozenieMiestnosti.SIRKA_MIESTNOSTI, Hra.GAME_VYSKA / 10 + 5 , 10 * RozlozenieMiestnosti.SIRKA_MIESTNOSTI, 10 * RozlozenieMiestnosti.VYSKA_MIESTNOSTI);
