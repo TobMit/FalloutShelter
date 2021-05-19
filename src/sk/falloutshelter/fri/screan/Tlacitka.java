@@ -1,6 +1,5 @@
 package sk.falloutshelter.fri.screan;
 
-import sk.falloutshelter.fri.Hra;
 import sk.falloutshelter.fri.prostredie.RozlozenieMiestnosti;
 
 import javax.swing.*;

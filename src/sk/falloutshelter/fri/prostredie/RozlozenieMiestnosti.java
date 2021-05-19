@@ -24,6 +24,12 @@ public class RozlozenieMiestnosti implements IKlik {
     public static final int VYSKA_MIESTNOSTI = 90;
     private final Miestnosti[][] miestnosti;
     private final Hra hra;
+    private int pocetJedalni;
+    private int pocetUbytovania;
+    private int pocetVodarni;
+
+
+    private int pocetElektrari;
     private Miestnosti miestnostNaPostavenie = null;
 
     //                                                prvý rad:      2, 1(vyťah ale ten môže byť kdekoľvek) 3, 3
@@ -31,6 +37,12 @@ public class RozlozenieMiestnosti implements IKlik {
     // veľkosť bunkra je 11 (vyska) x 10
     public RozlozenieMiestnosti(Hra hra) {
         this.hra = hra;
+        this.pocetUbytovania = 0;
+        this.pocetElektrari = 0;
+        this.pocetVodarni = 0;
+        this.pocetJedalni = 0;
+
+
         this.miestnosti = new Miestnosti[11][10];
 
         for (int i = 0; i < this.miestnosti.length; i++) {
@@ -96,7 +108,7 @@ public class RozlozenieMiestnosti implements IKlik {
                 zoznamMiestnosti[0]);
         this.hra.setStavObrazokvy(StavObrazovky.Stavanie);
         this.zobrazMoznostiStavania(this.miestnostNaPostavenie);
-        System.out.println(this.miestnostNaPostavenie);
+        //System.out.println(this.miestnostNaPostavenie);
 
     }
 
@@ -126,6 +138,14 @@ public class RozlozenieMiestnosti implements IKlik {
 
     /**
      * Miestnost ktorú chcem postaviť získa s prarametra this.miestnostNaPostavenie
+     *
+     * Vytváranie miestnosti funguje nasledovne:
+     *      Klkinutím na tlačídlo stavania za zobrazí v Rozlozeni miestnosti menu kde si vyberieme aku miestnost chceme stavať
+     *      Keď vyberieme z menu miestnosť, tak sa na ukaže kde ju môžeme postavať.
+     *      Klikunutím na to miesto sa odošle správa všetkým miestnostiam klik. Miestnost na kotru som klikol (Builder miestnost - tie na klik reagujú iba keď je hra v builder režime).
+     *      Builder miestnost zavloá metódu pridaj miestnost a dá jej svoje súradnice v matici.
+     *      Metóda pridaj miestnosť pridá miestnosť podla toho aká bola vybratá vo výbervom menu a postaví ju na správne miesto - získala od Builder miestnosti.
+     *
      * @param riadok y os
      * @param stlpec x os
      */
@@ -154,5 +174,38 @@ public class RozlozenieMiestnosti implements IKlik {
                 miestnost.klik(x, y);
             }
         }
+    }
+
+    public void novaElektraren() {
+        this.pocetElektrari++;
+    }
+
+    public void noveUbytovanie() {
+        this.pocetUbytovania++;
+    }
+
+    public void novaVodaren() {
+        this.pocetVodarni++;
+    }
+
+    public void novaJedalen() {
+        this.pocetJedalni++;
+    }
+
+
+    public int getPocetUbytovania() {
+        return this.pocetUbytovania;
+    }
+
+    public int getPocetVodarni() {
+        return this.pocetVodarni;
+    }
+
+    public int getPocetElektrari() {
+        return this.pocetElektrari;
+    }
+
+    public int getPocetJedalni() {
+        return this.pocetJedalni;
     }
 }

@@ -19,6 +19,9 @@ public class Elektraren extends sk.falloutshelter.fri.prostredie.miestnosti.Mies
         this.riadok = riadok;
         this.stlpec = stlpec;
         this.rozlozenieMiestnosti = rozlozenieMiestnosti;
+        if (!(riadok == 0 && stlpec == 0)) {
+            this.rozlozenieMiestnosti.novaElektraren();
+        }
     }
 
     @Override

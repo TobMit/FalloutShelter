@@ -15,6 +15,7 @@ import java.awt.*;
  */
 public class Bunker implements IZobraz, IKlik {
     private final RozlozenieMiestnosti rozlozenieMiestnosti;
+    private final Statistiky statistiky;
     private boolean jeVidetelne;
 
     public static final int X_SURADNICA_BUNKRA = Hra.GAME_SIRKA / 3 - RozlozenieMiestnosti.SIRKA_MIESTNOSTI;
@@ -30,6 +31,7 @@ public class Bunker implements IZobraz, IKlik {
     public Bunker(Hra hra) {
         this.rozlozenieMiestnosti = new RozlozenieMiestnosti(hra);
         this.rozlozenieMiestnosti.nacitajMiestnostiZoSuboru();
+        this.statistiky = new Statistiky(this.rozlozenieMiestnosti);
 
     }
 
@@ -38,6 +40,8 @@ public class Bunker implements IZobraz, IKlik {
         if (this.jeVidetelne) {
             this.vykresliGrafiku(grafika);
             this.rozlozenieMiestnosti.zobrazMiestnosti(grafika);
+            this.statistiky.jeVidetelne(true);
+            this.statistiky.zobraz(grafika);
         }
     }
 

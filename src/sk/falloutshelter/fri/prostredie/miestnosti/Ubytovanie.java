@@ -21,6 +21,9 @@ public class Ubytovanie extends Miestnosti {
         this.riadok = riadok;
         this.stlpec = stlpec;
         this.rozlozenieMiestnosti = rozlozenieMiestnosti;
+        if (!(riadok == 0 && stlpec == 0)) {
+            this.rozlozenieMiestnosti.noveUbytovanie();
+        }
     }
 
     @Override
