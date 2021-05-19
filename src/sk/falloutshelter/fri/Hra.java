@@ -63,7 +63,7 @@ public class Hra implements ActionListener {
         this.bunker = new Bunker(this);
         this.bunker.jeVidetelne(false);
 
-        this.builderButton = new Tlacitka(10, 925, this, this.bunker.getRozlozenieMiestnosti(), "src/sk/falloutshelter/fri/obr/build-ico.png");
+        this.builderButton = new Tlacitka(10, 925, this.bunker.getRozlozenieMiestnosti(), "src/sk/falloutshelter/fri/obr/build-ico.png");
 
         // delay: 16 pretože je to približne 60 FPS
         this.casovac = new Timer(16, this);
@@ -123,6 +123,10 @@ public class Hra implements ActionListener {
                 this.tik = 1;
             }
 
+        }
+
+        if (this.stavObrazokvy == StavObrazovky.Stavanie) {
+            System.out.println(this.tik);
         }
 
 

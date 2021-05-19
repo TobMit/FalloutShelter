@@ -12,7 +12,6 @@ import java.awt.*;
  * @author Tobias
  */
 public class Pozadie implements IZobraz {
-    //todo Pridať obrázok pozadia
     private boolean jeViditelne;
     private Image image;
 

@@ -8,6 +8,7 @@ import sk.falloutshelter.fri.prostredie.miestnosti.VyplnaciaMiestnost;
 import sk.falloutshelter.fri.prostredie.miestnosti.Ubytovanie;
 import sk.falloutshelter.fri.prostredie.miestnosti.Vchod;
 import sk.falloutshelter.fri.prostredie.miestnosti.Vytah;
+import sk.falloutshelter.fri.screan.StavObrazovky;
 
 import javax.swing.*;
 import java.awt.*;
@@ -67,19 +68,47 @@ public class RozlozenieMiestnosti {
 
     public void vyberoveMenu() {
         //todo môže vrátiť aj null treba to ošetriť
+
+        //Kým beží táto metóda. Hra čaká.
         ImageIcon icon = new ImageIcon("src/sk/falloutshelter/fri/obr/build-ico.png");
-        Miestnosti[] test = {new Vytah(0, 0), new Elektraren(0, 0), new Ubytovanie(0 , 0)};
-        Miestnosti miest = (Miestnosti)JOptionPane.showInputDialog (
+        //todo aby bola financií vrátilo zoznam ktorý si môže daný človek kúpiť
+        Miestnosti[] zoznamMiestnosti = {new Vytah(0, 0), new Elektraren(0, 0), new Ubytovanie(0 , 0)};
+        Miestnosti vyberoveMenu = (Miestnosti)JOptionPane.showInputDialog (
                 null,
                 "Vyber miestnosť kotru chceš postaviť: ",
                 "Postavenie miestnosti",
                 JOptionPane.WARNING_MESSAGE,
                 icon,
-                test,
-                test[0]
+                zoznamMiestnosti,
+                zoznamMiestnosti[0]);
+        this.hra.setStavObrazokvy(StavObrazovky.Stavanie);
+        this.zobrazMoznostiStavania(vyberoveMenu);
+        System.out.println(vyberoveMenu);
 
-        );
-        System.out.println(miest);
+    }
+
+    /**
+     * Tato metoda zobrazi možnosti stavnia na základe toho aká miestnosť je vybratá.
+     * @param vyberoveMenu - miestnosť ktorú chceme postaviť
+     */
+    private void zobrazMoznostiStavania(Miestnosti vyberoveMenu) {
+        for (int i = 0; i < this.miestnosti.length; i++) {
+            for (int j = 0; j < this.miestnosti[i].length; j++) {
+                if (!(this.miestnosti[i][j] instanceof BuilderMiestnost)) {
+                    if (j > 0 && this.miestnosti[i][j - 1] instanceof BuilderMiestnost) {
+                        this.miestnosti[i][j - 1].jeVidetelne(true);
+                    }
+
+                    if (j < this.miestnosti[i].length && this.miestnosti[i][j + 1] instanceof BuilderMiestnost) {
+                        this.miestnosti[i][j + 1].jeVidetelne(true);
+                    }
+
+                    if (i > 0 && i < this.miestnosti.length - 1 && !(this.miestnosti[i - 1][j] instanceof BuilderMiestnost) && vyberoveMenu instanceof Vytah) {
+                        this.miestnosti[i + 1][j].jeVidetelne(true);
+                    }
+                }
+            }
+        }
     }
 
     public void pridajMiestnosti(Miestnosti miestnost, int riadok, int stlpec) {
