@@ -49,4 +49,9 @@ public class Vchod extends Miestnosti {
     public String toString() {
         return "Vchod";
     }
+
+    @Override
+    public void tik() {
+
+    }
 }

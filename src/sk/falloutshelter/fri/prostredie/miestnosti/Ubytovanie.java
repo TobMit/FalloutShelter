@@ -46,4 +46,9 @@ public class Ubytovanie extends Miestnosti {
     public String toString() {
         return "Ubytovanie";
     }
+
+    @Override
+    public void tik() {
+
+    }
 }

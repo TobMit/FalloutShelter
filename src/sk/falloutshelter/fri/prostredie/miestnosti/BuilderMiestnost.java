@@ -52,4 +52,9 @@ public class BuilderMiestnost extends Miestnosti {
     public void jeVidetelne(boolean viditelne) {
         this.videtelne = viditelne;
     }
+
+    @Override
+    public void tik() {
+
+    }
 }

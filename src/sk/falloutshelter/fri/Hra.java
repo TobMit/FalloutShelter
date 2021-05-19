@@ -120,8 +120,9 @@ public class Hra implements ActionListener {
             this.builderButton.zobraz(grafika);
             this.tik++;
 
-            if (this.tik > 60) {
-                this.tik = 1;
+            if (this.tik > 61) {
+                this.tik = 0;
+
             }
 
         }

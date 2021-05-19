@@ -13,7 +13,7 @@ import java.awt.*;
  * Taktiež má nastarosť prenos ludí do miestností a túto informáciu predávať daným miestnostiam.
  * @author Tobias
  */
-public class Bunker implements IZobraz, IKlik {
+public class Bunker implements IZobraz, IKlik, ITik {
     private final RozlozenieMiestnosti rozlozenieMiestnosti;
     private final Statistiky statistiky;
     private boolean jeVidetelne;
@@ -64,5 +64,10 @@ public class Bunker implements IZobraz, IKlik {
     @Override
     public void klik(int x, int y) {
         this.rozlozenieMiestnosti.klik(x, y);
+    }
+
+    @Override
+    public void tik() {
+
     }
 }

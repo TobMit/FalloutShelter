@@ -44,4 +44,9 @@ public class Elektraren extends sk.falloutshelter.fri.prostredie.miestnosti.Mies
     public String toString() {
         return "Elektraren";
     }
+
+    @Override
+    public void tik() {
+
+    }
 }

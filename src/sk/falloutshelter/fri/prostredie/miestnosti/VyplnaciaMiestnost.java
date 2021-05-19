@@ -29,4 +29,9 @@ public class VyplnaciaMiestnost extends Miestnosti {
     public void klik(int x, int y) {
 
     }
+
+    @Override
+    public void tik() {
+
+    }
 }

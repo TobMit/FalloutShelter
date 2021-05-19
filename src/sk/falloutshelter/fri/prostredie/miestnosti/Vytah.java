@@ -46,4 +46,9 @@ public class Vytah extends sk.falloutshelter.fri.prostredie.miestnosti.Miestnost
     public String toString() {
         return "Vytah";
     }
+
+    @Override
+    public void tik() {
+
+    }
 }
