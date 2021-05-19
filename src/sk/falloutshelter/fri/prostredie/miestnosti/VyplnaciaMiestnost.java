@@ -1,5 +1,7 @@
 package sk.falloutshelter.fri.prostredie.miestnosti;
 
+import sk.falloutshelter.fri.prostredie.RozlozenieMiestnosti;
+
 import java.awt.*;
 
 /**
@@ -9,8 +11,8 @@ import java.awt.*;
  * @author Tobias
  */
 public class VyplnaciaMiestnost extends Miestnosti {
-    public VyplnaciaMiestnost(int riadok, int stlpec) {
-        super(riadok, stlpec);
+    public VyplnaciaMiestnost(int riadok, int stlpec, RozlozenieMiestnosti rozlozenieMiestnosti) {
+        super(riadok, stlpec, rozlozenieMiestnosti);
     }
 
     @Override

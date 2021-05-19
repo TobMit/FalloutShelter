@@ -12,11 +12,13 @@ import java.awt.*;
 public class Elektraren extends sk.falloutshelter.fri.prostredie.miestnosti.Miestnosti {
     private final int riadok;
     private final int stlpec;
+    private final RozlozenieMiestnosti rozlozenieMiestnosti;
 
-    public Elektraren(int riadok, int stlpec) {
-        super(riadok, stlpec);
+    public Elektraren(int riadok, int stlpec, RozlozenieMiestnosti rozlozenieMiestnosti) {
+        super(riadok, stlpec, rozlozenieMiestnosti);
         this.riadok = riadok;
         this.stlpec = stlpec;
+        this.rozlozenieMiestnosti = rozlozenieMiestnosti;
     }
 
     @Override

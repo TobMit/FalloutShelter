@@ -16,13 +16,15 @@ public class Vchod extends Miestnosti {
 
 
     private final int stlpec;
+    private final RozlozenieMiestnosti rozlozenieMiestnosti;
     private final int riadok;
     private Image image;
 
-    public Vchod(int riadok, int stlpec) {
-        super(riadok, stlpec);
+    public Vchod(int riadok, int stlpec, RozlozenieMiestnosti rozlozenieMiestnosti) {
+        super(riadok, stlpec, rozlozenieMiestnosti);
         this.riadok = riadok;
         this.stlpec = stlpec;
+        this.rozlozenieMiestnosti = rozlozenieMiestnosti;
         this.image = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/Vstup/vstup2.jpg").getImage();
     }
 

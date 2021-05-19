@@ -23,6 +23,7 @@ public class RozlozenieMiestnosti {
     public static final int VYSKA_MIESTNOSTI = 90;
     private final Miestnosti[][] miestnosti;
     private final Hra hra;
+    private Miestnosti miestnostNaPostavenie = null;
 
     //                                                prvý rad:      2, 1(vyťah ale ten môže byť kdekoľvek) 3, 3
     // Očakávané rozloženie všetkých miestností okrem prvého radu je 3, 1(vyťáh ale ten môže byť kdekoľvek) 3, 3  (čísla je dlžka miestnosti)
@@ -33,20 +34,20 @@ public class RozlozenieMiestnosti {
 
         for (int i = 0; i < this.miestnosti.length; i++) {
             for (int j = 0; j < this.miestnosti[i].length; j++) {
-                this.miestnosti[i][j] = new BuilderMiestnost(i, j);
+                this.miestnosti[i][j] = new BuilderMiestnost(i, j, this);
             }
         }
 
-        this.miestnosti[0][0] = new VyplnaciaMiestnost(0 , 0);
-        this.miestnosti[0][1] = new Vchod(0, 1);
+        this.miestnosti[0][0] = new VyplnaciaMiestnost(0 , 0, this);
+        this.miestnosti[0][1] = new Vchod(0, 1, this);
         this.miestnosti[0][2] = this.miestnosti[0][1];
-        this.miestnosti[0][4] = new Ubytovanie(0, 4);
+        this.miestnosti[0][4] = new Ubytovanie(0, 4, this);
 
-        this.miestnosti[0][3] = new Vytah(0, 3);// výťah na prvom poschodí
-        this.miestnosti[1][3] = new Vytah(1, 3);
-        this.miestnosti[2][3] = new Vytah(2, 3);
+        this.miestnosti[0][3] = new Vytah(0, 3, this);// výťah na prvom poschodí
+        this.miestnosti[1][3] = new Vytah(1, 3, this);
+        this.miestnosti[2][3] = new Vytah(2, 3, this);
 
-        this.miestnosti[1][2] = new Elektraren(1, 2);
+        this.miestnosti[1][2] = new Elektraren(1, 2, this);
     }
 
     public void nacitajMiestnostiZoSuboru() {
@@ -62,6 +63,12 @@ public class RozlozenieMiestnosti {
                 if (miestnost != null) {
                     miestnost.zobraz(grafika);
                 }
+
+                // keď Builder miestnosti už viac niesu v staviteľskom režime schovajú sa.
+                if (this.hra.getStavObrazokvy() == StavObrazovky.HraBezi && miestnost instanceof BuilderMiestnost) {
+                    miestnost.jeVidetelne(false);
+                }
+
             }
         }
     }
@@ -72,8 +79,8 @@ public class RozlozenieMiestnosti {
         //Kým beží táto metóda. Hra čaká.
         ImageIcon icon = new ImageIcon("src/sk/falloutshelter/fri/obr/build-ico.png");
         //todo aby bola financií vrátilo zoznam ktorý si môže daný človek kúpiť
-        Miestnosti[] zoznamMiestnosti = {new Vytah(0, 0), new Elektraren(0, 0), new Ubytovanie(0 , 0)};
-        Miestnosti vyberoveMenu = (Miestnosti)JOptionPane.showInputDialog (
+        Miestnosti[] zoznamMiestnosti = {new Vytah(0, 0, this), new Elektraren(0, 0, this), new Ubytovanie(0 , 0, this)};
+        this.miestnostNaPostavenie = (Miestnosti)JOptionPane.showInputDialog (
                 null,
                 "Vyber miestnosť kotru chceš postaviť: ",
                 "Postavenie miestnosti",
@@ -82,8 +89,8 @@ public class RozlozenieMiestnosti {
                 zoznamMiestnosti,
                 zoznamMiestnosti[0]);
         this.hra.setStavObrazokvy(StavObrazovky.Stavanie);
-        this.zobrazMoznostiStavania(vyberoveMenu);
-        System.out.println(vyberoveMenu);
+        this.zobrazMoznostiStavania(this.miestnostNaPostavenie);
+        System.out.println(this.miestnostNaPostavenie);
 
     }
 
@@ -114,5 +121,6 @@ public class RozlozenieMiestnosti {
     public void pridajMiestnosti(Miestnosti miestnost, int riadok, int stlpec) {
         //todo Pridať overovanie či sa dá na dané miesto pridať miestnosť alebo nie
         this.miestnosti[riadok][stlpec] = miestnost;
+        this.miestnostNaPostavenie = null;
     }
 }

@@ -17,8 +17,8 @@ public class BuilderMiestnost extends Miestnosti {
     private final Image image;
     private boolean videtelne = false;
 
-    public BuilderMiestnost(int riadok, int stlpec) {
-        super(riadok, stlpec);
+    public BuilderMiestnost(int riadok, int stlpec, RozlozenieMiestnosti rozlozenieMiestnosti) {
+        super(riadok, stlpec, rozlozenieMiestnosti);
         this.riadok = riadok;
         this.stlpec = stlpec;
         this.image = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/builderMiestnost/builderMiestnost-1.png").getImage();

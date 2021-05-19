@@ -2,7 +2,6 @@ package sk.falloutshelter.fri.prostredie.miestnosti;
 
 import sk.falloutshelter.fri.prostredie.Bunker;
 import sk.falloutshelter.fri.prostredie.RozlozenieMiestnosti;
-import sk.falloutshelter.fri.prostredie.miestnosti.Miestnosti;
 
 import java.awt.*;
 
@@ -15,11 +14,13 @@ public class Ubytovanie extends Miestnosti {
 
     private final int riadok;
     private final int stlpec;
+    private final RozlozenieMiestnosti rozlozenieMiestnosti;
 
-    public Ubytovanie(int riadok, int stlpec) {
-        super(riadok, stlpec);
+    public Ubytovanie(int riadok, int stlpec, RozlozenieMiestnosti rozlozenieMiestnosti) {
+        super(riadok, stlpec, rozlozenieMiestnosti);
         this.riadok = riadok;
         this.stlpec = stlpec;
+        this.rozlozenieMiestnosti = rozlozenieMiestnosti;
     }
 
     @Override

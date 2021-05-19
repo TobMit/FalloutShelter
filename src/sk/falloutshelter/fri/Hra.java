@@ -125,9 +125,9 @@ public class Hra implements ActionListener {
 
         }
 
-        if (this.stavObrazokvy == StavObrazovky.Stavanie) {
-            System.out.println(this.tik);
-        }
+//        if (this.stavObrazokvy == StavObrazovky.Stavanie) {
+//            System.out.println(this.tik);
+//        }
 
 
 

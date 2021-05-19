@@ -13,12 +13,14 @@ import java.awt.*;
 public class Vytah extends sk.falloutshelter.fri.prostredie.miestnosti.Miestnosti {
     private final int riadok;
     private final int stlpec;
+    private final RozlozenieMiestnosti rozlozenieMiestnosti;
     private Image image;
 
-    public Vytah(int riadok, int stlpec) {
-        super(riadok, stlpec);
+    public Vytah(int riadok, int stlpec, RozlozenieMiestnosti rozlozenieMiestnosti) {
+        super(riadok, stlpec, rozlozenieMiestnosti);
         this.riadok = riadok;
         this.stlpec = stlpec;
+        this.rozlozenieMiestnosti = rozlozenieMiestnosti;
         this.image = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/Vytah/vytah-1.jpg").getImage();
     }
 
