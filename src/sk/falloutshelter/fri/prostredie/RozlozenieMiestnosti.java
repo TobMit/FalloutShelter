@@ -8,6 +8,7 @@ import sk.falloutshelter.fri.prostredie.miestnosti.VyplnaciaMiestnost;
 import sk.falloutshelter.fri.prostredie.miestnosti.Ubytovanie;
 import sk.falloutshelter.fri.prostredie.miestnosti.Vchod;
 import sk.falloutshelter.fri.prostredie.miestnosti.Vytah;
+import sk.falloutshelter.fri.screan.IKlik;
 import sk.falloutshelter.fri.screan.StavObrazovky;
 
 import javax.swing.*;
@@ -16,7 +17,7 @@ import java.awt.*;
 /**
  *Táto tireda má nastorosť vytváranie usporiadanie miestnosti a informovať miestnosti o počte ludí v nej
  */
-public class RozlozenieMiestnosti {
+public class RozlozenieMiestnosti implements IKlik {
     //todo Pridať každej miestnosti svoj vhlad a grafiku
     //todo Načitavanie miestnostií zo súboru
     public static final int SIRKA_MIESTNOSTI = 140;
@@ -74,7 +75,12 @@ public class RozlozenieMiestnosti {
     }
 
     public void vyberoveMenu() {
-        //todo môže vrátiť aj null treba to ošetriť
+        //keď druhý krát zmačknem tlačidlo stavania, tak sa zruší vybrana miestnost na stavanie.
+        if (this.hra.getStavObrazokvy() == StavObrazovky.Stavanie) {
+            this.hra.setStavObrazokvy(StavObrazovky.HraBezi);
+            this.miestnostNaPostavenie = null;
+            return;
+        }
 
         //Kým beží táto metóda. Hra čaká.
         ImageIcon icon = new ImageIcon("src/sk/falloutshelter/fri/obr/build-ico.png");
@@ -118,9 +124,35 @@ public class RozlozenieMiestnosti {
         }
     }
 
-    public void pridajMiestnosti(Miestnosti miestnost, int riadok, int stlpec) {
-        //todo Pridať overovanie či sa dá na dané miesto pridať miestnosť alebo nie
-        this.miestnosti[riadok][stlpec] = miestnost;
-        this.miestnostNaPostavenie = null;
+    /**
+     * Miestnost ktorú chcem postaviť získa s prarametra this.miestnostNaPostavenie
+     * @param riadok y os
+     * @param stlpec x os
+     */
+    public void pridajMiestnosti(int riadok, int stlpec) {
+        //todo Keď sa pridá miestnosť zvyši sa počet daného typu v globálnom počítani miestnosti.
+        if (this.miestnostNaPostavenie != null && this.miestnosti[riadok][stlpec] instanceof BuilderMiestnost) {
+            if (this.miestnostNaPostavenie instanceof Elektraren) {
+                this.miestnosti[riadok][stlpec] = new Elektraren(riadok, stlpec, this);
+            } else if (this.miestnostNaPostavenie instanceof Ubytovanie) {
+                this.miestnosti[riadok][stlpec] = new Ubytovanie(riadok, stlpec, this);
+            } else if (this.miestnostNaPostavenie instanceof Vytah) {
+                this.miestnosti[riadok][stlpec] = new Vytah(riadok, stlpec, this);
+            }
+            this.miestnostNaPostavenie = null;
+            this.hra.setStavObrazokvy(StavObrazovky.HraBezi);
+        }
+    }
+
+    /**
+     * Prepošle klik každej miestnosti.
+     */
+    @Override
+    public void klik(int x, int y) {
+        for (Miestnosti[] miestnostis : this.miestnosti) {
+            for (Miestnosti miestnost : miestnostis) {
+                miestnost.klik(x, y);
+            }
+        }
     }
 }

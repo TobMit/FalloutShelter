@@ -103,6 +103,7 @@ public class Hra implements ActionListener {
     private void klik(int x, int y) {
         this.uvodnaObraovka.klik(x, y);
         this.builderButton.klik(x, y);
+        this.bunker.klik(x, y);
     }
 
     public void repaint(Graphics grafika) {

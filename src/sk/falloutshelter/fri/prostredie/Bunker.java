@@ -1,6 +1,7 @@
 package sk.falloutshelter.fri.prostredie;
 
 import sk.falloutshelter.fri.Hra;
+import sk.falloutshelter.fri.screan.IKlik;
 import sk.falloutshelter.fri.screan.IZobraz;
 
 import java.awt.*;
@@ -12,7 +13,7 @@ import java.awt.*;
  * Taktiež má nastarosť prenos ludí do miestností a túto informáciu predávať daným miestnostiam.
  * @author Tobias
  */
-public class Bunker implements IZobraz {
+public class Bunker implements IZobraz, IKlik {
     private final RozlozenieMiestnosti rozlozenieMiestnosti;
     private boolean jeVidetelne;
 
@@ -51,5 +52,13 @@ public class Bunker implements IZobraz {
     @Override
     public void jeVidetelne(boolean viditelne) {
         this.jeVidetelne = viditelne;
+    }
+
+    /**
+     * iba prepošle klik ďalej
+     */
+    @Override
+    public void klik(int x, int y) {
+        this.rozlozenieMiestnosti.klik(x, y);
     }
 }
