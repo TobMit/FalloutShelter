@@ -29,7 +29,7 @@ public class Zdroje implements IZobraz {
     }
 
     public void odoberZdroje(int voda, int energia) {
-        this.voda -= voda + this.ludia;
+        this.voda -= (voda + this.ludia);
         this.energia -= energia;
         this.jedlo -= this.ludia;
     }

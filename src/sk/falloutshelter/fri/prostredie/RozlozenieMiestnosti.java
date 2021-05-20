@@ -180,7 +180,11 @@ public class RozlozenieMiestnosti implements IKlik, ITik {
 
     @Override
     public void tik() {
-
+        for (Miestnosti[] miestnostis : this.miestnosti) {
+            for (Miestnosti miestnost : miestnostis) {
+                miestnost.tik();
+            }
+        }
     }
 
     public void novaElektraren() {

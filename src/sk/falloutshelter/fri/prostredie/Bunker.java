@@ -71,6 +71,7 @@ public class Bunker implements IZobraz, IKlik, ITik {
     @Override
     public void tik() {
         this.sekundaTik++;
+        this.rozlozenieMiestnosti.tik();
         if (this.sekundaTik > 60) {
             this.sekundaTik = 0;
             //                          spotreba na ubytovanie                    vaultDor                  vytahy                                      jedalne                                             Vodarne
