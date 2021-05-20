@@ -1,18 +1,13 @@
 package sk.falloutshelter.fri.prostredie;
 
 import sk.falloutshelter.fri.Hra;
-import sk.falloutshelter.fri.prostredie.miestnosti.BuilderMiestnost;
-import sk.falloutshelter.fri.prostredie.miestnosti.Elektraren;
-import sk.falloutshelter.fri.prostredie.miestnosti.Miestnosti;
-import sk.falloutshelter.fri.prostredie.miestnosti.VyplnaciaMiestnost;
-import sk.falloutshelter.fri.prostredie.miestnosti.Ubytovanie;
-import sk.falloutshelter.fri.prostredie.miestnosti.Vchod;
-import sk.falloutshelter.fri.prostredie.miestnosti.Vytah;
+import sk.falloutshelter.fri.prostredie.miestnosti.*;
 import sk.falloutshelter.fri.screan.IKlik;
 import sk.falloutshelter.fri.screan.StavObrazovky;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  *Táto tireda má nastorosť vytváranie usporiadanie miestnosti a informovať miestnosti o počte ludí v nej
@@ -24,6 +19,7 @@ public class RozlozenieMiestnosti implements IKlik, ITik {
     public static final int VYSKA_MIESTNOSTI = 90;
     private final Miestnosti[][] miestnosti;
     private final Hra hra;
+    private final Bunker bunker;
     private int pocetJedalni;
     private int pocetUbytovania;
     private int pocetVodarni;
@@ -36,8 +32,9 @@ public class RozlozenieMiestnosti implements IKlik, ITik {
     //                                                prvý rad:      2, 1(vyťah ale ten môže byť kdekoľvek) 3, 3
     // Očakávané rozloženie všetkých miestností okrem prvého radu je 3, 1(vyťáh ale ten môže byť kdekoľvek) 3, 3  (čísla je dlžka miestnosti)
     // veľkosť bunkra je 11 (vyska) x 10
-    public RozlozenieMiestnosti(Hra hra) {
+    public RozlozenieMiestnosti(Hra hra, Bunker bunker) {
         this.hra = hra;
+        this.bunker = bunker;
         this.pocetUbytovania = 0;
         this.pocetElektrari = 0;
         this.pocetVodarni = 0;
@@ -99,18 +96,44 @@ public class RozlozenieMiestnosti implements IKlik, ITik {
         //Kým beží táto metóda. Hra čaká.
         ImageIcon icon = new ImageIcon("src/sk/falloutshelter/fri/obr/build-ico.png");
         //todo aby bola financií vrátilo zoznam ktorý si môže daný človek kúpiť
-        Miestnosti[] zoznamMiestnosti = {new Vytah(0, 0, this), new Elektraren(0, 0, this), new Ubytovanie(0 , 0, this)};
-        this.miestnostNaPostavenie = (Miestnosti)JOptionPane.showInputDialog (
-                null,
-                "Vyber miestnosť kotru chceš postaviť: ",
-                "Postavenie miestnosti",
-                JOptionPane.WARNING_MESSAGE,
-                icon,
-                zoznamMiestnosti,
-                zoznamMiestnosti[0]);
-        this.hra.setStavObrazokvy(StavObrazovky.Stavanie);
-        this.zobrazMoznostiStavania(this.miestnostNaPostavenie);
-        //System.out.println(this.miestnostNaPostavenie);
+        //Miestnosti[] zoznamMiestnosti = {new Vytah(0, 0, this), new Elektraren(0, 0, this), new Ubytovanie(0 , 0, this)};
+
+        ArrayList<Miestnosti> rawZoznamMiestnosti = new ArrayList<>();
+        if (this.bunker.getZdroje().mozemKupit(50)) {
+            rawZoznamMiestnosti.add(new Vytah(0, 0, this));
+        }
+        if (this.bunker.getZdroje().mozemKupit(300)) {
+            rawZoznamMiestnosti.add(new Elektraren(0, 0, this));
+        }
+        if (this.bunker.getZdroje().mozemKupit(250)) {
+            rawZoznamMiestnosti.add(new Vodaren(0, 0, this));
+        }
+        if (this.bunker.getZdroje().mozemKupit(200)) {
+            rawZoznamMiestnosti.add(new Ubytovanie(0, 0, this));
+        }
+
+        Miestnosti[] zoznamMiestnosti = new Miestnosti[rawZoznamMiestnosti.size()];
+
+        int poradie = 0;
+        for (Miestnosti miestnosti1 : rawZoznamMiestnosti) {
+            zoznamMiestnosti[poradie] = miestnosti1;
+            poradie++;
+        }
+
+
+        if (zoznamMiestnosti.length > 0) {
+            this.miestnostNaPostavenie = (Miestnosti)JOptionPane.showInputDialog (
+                    null,
+                    "Vyber miestnosť kotru chceš postaviť: ",
+                    "Postavenie miestnosti",
+                    JOptionPane.WARNING_MESSAGE,
+                    icon,
+                    zoznamMiestnosti,
+                    zoznamMiestnosti[0]);
+            this.hra.setStavObrazokvy(StavObrazovky.Stavanie);
+            this.zobrazMoznostiStavania(this.miestnostNaPostavenie);
+            //System.out.println(this.miestnostNaPostavenie);
+        }
 
     }
 

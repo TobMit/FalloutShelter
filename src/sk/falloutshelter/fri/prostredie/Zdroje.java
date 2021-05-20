@@ -14,7 +14,7 @@ public class Zdroje implements IZobraz {
     private int voda;
     private int energia;
     private final RozlozenieMiestnosti rozlozenieMiestnosti;
-    private final int caps;
+    private int caps;
     private final int ludia;
     private boolean viditelne;
 
@@ -24,7 +24,7 @@ public class Zdroje implements IZobraz {
         this.voda = 0;
         this.energia = 0;
         this.jedlo = 0;
-        this.caps = 0;
+        this.caps = 1000;
         this.ludia = 0;
     }
 
@@ -32,6 +32,14 @@ public class Zdroje implements IZobraz {
         this.voda -= (voda + this.ludia);
         this.energia -= energia;
         this.jedlo -= this.ludia;
+    }
+
+    public void nakupuj(int cena) {
+        this.caps -= cena;
+    }
+
+    public boolean mozemKupit(int cena) {
+        return this.caps >= cena;
     }
 
     @Override
@@ -54,6 +62,9 @@ public class Zdroje implements IZobraz {
         int maxJedlo = 25 * this.rozlozenieMiestnosti.getPocetJedalni() * 2;
         String jedloString = "Jedlo: " + this.jedlo + "/" + maxJedlo;
         grafika.drawString(jedloString, 45, 496);
+
+        String capsString = "Caps: " + this.caps;
+        grafika.drawString(capsString, 45, 546);
     }
 
     @Override

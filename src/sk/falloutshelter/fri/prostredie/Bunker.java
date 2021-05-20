@@ -30,7 +30,7 @@ public class Bunker implements IZobraz, IKlik, ITik {
 
     //TODO Pridať a sfunkčniť ludí.
     public Bunker(Hra hra) {
-        this.rozlozenieMiestnosti = new RozlozenieMiestnosti(hra);
+        this.rozlozenieMiestnosti = new RozlozenieMiestnosti(hra, this);
         this.rozlozenieMiestnosti.nacitajMiestnostiZoSuboru();
         this.zdroje = new Zdroje(this.rozlozenieMiestnosti);
         this.sekundaTik = 0;
@@ -53,6 +53,10 @@ public class Bunker implements IZobraz, IKlik, ITik {
         grafika.setColor(new Color(122, 103, 77, 50));
         grafika.fillRect(Hra.GAME_SIRKA / 3, Hra.GAME_VYSKA / 10 - RozlozenieMiestnosti.VYSKA_MIESTNOSTI  + 5, 9 * RozlozenieMiestnosti.SIRKA_MIESTNOSTI, RozlozenieMiestnosti.VYSKA_MIESTNOSTI);
         grafika.fillRect(Hra.GAME_SIRKA / 3 - RozlozenieMiestnosti.SIRKA_MIESTNOSTI, Hra.GAME_VYSKA / 10 + 5 , 10 * RozlozenieMiestnosti.SIRKA_MIESTNOSTI, 10 * RozlozenieMiestnosti.VYSKA_MIESTNOSTI);
+    }
+
+    public Zdroje getZdroje() {
+        return this.zdroje;
     }
 
     @Override

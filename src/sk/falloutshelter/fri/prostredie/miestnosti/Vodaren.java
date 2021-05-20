@@ -13,12 +13,15 @@ public class Vodaren extends Miestnosti {
     private final int riadok;
     private final int stlpec;
     private final RozlozenieMiestnosti rozlozenieMiestnosti;
+    private final StavMiestnosti stavMiestnosti;
 
     public Vodaren(int riadok, int stlpec, RozlozenieMiestnosti rozlozenieMiestnosti) {
         super(riadok, stlpec, rozlozenieMiestnosti);
         this.riadok = riadok;
         this.stlpec = stlpec;
         this.rozlozenieMiestnosti = rozlozenieMiestnosti;
+        this.stavMiestnosti = StavMiestnosti.Pracuje;
+
         if (!(riadok == 0 && stlpec == 0)) {
             this.rozlozenieMiestnosti.novaVodaren();
         }
@@ -37,7 +40,6 @@ public class Vodaren extends Miestnosti {
 
     @Override
     public void klik(int x, int y) {
-
     }
 
     @Override
