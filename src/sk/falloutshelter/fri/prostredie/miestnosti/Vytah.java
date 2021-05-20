@@ -22,6 +22,10 @@ public class Vytah extends sk.falloutshelter.fri.prostredie.miestnosti.Miestnost
         this.stlpec = stlpec;
         this.rozlozenieMiestnosti = rozlozenieMiestnosti;
         this.image = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/Vytah/vytah-1.jpg").getImage();
+
+        if (!(riadok == 0 && stlpec == 0)) {
+            this.rozlozenieMiestnosti.novyVytah();
+        }
     }
 
     @Override

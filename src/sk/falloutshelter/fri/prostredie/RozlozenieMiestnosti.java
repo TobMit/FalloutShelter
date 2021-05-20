@@ -31,6 +31,7 @@ public class RozlozenieMiestnosti implements IKlik, ITik {
 
     private int pocetElektrari;
     private Miestnosti miestnostNaPostavenie = null;
+    private int pocetVytahov;
 
     //                                                prvý rad:      2, 1(vyťah ale ten môže byť kdekoľvek) 3, 3
     // Očakávané rozloženie všetkých miestností okrem prvého radu je 3, 1(vyťáh ale ten môže byť kdekoľvek) 3, 3  (čísla je dlžka miestnosti)
@@ -41,6 +42,7 @@ public class RozlozenieMiestnosti implements IKlik, ITik {
         this.pocetElektrari = 0;
         this.pocetVodarni = 0;
         this.pocetJedalni = 0;
+        this.pocetVytahov = 0;
 
 
         this.miestnosti = new Miestnosti[11][10];
@@ -197,6 +199,10 @@ public class RozlozenieMiestnosti implements IKlik, ITik {
         this.pocetJedalni++;
     }
 
+    public void novyVytah() {
+        this.pocetVytahov++;
+    }
+
 
     public int getPocetUbytovania() {
         return this.pocetUbytovania;
@@ -212,5 +218,9 @@ public class RozlozenieMiestnosti implements IKlik, ITik {
 
     public int getPocetJedalni() {
         return this.pocetJedalni;
+    }
+
+    public int getPocetVytahov() {
+        return this.pocetVytahov;
     }
 }

@@ -51,6 +51,7 @@ public class Hra implements ActionListener {
             }
         };
 
+
         this.stavObrazokvy = StavObrazovky.UvodnaObrazovka;
 
         this.uvodnaObraovka = new UvodnaObrazovka(this);
@@ -122,6 +123,7 @@ public class Hra implements ActionListener {
 
             if (this.tik > 61) {
                 this.tik = 0;
+                this.bunker.tik();
 
             }
 

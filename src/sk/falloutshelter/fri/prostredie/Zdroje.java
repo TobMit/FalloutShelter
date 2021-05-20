@@ -9,16 +9,16 @@ import java.awt.*;
  *
  * @author Tobias
  */
-public class Statistiky implements IZobraz {
-    private final int jedlo;
-    private final int voda;
-    private final int energia;
+public class Zdroje implements IZobraz {
+    private int jedlo;
+    private int voda;
+    private int energia;
     private final RozlozenieMiestnosti rozlozenieMiestnosti;
     private final int caps;
     private final int ludia;
     private boolean viditelne;
 
-    public Statistiky(RozlozenieMiestnosti rozlozenieMiestnosti) {
+    public Zdroje(RozlozenieMiestnosti rozlozenieMiestnosti) {
         this.rozlozenieMiestnosti = rozlozenieMiestnosti;
         this.viditelne = false;
         this.voda = 0;
@@ -28,13 +28,19 @@ public class Statistiky implements IZobraz {
         this.ludia = 0;
     }
 
+    public void odoberZdroje(int voda, int energia) {
+        this.voda -= voda + this.ludia;
+        this.energia -= energia;
+        this.jedlo -= this.ludia;
+    }
+
     @Override
     public void zobraz(Graphics grafika) {
         grafika.setColor(Color.decode("#18f817"));
         grafika.setFont(new Font("TimesRoman", Font.PLAIN, 45));
 
         int maxLudi = 2 * ((this.rozlozenieMiestnosti.getPocetUbytovania() * 3) / 3) * 5 - 2;
-        String ludiaString = "Ludia: " + this.ludia+ "/" + maxLudi;
+        String ludiaString = "Ludia: " + this.ludia + "/" + maxLudi;
         grafika.drawString(ludiaString, 45, 300);
 
         int maxEnergia = 25 * this.rozlozenieMiestnosti.getPocetElektrari() * 2;

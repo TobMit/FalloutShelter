@@ -15,11 +15,12 @@ import java.awt.*;
  */
 public class Bunker implements IZobraz, IKlik, ITik {
     private final RozlozenieMiestnosti rozlozenieMiestnosti;
-    private final Statistiky statistiky;
+    private final Zdroje zdroje;
     private boolean jeVidetelne;
 
     public static final int X_SURADNICA_BUNKRA = Hra.GAME_SIRKA / 3 - RozlozenieMiestnosti.SIRKA_MIESTNOSTI;
     public static final int Y_SURADNICA_BUNKRA = Hra.GAME_VYSKA / 10 - RozlozenieMiestnosti.VYSKA_MIESTNOSTI  + 5;
+    private int sekundaTik;
 
 //    private static final int
 
@@ -31,7 +32,8 @@ public class Bunker implements IZobraz, IKlik, ITik {
     public Bunker(Hra hra) {
         this.rozlozenieMiestnosti = new RozlozenieMiestnosti(hra);
         this.rozlozenieMiestnosti.nacitajMiestnostiZoSuboru();
-        this.statistiky = new Statistiky(this.rozlozenieMiestnosti);
+        this.zdroje = new Zdroje(this.rozlozenieMiestnosti);
+        this.sekundaTik = 0;
 
     }
 
@@ -40,8 +42,8 @@ public class Bunker implements IZobraz, IKlik, ITik {
         if (this.jeVidetelne) {
             this.vykresliGrafiku(grafika);
             this.rozlozenieMiestnosti.zobrazMiestnosti(grafika);
-            this.statistiky.jeVidetelne(true);
-            this.statistiky.zobraz(grafika);
+            this.zdroje.jeVidetelne(true);
+            this.zdroje.zobraz(grafika);
         }
     }
 
@@ -68,6 +70,13 @@ public class Bunker implements IZobraz, IKlik, ITik {
 
     @Override
     public void tik() {
-
+        this.sekundaTik++;
+        if (this.sekundaTik > 60) {
+            this.sekundaTik = 0;
+            //                          spotreba na ubytovanie                    vaultDor                  vytahy                                      jedalne                                             Vodarne
+            int odberEnergie = (int)Math.floor(this.rozlozenieMiestnosti.getPocetUbytovania() * 0.5 + 1 + this.rozlozenieMiestnosti.getPocetVytahov() * 0.5 + this.rozlozenieMiestnosti.getPocetJedalni() * 1.25 + this.rozlozenieMiestnosti.getPocetVodarni() * 2);
+            int odberVody = (int)Math.floor(this.rozlozenieMiestnosti.getPocetElektrari() * 0.25);
+            this.zdroje.odoberZdroje(odberVody, odberEnergie);
+        }
     }
 }
