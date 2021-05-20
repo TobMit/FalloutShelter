@@ -13,14 +13,25 @@ public class Elektraren extends sk.falloutshelter.fri.prostredie.miestnosti.Mies
     private final int riadok;
     private final int stlpec;
     private final RozlozenieMiestnosti rozlozenieMiestnosti;
+    private int pocetLudi;
+    private int sirkaMiestnosti;
 
     public Elektraren(int riadok, int stlpec, RozlozenieMiestnosti rozlozenieMiestnosti) {
         super(riadok, stlpec, rozlozenieMiestnosti);
         this.riadok = riadok;
         this.stlpec = stlpec;
         this.rozlozenieMiestnosti = rozlozenieMiestnosti;
+        this.pocetLudi = 0;
+        this.sirkaMiestnosti = 1;
+
         if (!(riadok == 0 && stlpec == 0)) {
             this.rozlozenieMiestnosti.novaElektraren();
+        }
+    }
+
+    public void pridajCloveka() {
+        if (this.pocetLudi < this.sirkaMiestnosti * 2) {
+            this.pocetLudi++;
         }
     }
 

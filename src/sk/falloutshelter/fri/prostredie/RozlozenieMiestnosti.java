@@ -95,8 +95,7 @@ public class RozlozenieMiestnosti implements IKlik, ITik {
 
         //Kým beží táto metóda. Hra čaká.
         ImageIcon icon = new ImageIcon("src/sk/falloutshelter/fri/obr/build-ico.png");
-        //todo aby bola financií vrátilo zoznam ktorý si môže daný človek kúpiť
-        //Miestnosti[] zoznamMiestnosti = {new Vytah(0, 0, this), new Elektraren(0, 0, this), new Ubytovanie(0 , 0, this)};
+        //todo keď niečo kúpim tak aby to znišilo finanncie
 
         ArrayList<Miestnosti> rawZoznamMiestnosti = new ArrayList<>();
         if (this.bunker.getZdroje().mozemKupit(50)) {
@@ -183,6 +182,10 @@ public class RozlozenieMiestnosti implements IKlik, ITik {
                 this.miestnosti[riadok][stlpec] = new Ubytovanie(riadok, stlpec, this);
             } else if (this.miestnostNaPostavenie instanceof Vytah) {
                 this.miestnosti[riadok][stlpec] = new Vytah(riadok, stlpec, this);
+            } else if (this.miestnostNaPostavenie instanceof Jedalen) {
+                this.miestnosti[riadok][stlpec] = new Jedalen(riadok, stlpec, this);
+            } else if (this.miestnostNaPostavenie instanceof Vodaren) {
+                this.miestnosti[riadok][stlpec] = new Vodaren(riadok, stlpec, this);
             }
             this.miestnostNaPostavenie = null;
             this.hra.setStavObrazokvy(StavObrazovky.HraBezi);
@@ -208,6 +211,10 @@ public class RozlozenieMiestnosti implements IKlik, ITik {
                 miestnost.tik();
             }
         }
+    }
+
+    public Bunker getBunker() {
+        return this.bunker;
     }
 
     public void novaElektraren() {
