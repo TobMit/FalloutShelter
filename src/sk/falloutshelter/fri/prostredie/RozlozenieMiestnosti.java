@@ -7,6 +7,7 @@ import sk.falloutshelter.fri.prostredie.miestnosti.vedlasieMiestnosti.Vchod;
 import sk.falloutshelter.fri.prostredie.miestnosti.vedlasieMiestnosti.VyplnaciaMiestnost;
 import sk.falloutshelter.fri.prostredie.miestnosti.vedlasieMiestnosti.Vytah;
 import sk.falloutshelter.fri.screan.IKlik;
+import sk.falloutshelter.fri.screan.JpanelVyberMiestnosti;
 import sk.falloutshelter.fri.screan.StavObrazovky;
 
 import javax.swing.*;
@@ -128,14 +129,7 @@ public class RozlozenieMiestnosti implements IKlik, ITik {
 
 
         if (zoznamMiestnosti.length > 0) {
-            this.miestnostNaPostavenie = (Miestnosti)JOptionPane.showInputDialog (
-                    null,
-                    "Vyber miestnosť kotru chceš postaviť: ",
-                    "Postavenie miestnosti",
-                    JOptionPane.WARNING_MESSAGE,
-                    icon,
-                    zoznamMiestnosti,
-                    zoznamMiestnosti[0]);
+            this.miestnostNaPostavenie = JpanelVyberMiestnosti.zobrazVyberoveMenu(zoznamMiestnosti, icon);
             if (this.miestnostNaPostavenie == null) {
                 return;
             }
@@ -227,6 +221,20 @@ public class RozlozenieMiestnosti implements IKlik, ITik {
                 miestnost.tik();
             }
         }
+    }
+
+
+    public Miestnosti[] getMiestnostiSMaloLudmi() {
+        ArrayList<Miestnosti> rawZoznamMiestnosti = new ArrayList<>();
+        for (Miestnosti[] miestnostis : this.miestnosti) {
+            for (Miestnosti miestnost : miestnostis) {
+                if (miestnost.volneMiestoNaLudi() && !(miestnost instanceof Vytah) && !(miestnost instanceof Vchod) && !(miestnost instanceof BuilderMiestnost) && !(miestnost instanceof VyplnaciaMiestnost)) {
+                    rawZoznamMiestnosti.add(miestnost);
+                }
+            }
+        }
+
+        return rawZoznamMiestnosti.toArray(Miestnosti[]::new);
     }
 
     public Bunker getBunker() {

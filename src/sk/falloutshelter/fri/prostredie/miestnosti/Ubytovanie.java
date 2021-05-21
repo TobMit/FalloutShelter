@@ -1,6 +1,7 @@
 package sk.falloutshelter.fri.prostredie.miestnosti;
 
 import sk.falloutshelter.fri.prostredie.Bunker;
+import sk.falloutshelter.fri.screan.JpanelVyberMiestnosti;
 import sk.falloutshelter.fri.prostredie.RozlozenieMiestnosti;
 
 import javax.swing.*;
@@ -36,13 +37,20 @@ public class Ubytovanie extends Miestnosti {
 
         super.stavMiestnosti = StavMiestnosti.Pracuje;
         Random random = new Random();
-        super.odpocitavanie = random.nextInt(300) + 30;
+        //todo dočasná zmena
+//        super.odpocitavanie = random.nextInt(300) + 30;
+        super.odpocitavanie = 10;
         this.sirkaMiestnosti = 1;
         this.zobrazInfo = false;
 
         if (!(riadok == 0 && stlpec == 0)) {
             this.rozlozenieMiestnosti.noveUbytovanie();
         }
+    }
+
+    @Override
+    public boolean volneMiestoNaLudi() {
+        return false;
     }
 
     @Override
@@ -66,10 +74,6 @@ public class Ubytovanie extends Miestnosti {
         }
     }
 
-    @Override
-    public void jeVidetelne(boolean viditelne) {
-
-    }
 
     @Override
     public void klik(int x, int y) {
@@ -86,8 +90,15 @@ public class Ubytovanie extends Miestnosti {
     }
 
     private void reWork() {
-        //todo dokončiť pridavanie ľudí
-        //this.rozlozenieMiestnosti.getBunker().getZdroje().pridajVodu((2 * this.sirkaMiestnosti * 5) - 2);
+        //todo dokončiť pridavanie ľudí, Aká veľkosť miestností toľko ľudí.
+        Miestnosti[] mestnost = this.rozlozenieMiestnosti.getMiestnostiSMaloLudmi();
+        for (int i = 0; i < this.sirkaMiestnosti; i++) {
+            Miestnosti miestnost = JpanelVyberMiestnosti.zobrazVyberoveMenu(mestnost, new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/novyClen.png"));
+            if (miestnost == null) {
+                i--;
+            }
+            miestnost.pridajCloveka();
+        }
         Random random = new Random();
         this.maxTime = random.nextInt(300) + 30;
         super.odpocitavanie = this.maxTime;

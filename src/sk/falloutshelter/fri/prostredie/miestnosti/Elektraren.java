@@ -36,6 +36,7 @@ public class Elektraren extends sk.falloutshelter.fri.prostredie.miestnosti.Mies
 
         super.stavMiestnosti = StavMiestnosti.NemaLudi;
         this.pocetLudi = 0;
+        super.pocetLudi = this.pocetLudi;
         this.sirkaMiestnosti = 1;
         this.zobrazInfo = false;
         this.odpocitavanie = this.maxTime;
@@ -53,6 +54,7 @@ public class Elektraren extends sk.falloutshelter.fri.prostredie.miestnosti.Mies
         }
         if (this.pocetLudi < this.sirkaMiestnosti * 2) {
             this.pocetLudi++;
+            super.pocetLudi++;
             this.rozlozenieMiestnosti.getBunker().getZdroje().pridajCloveka();
             this.maxTime = ((this.pocetLudi - 1) * 54 - 300) * (-1);
             if (super.odpocitavanie > this.maxTime) {
@@ -83,10 +85,6 @@ public class Elektraren extends sk.falloutshelter.fri.prostredie.miestnosti.Mies
         }
     }
 
-    @Override
-    public void jeVidetelne(boolean viditelne) {
-
-    }
 
     @Override
     public void klik(int x, int y) {
@@ -109,6 +107,9 @@ public class Elektraren extends sk.falloutshelter.fri.prostredie.miestnosti.Mies
 
     @Override
     public String toString() {
+        if (this.riadok != 0 && this.stlpec != 0) {
+            return String.format("Elektraren %d. poschodi %d v poradi", this.riadok, this.stlpec);
+        }
         return "Elektraren";
     }
 

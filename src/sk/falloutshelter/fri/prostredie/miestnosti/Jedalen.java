@@ -33,6 +33,7 @@ public class Jedalen extends Miestnosti {
 
         super.stavMiestnosti = StavMiestnosti.NemaLudi;
         this.pocetLudi = 0;
+        super.pocetLudi = this.pocetLudi;
         this.sirkaMiestnosti = 1;
         this.zobrazInfo = false;
 
@@ -50,6 +51,7 @@ public class Jedalen extends Miestnosti {
         }
         if (this.pocetLudi < this.sirkaMiestnosti * 2) {
             this.pocetLudi++;
+            super.pocetLudi++;
             this.rozlozenieMiestnosti.getBunker().getZdroje().pridajCloveka();
             this.maxTime = ((this.pocetLudi - 1) * 54 - 300) * (-1);
             if (super.odpocitavanie > this.maxTime) {
@@ -80,10 +82,6 @@ public class Jedalen extends Miestnosti {
         }
     }
 
-    @Override
-    public void jeVidetelne(boolean viditelne) {
-
-    }
 
     @Override
     public void klik(int x, int y) {
@@ -106,6 +104,9 @@ public class Jedalen extends Miestnosti {
 
     @Override
     public String toString() {
+        if (this.riadok != 0 && this.stlpec != 0) {
+            return String.format("Jedalen %d. poschodi %d v poradi", this.riadok, this.stlpec);
+        }
         return "Jedalen";
     }
 

@@ -16,6 +16,9 @@ public abstract class Miestnosti implements IZobraz, IKlik, ITik {
     private final int stlpec;
     protected StavMiestnosti stavMiestnosti;
     protected int odpocitavanie;
+    protected int pocetLudi;
+    protected int velkostMiestnosti = 1;
+    //todo keď zvätšime veľkosť miestnosti tak sa to premietne aj do tejto miestnosti.
 
     public Miestnosti(int riadok, int stlpec, RozlozenieMiestnosti rozlozenieMiestnosti) {
         this.riadok = riadok;
@@ -39,5 +42,17 @@ public abstract class Miestnosti implements IZobraz, IKlik, ITik {
         }
     }
 
+    public boolean volneMiestoNaLudi() {
+        return this.pocetLudi < 2 * this.velkostMiestnosti;
+    }
 
+    @Override
+    public void jeVidetelne(boolean viditelne) {
+
+    }
+
+    @Override
+    public String toString() {
+        return "Global Miestnost - Musela nastať niekde chyba, pretože toto sa nemalo nikdy zobraziť. XD";
+    }
 }
