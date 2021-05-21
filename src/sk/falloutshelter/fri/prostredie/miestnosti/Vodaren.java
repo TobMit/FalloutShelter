@@ -48,6 +48,7 @@ public class Vodaren extends Miestnosti {
         }
         if (this.pocetLudi < this.sirkaMiestnosti * 2) {
             this.pocetLudi++;
+            this.rozlozenieMiestnosti.getBunker().getZdroje().pridajCloveka();
             this.maxTime = ((this.pocetLudi - 1) * 54 - 300) * (-1);
             if (this.odpocitavanie > this.maxTime) {
                 this.odpocitavanie = this.maxTime;
@@ -105,12 +106,8 @@ public class Vodaren extends Miestnosti {
 
     @Override
     public void tik() {
-        System.out.println(this.odpocitavanie);
-
         if (this.pocetLudi != 0 && this.odpocitavanie <= 0 && (this.stavMiestnosti == StavMiestnosti.Pracuje || this.stavMiestnosti == StavMiestnosti.ZobrazInfo)) {
             this.stavMiestnosti = StavMiestnosti.Spracovane;
-            System.out.println("som tu");
-
         }
 
         if (this.stavMiestnosti == StavMiestnosti.Spracovane) {

@@ -15,7 +15,7 @@ public class Zdroje implements IZobraz {
     private int energia;
     private final RozlozenieMiestnosti rozlozenieMiestnosti;
     private int caps;
-    private final int ludia;
+    private int ludia;
     private boolean viditelne;
 
     public Zdroje(RozlozenieMiestnosti rozlozenieMiestnosti) {
@@ -84,5 +84,9 @@ public class Zdroje implements IZobraz {
     @Override
     public void jeVidetelne(boolean viditelne) {
         this.viditelne = viditelne;
+    }
+
+    public void pridajCloveka() {
+        this.ludia++;
     }
 }
