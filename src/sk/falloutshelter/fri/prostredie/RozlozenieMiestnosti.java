@@ -178,7 +178,8 @@ public class RozlozenieMiestnosti implements IKlik, ITik {
      * @param stlpec x os
      */
     public void pridajMiestnosti(int riadok, int stlpec) {
-        //todo Keď sa pridá miestnosť zvyši sa počet daného typu v globálnom počítani miestnosti.
+        //todo Keď sa pridá miestnosť zvyši sa počet daného typu v globálnom počítani miestnosti. - skontrolovať
+        //todo keď sa miestnosť doplní, tak aby z reworkom sa dala aj určitá finančná odmena.
         if (this.miestnostNaPostavenie != null && this.miestnosti[riadok][stlpec] instanceof BuilderMiestnost) {
             Zdroje zdroje = this.bunker.getZdroje();
             if (this.miestnostNaPostavenie instanceof Elektraren) {

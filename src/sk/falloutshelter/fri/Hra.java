@@ -18,7 +18,7 @@ import java.awt.event.MouseEvent;
  *
  * @author Tobias
  */
-public class Hra implements ActionListener {
+public class Hra {
 
     //TODO úvodu obrazovku a načitavanie zo súboru na výber budú 3 save a viac nie, potom má hráč smolu - zatiaľ iba jeden save
 
@@ -26,7 +26,6 @@ public class Hra implements ActionListener {
     private final Pozadie pozadie;
     private final JFrame jframe;
     private final JPanel render;
-    private final Timer casovac;
 
     public static final int GAME_SIRKA = 1920;
     public static final int GAME_VYSKA = 1080;
@@ -65,9 +64,6 @@ public class Hra implements ActionListener {
         this.bunker.jeVidetelne(false);
 
         this.builderButton = new Tlacitka(10, 925, this.bunker.getRozlozenieMiestnosti(), "src/sk/falloutshelter/fri/obr/build-ico.png");
-
-        // delay: 16 pretože je to približne 60 FPS
-        this.casovac = new Timer(16, this);
         this.tik = 0;
 
 
@@ -121,7 +117,7 @@ public class Hra implements ActionListener {
             this.builderButton.zobraz(grafika);
             this.tik++;
 
-            if (this.tik > 61) {
+            if (this.tik > 60) {
                 this.tik = 0;
                 this.bunker.tik();
 
@@ -145,14 +141,36 @@ public class Hra implements ActionListener {
         this.stavObrazokvy = stavObrazokvy;
     }
 
+    /**
+     * Hlavná slučka. Udržuje hru aby prebehlo 60 tikou za sekundu.
+     */
     public void hraj() {
-        this.casovac.start();
+        long poslednyCasCyklu = System.nanoTime();
+        long poslenyCysVystupu = System.currentTimeMillis();
+        double nespracovaneTiky = 0;
+        double perTik = Math.pow(10, 9) / 60;
+        int tik = 0;
+        int fps = 0;
+        while (true) {
+            long aktualnyCas = System.nanoTime();
+            nespracovaneTiky += (aktualnyCas - poslednyCasCyklu) / perTik;
+            poslednyCasCyklu = aktualnyCas;
+
+            while (nespracovaneTiky >= 1) {
+                this.render.repaint();
+                tik++;
+                nespracovaneTiky--;
+            }
+
+            fps++;
+
+            if (System.currentTimeMillis() - poslenyCysVystupu > 1000) {
+                poslenyCysVystupu += 1000;
+                //System.out.printf("Tik: %d FPS: %d\n", tik, fps);
+                fps = 0;
+                tik = 0;
+            }
+        }
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        //this.tik++;
-        this.render.repaint();
-
-    }
 }
