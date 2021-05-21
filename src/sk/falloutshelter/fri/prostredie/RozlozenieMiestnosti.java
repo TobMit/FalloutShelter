@@ -2,6 +2,10 @@ package sk.falloutshelter.fri.prostredie;
 
 import sk.falloutshelter.fri.Hra;
 import sk.falloutshelter.fri.prostredie.miestnosti.*;
+import sk.falloutshelter.fri.prostredie.miestnosti.vedlasieMiestnosti.BuilderMiestnost;
+import sk.falloutshelter.fri.prostredie.miestnosti.vedlasieMiestnosti.Vchod;
+import sk.falloutshelter.fri.prostredie.miestnosti.vedlasieMiestnosti.VyplnaciaMiestnost;
+import sk.falloutshelter.fri.prostredie.miestnosti.vedlasieMiestnosti.Vytah;
 import sk.falloutshelter.fri.screan.IKlik;
 import sk.falloutshelter.fri.screan.StavObrazovky;
 

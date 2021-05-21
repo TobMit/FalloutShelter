@@ -1,39 +1,39 @@
-package sk.falloutshelter.fri.prostredie.miestnosti;
+package sk.falloutshelter.fri.prostredie.miestnosti.vedlasieMiestnosti;
+
 
 import sk.falloutshelter.fri.prostredie.Bunker;
 import sk.falloutshelter.fri.prostredie.RozlozenieMiestnosti;
+import sk.falloutshelter.fri.prostredie.miestnosti.Miestnosti;
 
 import javax.swing.*;
 import java.awt.*;
 
 /**
+ * Toto je "vstupná hala" bunkra, nedá sa ničiť ani postaviť. tá je vždy napevno 2 bunkova
  *
  * @author Tobias
  */
-public class Vytah extends sk.falloutshelter.fri.prostredie.miestnosti.Miestnosti {
-    private final int riadok;
+public class Vchod extends Miestnosti {
+
+
     private final int stlpec;
     private final RozlozenieMiestnosti rozlozenieMiestnosti;
+    private final int riadok;
     private Image image;
 
-    public Vytah(int riadok, int stlpec, RozlozenieMiestnosti rozlozenieMiestnosti) {
+    public Vchod(int riadok, int stlpec, RozlozenieMiestnosti rozlozenieMiestnosti) {
         super(riadok, stlpec, rozlozenieMiestnosti);
         this.riadok = riadok;
         this.stlpec = stlpec;
         this.rozlozenieMiestnosti = rozlozenieMiestnosti;
-        this.image = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/Vytah/vytah-1.jpg").getImage();
-
-        if (!(riadok == 0 && stlpec == 0)) {
-            this.rozlozenieMiestnosti.novyVytah();
-        }
+        this.image = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/Vstup/vstup2.jpg").getImage();
     }
 
     @Override
     public void zobraz(Graphics grafika) {
-        //grafika.setColor(Color.white);
-        //grafika.fillRect(Bunker.X_SURADNICA_BUNKRA + this.stlpec * RozlozenieMiestnosti.SIRKA_MIESTNOSTI, Bunker.Y_SURADNICA_BUNKRA + this.riadok * RozlozenieMiestnosti.VYSKA_MIESTNOSTI, RozlozenieMiestnosti.SIRKA_MIESTNOSTI, RozlozenieMiestnosti.VYSKA_MIESTNOSTI);
         grafika.drawImage(this.image, Bunker.X_SURADNICA_BUNKRA + this.stlpec * RozlozenieMiestnosti.SIRKA_MIESTNOSTI, Bunker.Y_SURADNICA_BUNKRA + this.riadok * RozlozenieMiestnosti.VYSKA_MIESTNOSTI, null);
-        //System.out.printf("%d %d\n", this.image.getHeight(null), this.image.getWidth(null));
+//        grafika.setColor(Color.decode("#424242"));
+//        grafika.fillRect(Bunker.X_SURADNICA_BUNKRA + this.stlpec * RozlozenieMiestnosti.SIRKA_MIESTNOSTI, Bunker.Y_SURADNICA_BUNKRA + this.riadok * RozlozenieMiestnosti.VYSKA_MIESTNOSTI, RozlozenieMiestnosti.SIRKA_MIESTNOSTI * 2, RozlozenieMiestnosti.VYSKA_MIESTNOSTI);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class Vytah extends sk.falloutshelter.fri.prostredie.miestnosti.Miestnost
 
     @Override
     public String toString() {
-        return "Vytah";
+        return "Vchod";
     }
 
     @Override

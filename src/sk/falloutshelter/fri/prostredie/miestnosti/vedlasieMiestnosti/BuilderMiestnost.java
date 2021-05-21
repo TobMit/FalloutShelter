@@ -1,7 +1,8 @@
-package sk.falloutshelter.fri.prostredie.miestnosti;
+package sk.falloutshelter.fri.prostredie.miestnosti.vedlasieMiestnosti;
 
 import sk.falloutshelter.fri.prostredie.Bunker;
 import sk.falloutshelter.fri.prostredie.RozlozenieMiestnosti;
+import sk.falloutshelter.fri.prostredie.miestnosti.Miestnosti;
 
 import javax.swing.*;
 import java.awt.*;
