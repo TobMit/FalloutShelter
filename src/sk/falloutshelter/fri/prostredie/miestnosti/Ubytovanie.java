@@ -90,7 +90,6 @@ public class Ubytovanie extends Miestnosti {
     }
 
     private void reWork() {
-        //todo dokončiť pridavanie ľudí, Aká veľkosť miestností toľko ľudí.
         Miestnosti[] mestnost = this.rozlozenieMiestnosti.getMiestnostiSMaloLudmi();
         for (int i = 0; i < this.sirkaMiestnosti; i++) {
             Miestnosti miestnost = JpanelVyberMiestnosti.zobrazVyberoveMenu(mestnost, new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/novyClen.png"));

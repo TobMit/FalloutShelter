@@ -108,7 +108,7 @@ public class Elektraren extends sk.falloutshelter.fri.prostredie.miestnosti.Mies
     @Override
     public String toString() {
         if (this.riadok != 0 && this.stlpec != 0) {
-            return String.format("Elektraren %d. poschodi %d v poradi", this.riadok, this.stlpec);
+            return String.format("Elektraren %d. poschodie, %d v poradi", this.riadok, this.stlpec);
         }
         return "Elektraren";
     }

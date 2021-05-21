@@ -103,7 +103,7 @@ public class Vodaren extends Miestnosti {
     @Override
     public String toString() {
         if (this.riadok != 0 && this.stlpec != 0) {
-            return String.format("Vodaren %d. poschodi %d v poradi", this.riadok, this.stlpec);
+            return String.format("Vodaren %d. poschodie, %d v poradi", this.riadok, this.stlpec);
         }
         return "Vodaren";
     }

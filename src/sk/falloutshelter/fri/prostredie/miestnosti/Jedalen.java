@@ -105,7 +105,7 @@ public class Jedalen extends Miestnosti {
     @Override
     public String toString() {
         if (this.riadok != 0 && this.stlpec != 0) {
-            return String.format("Jedalen %d. poschodi %d v poradi", this.riadok, this.stlpec);
+            return String.format("Jedalen %d. poschodie, %d v poradi", this.riadok, this.stlpec);
         }
         return "Jedalen";
     }
