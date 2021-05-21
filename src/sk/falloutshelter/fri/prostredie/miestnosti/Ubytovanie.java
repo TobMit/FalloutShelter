@@ -95,6 +95,7 @@ public class Ubytovanie extends Miestnosti {
             Miestnosti miestnost = JpanelVyberMiestnosti.zobrazVyberoveMenu(mestnost, new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/novyClen.png"));
             if (miestnost == null) {
                 i--;
+                return;
             }
             miestnost.pridajCloveka();
         }
