@@ -35,6 +35,8 @@ public class Ubytovanie extends Miestnosti {
         //this.image = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/builderMiestnost/builderMiestnost-1.png").getImage();
 
         super.stavMiestnosti = StavMiestnosti.Pracuje;
+        Random random = new Random();
+        super.odpocitavanie = random.nextInt(300) + 30;
         this.sirkaMiestnosti = 1;
         this.zobrazInfo = false;
 
@@ -57,7 +59,7 @@ public class Ubytovanie extends Miestnosti {
             grafika.setColor(Color.decode("#18f817"));
             grafika.setFont(new Font("TimesRoman", Font.PLAIN, 45));
 
-            String casDoKonca = "Cas dokoncenia: " + this.odpocitavanie;
+            String casDoKonca = "Cas dokoncenia: " + super.odpocitavanie;
             grafika.drawString(casDoKonca, 45, 646);
         } else {
             this.zobrazInfo = false;
