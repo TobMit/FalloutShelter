@@ -21,7 +21,7 @@ public class Elektraren extends sk.falloutshelter.fri.prostredie.miestnosti.Mies
     private StavMiestnosti stavMiestnosti;
     private int pocetLudi;
     private int sirkaMiestnosti;
-    private int maxTime;
+    private int maxTime = -1;
     private int odpocitavanie;
 
     public Elektraren(int riadok, int stlpec, RozlozenieMiestnosti rozlozenieMiestnosti) {
@@ -58,6 +58,7 @@ public class Elektraren extends sk.falloutshelter.fri.prostredie.miestnosti.Mies
 
     @Override
     public void zobraz(Graphics grafika) {
+        //System.out.println(this.sirkaMiestnosti);
         grafika.setColor(Color.black);
         grafika.fillRect(this.xSuradnica, this.ySuradnica, RozlozenieMiestnosti.SIRKA_MIESTNOSTI, RozlozenieMiestnosti.VYSKA_MIESTNOSTI);
         if (this.stavMiestnosti == StavMiestnosti.Spracovane) {
@@ -89,6 +90,12 @@ public class Elektraren extends sk.falloutshelter.fri.prostredie.miestnosti.Mies
                 this.stavMiestnosti = StavMiestnosti.ZobrazInfo;
             } else if (this.stavMiestnosti == StavMiestnosti.Spracovane) {
                 this.reWork();
+            }
+        } else {
+            if (this.pocetLudi != 0) {
+                this.stavMiestnosti = StavMiestnosti.Pracuje;
+            } else {
+                this.stavMiestnosti = StavMiestnosti.NemaLudi;
             }
         }
     }

@@ -114,6 +114,9 @@ public class RozlozenieMiestnosti implements IKlik, ITik {
         if (this.bunker.getZdroje().mozemKupit(200)) {
             rawZoznamMiestnosti.add(new Ubytovanie(0, 0, this));
         }
+        if (this.bunker.getZdroje().mozemKupit(200)) {
+            rawZoznamMiestnosti.add(new Jedalen(0, 0, this));
+        }
 
         Miestnosti[] zoznamMiestnosti = new Miestnosti[rawZoznamMiestnosti.size()];
 

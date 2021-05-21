@@ -33,7 +33,6 @@ public class Vodaren extends Miestnosti {
         //this.image = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/builderMiestnost/builderMiestnost-1.png").getImage();
 
         this.stavMiestnosti = StavMiestnosti.Pracuje;
-        //todo zrušiť počet ludi na defaultnu nulu
         this.pocetLudi = 0;
         this.sirkaMiestnosti = 1;
 
@@ -89,6 +88,12 @@ public class Vodaren extends Miestnosti {
                 this.stavMiestnosti = StavMiestnosti.ZobrazInfo;
             } else if (this.stavMiestnosti == StavMiestnosti.Spracovane) {
                 this.reWork();
+            }
+        } else {
+            if (this.pocetLudi != 0) {
+                this.stavMiestnosti = StavMiestnosti.Pracuje;
+            } else {
+                this.stavMiestnosti = StavMiestnosti.NemaLudi;
             }
         }
     }
