@@ -20,7 +20,6 @@ public class Ubytovanie extends Miestnosti {
     private final int xSuradnica;
     private final int ySuradnica;
     private StavMiestnosti stavMiestnosti;
-    private final int pocetLudi;
     private final int sirkaMiestnosti;
     private int odpocitavanie;
     private int maxTime;
@@ -35,7 +34,6 @@ public class Ubytovanie extends Miestnosti {
         //this.image = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/builderMiestnost/builderMiestnost-1.png").getImage();
 
         super.stavMiestnosti = StavMiestnosti.Pracuje;
-        this.pocetLudi = 0;
         this.sirkaMiestnosti = 1;
 
         if (!(riadok == 0 && stlpec == 0)) {
@@ -59,6 +57,8 @@ public class Ubytovanie extends Miestnosti {
 
             String casDoKonca = "Cas dokoncenia: " + this.odpocitavanie;
             grafika.drawString(casDoKonca, 45, 646);
+        } else {
+            super.stavMiestnosti = StavMiestnosti.Pracuje;
         }
     }
 

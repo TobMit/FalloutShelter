@@ -21,7 +21,7 @@ public class Elektraren extends sk.falloutshelter.fri.prostredie.miestnosti.Mies
     private StavMiestnosti stavMiestnosti;
     private int pocetLudi;
     private int sirkaMiestnosti;
-    private int maxTime = 15;
+    private int maxTime = -1;
     private int odpocitavanie;
 
     public Elektraren(int riadok, int stlpec, RozlozenieMiestnosti rozlozenieMiestnosti) {
@@ -33,8 +33,8 @@ public class Elektraren extends sk.falloutshelter.fri.prostredie.miestnosti.Mies
         this.ySuradnica = Bunker.Y_SURADNICA_BUNKRA + this.riadok * RozlozenieMiestnosti.VYSKA_MIESTNOSTI;
         //this.image = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/builderMiestnost/builderMiestnost-1.png").getImage();
 
-        super.stavMiestnosti = StavMiestnosti.Pracuje;
-        this.pocetLudi = 2;
+        super.stavMiestnosti = StavMiestnosti.NemaLudi;
+        this.pocetLudi = 0;
         this.sirkaMiestnosti = 1;
 
         if (!(riadok == 0 && stlpec == 0)) {
@@ -52,8 +52,8 @@ public class Elektraren extends sk.falloutshelter.fri.prostredie.miestnosti.Mies
             this.pocetLudi++;
             this.rozlozenieMiestnosti.getBunker().getZdroje().pridajCloveka();
             this.maxTime = ((this.pocetLudi - 1) * 54 - 300) * (-1);
-            if (this.odpocitavanie > this.maxTime) {
-                this.odpocitavanie = this.maxTime;
+            if (super.odpocitavanie > this.maxTime) {
+                super.odpocitavanie = this.maxTime;
             }
         }
     }

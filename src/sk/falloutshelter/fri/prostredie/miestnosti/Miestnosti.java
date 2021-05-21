@@ -22,7 +22,6 @@ public abstract class Miestnosti implements IZobraz, IKlik, ITik {
         this.stlpec = stlpec;
     }
     public void pridajCloveka() {
-
     }
     
     public void tik() {

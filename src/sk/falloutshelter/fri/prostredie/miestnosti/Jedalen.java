@@ -30,7 +30,7 @@ public class Jedalen extends Miestnosti {
         this.ySuradnica = Bunker.Y_SURADNICA_BUNKRA + this.riadok * RozlozenieMiestnosti.VYSKA_MIESTNOSTI;
         //this.image = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/builderMiestnost/builderMiestnost-1.png").getImage();
 
-        this.stavMiestnosti = StavMiestnosti.Pracuje;
+        super.stavMiestnosti = StavMiestnosti.NemaLudi;
         this.pocetLudi = 0;
         this.sirkaMiestnosti = 1;
 
@@ -43,15 +43,15 @@ public class Jedalen extends Miestnosti {
     }
 
     public void pridajCloveka() {
-        if (this.stavMiestnosti == StavMiestnosti.NemaLudi) {
-            this.stavMiestnosti = StavMiestnosti.Pracuje;
+        if (super.stavMiestnosti == StavMiestnosti.NemaLudi) {
+            super.stavMiestnosti = StavMiestnosti.Pracuje;
         }
         if (this.pocetLudi < this.sirkaMiestnosti * 2) {
             this.pocetLudi++;
             this.rozlozenieMiestnosti.getBunker().getZdroje().pridajCloveka();
             this.maxTime = ((this.pocetLudi - 1) * 54 - 300) * (-1);
-            if (this.odpocitavanie > this.maxTime) {
-                this.odpocitavanie = this.maxTime;
+            if (super.odpocitavanie > this.maxTime) {
+                super.odpocitavanie = this.maxTime;
             }
         }
     }
@@ -61,16 +61,16 @@ public class Jedalen extends Miestnosti {
         grafika.setColor(Color.yellow);
         grafika.fillRect(Bunker.X_SURADNICA_BUNKRA + this.stlpec * RozlozenieMiestnosti.SIRKA_MIESTNOSTI, Bunker.Y_SURADNICA_BUNKRA + this.riadok * RozlozenieMiestnosti.VYSKA_MIESTNOSTI, RozlozenieMiestnosti.SIRKA_MIESTNOSTI, RozlozenieMiestnosti.VYSKA_MIESTNOSTI);
 
-        if (this.stavMiestnosti == StavMiestnosti.Spracovane) {
+        if (super.stavMiestnosti == StavMiestnosti.Spracovane) {
             Image spracovaneImag = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/jedalen/dogenerovanaJedalen-1.png").getImage();
             grafika.drawImage(spracovaneImag, this.xSuradnica, this.ySuradnica, null);
         }
 
-        if (this.stavMiestnosti == StavMiestnosti.ZobrazInfo) {
+        if (super.stavMiestnosti == StavMiestnosti.ZobrazInfo) {
             grafika.setColor(Color.decode("#18f817"));
             grafika.setFont(new Font("TimesRoman", Font.PLAIN, 45));
 
-            String casDoKonca = "Cas dokoncenia: " + this.odpocitavanie;
+            String casDoKonca = "Cas dokoncenia: " + super.odpocitavanie;
             grafika.drawString(casDoKonca, 45, 646);
 
             String pocetDwelerov = "Pocet ludi: " + this.pocetLudi;
@@ -85,26 +85,25 @@ public class Jedalen extends Miestnosti {
 
     @Override
     public void klik(int x, int y) {
-        //todo opraviť
         if (x > this.xSuradnica && y > this.ySuradnica && x < this.xSuradnica + RozlozenieMiestnosti.SIRKA_MIESTNOSTI * this.sirkaMiestnosti && y < this.ySuradnica + RozlozenieMiestnosti.VYSKA_MIESTNOSTI) {
-            if (this.stavMiestnosti == StavMiestnosti.Pracuje || this.stavMiestnosti == StavMiestnosti.NemaLudi) {
-                this.stavMiestnosti = StavMiestnosti.ZobrazInfo;
-            } else if (this.stavMiestnosti == StavMiestnosti.Spracovane) {
+            if (super.stavMiestnosti == StavMiestnosti.Pracuje || super.stavMiestnosti == StavMiestnosti.NemaLudi) {
+                super.stavMiestnosti = StavMiestnosti.ZobrazInfo;
+            } else if (super.stavMiestnosti == StavMiestnosti.Spracovane) {
                 this.reWork();
             }
         } else {
             if (this.pocetLudi != 0) {
-                this.stavMiestnosti = StavMiestnosti.Pracuje;
+                super.stavMiestnosti = StavMiestnosti.Pracuje;
             } else {
-                this.stavMiestnosti = StavMiestnosti.NemaLudi;
+                super.stavMiestnosti = StavMiestnosti.NemaLudi;
             }
         }
     }
 
     private void reWork() {
         this.rozlozenieMiestnosti.getBunker().getZdroje().pridajVodu((2 * this.sirkaMiestnosti * 5) - 2);
-        this.odpocitavanie = this.maxTime;
-        this.stavMiestnosti = StavMiestnosti.Pracuje;
+        super.odpocitavanie = this.maxTime;
+        super.stavMiestnosti = StavMiestnosti.Pracuje;
     }
 
     @Override
@@ -112,19 +111,4 @@ public class Jedalen extends Miestnosti {
         return "Jedalen";
     }
 
-    @Override
-    public void tik() {
-        if (this.pocetLudi != 0 && this.odpocitavanie <= 0 && (this.stavMiestnosti == StavMiestnosti.Pracuje || this.stavMiestnosti == StavMiestnosti.ZobrazInfo)) {
-            this.stavMiestnosti = StavMiestnosti.Spracovane;
-        }
-
-        if (this.stavMiestnosti == StavMiestnosti.Spracovane) {
-            this.odpocitavanie = 0;
-            return;
-        }
-
-        if (this.odpocitavanie > 0) {
-            this.odpocitavanie--;
-        }
-    }
 }
