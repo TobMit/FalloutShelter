@@ -16,6 +16,7 @@ public class Vodaren extends Miestnosti {
     private final RozlozenieMiestnosti rozlozenieMiestnosti;
     private final int ySuradnica;
     private final int xSuradnica;
+    private boolean zobrazInfo;
     private StavMiestnosti stavMiestnosti;
     private int pocetLudi;
     private int sirkaMiestnosti;
@@ -35,6 +36,7 @@ public class Vodaren extends Miestnosti {
         super.stavMiestnosti = StavMiestnosti.NemaLudi;
         this.pocetLudi = 0;
         this.sirkaMiestnosti = 1;
+        this.zobrazInfo = false;
 
         if (!(riadok == 0 && stlpec == 0)) {
             this.rozlozenieMiestnosti.novaVodaren();
@@ -64,7 +66,7 @@ public class Vodaren extends Miestnosti {
             grafika.drawImage(spracovaneImag, this.xSuradnica, this.ySuradnica, null);
         }
 
-        if (super.stavMiestnosti == StavMiestnosti.ZobrazInfo) {
+        if (this.zobrazInfo) {
             grafika.setColor(Color.decode("#18f817"));
             grafika.setFont(new Font("TimesRoman", Font.PLAIN, 45));
 
@@ -85,16 +87,12 @@ public class Vodaren extends Miestnosti {
     public void klik(int x, int y) {
         if (x > this.xSuradnica && y > this.ySuradnica && x < this.xSuradnica + RozlozenieMiestnosti.SIRKA_MIESTNOSTI * this.sirkaMiestnosti && y < this.ySuradnica + RozlozenieMiestnosti.VYSKA_MIESTNOSTI) {
             if (super.stavMiestnosti == StavMiestnosti.Pracuje || super.stavMiestnosti == StavMiestnosti.NemaLudi) {
-                super.stavMiestnosti = StavMiestnosti.ZobrazInfo;
+                this.zobrazInfo = true;
             } else if (super.stavMiestnosti == StavMiestnosti.Spracovane) {
                 this.reWork();
             }
         } else {
-            if (this.pocetLudi != 0) {
-                super.stavMiestnosti = StavMiestnosti.Pracuje;
-            } else {
-                super.stavMiestnosti = StavMiestnosti.NemaLudi;
-            }
+            this.zobrazInfo = false;
         }
     }
 

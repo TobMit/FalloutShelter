@@ -25,7 +25,7 @@ public abstract class Miestnosti implements IZobraz, IKlik, ITik {
     }
     
     public void tik() {
-        if (this.odpocitavanie <= 0 && (this.stavMiestnosti == StavMiestnosti.Pracuje || this.stavMiestnosti == StavMiestnosti.ZobrazInfo)) {
+        if (this.odpocitavanie <= 0 && (this.stavMiestnosti == StavMiestnosti.Pracuje)) {
             this.stavMiestnosti = StavMiestnosti.Spracovane;
         }
 

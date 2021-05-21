@@ -19,6 +19,7 @@ public class Ubytovanie extends Miestnosti {
     private final RozlozenieMiestnosti rozlozenieMiestnosti;
     private final int xSuradnica;
     private final int ySuradnica;
+    private boolean zobrazInfo;
     private StavMiestnosti stavMiestnosti;
     private final int sirkaMiestnosti;
     private int odpocitavanie;
@@ -35,6 +36,7 @@ public class Ubytovanie extends Miestnosti {
 
         super.stavMiestnosti = StavMiestnosti.Pracuje;
         this.sirkaMiestnosti = 1;
+        this.zobrazInfo = false;
 
         if (!(riadok == 0 && stlpec == 0)) {
             this.rozlozenieMiestnosti.noveUbytovanie();
@@ -51,14 +53,14 @@ public class Ubytovanie extends Miestnosti {
             //grafika.drawImage(spracovaneImag, this.xSuradnica, this.ySuradnica, null);
         }
 
-        if (super.stavMiestnosti == StavMiestnosti.ZobrazInfo) {
+        if (this.zobrazInfo) {
             grafika.setColor(Color.decode("#18f817"));
             grafika.setFont(new Font("TimesRoman", Font.PLAIN, 45));
 
             String casDoKonca = "Cas dokoncenia: " + this.odpocitavanie;
             grafika.drawString(casDoKonca, 45, 646);
         } else {
-            super.stavMiestnosti = StavMiestnosti.Pracuje;
+            this.zobrazInfo = false;
         }
     }
 
@@ -71,16 +73,19 @@ public class Ubytovanie extends Miestnosti {
     public void klik(int x, int y) {
         if (x > this.xSuradnica && y > this.ySuradnica && x < this.xSuradnica + RozlozenieMiestnosti.SIRKA_MIESTNOSTI * this.sirkaMiestnosti && y < this.ySuradnica + RozlozenieMiestnosti.VYSKA_MIESTNOSTI) {
             if (super.stavMiestnosti == StavMiestnosti.Pracuje) {
-                super.stavMiestnosti = StavMiestnosti.ZobrazInfo;
+                this.zobrazInfo = true;
             } else if (super.stavMiestnosti == StavMiestnosti.Spracovane) {
                 this.reWork();
             }
+        } else {
+            this.zobrazInfo = false;
         }
 
     }
 
     private void reWork() {
-        this.rozlozenieMiestnosti.getBunker().getZdroje().pridajVodu((2 * this.sirkaMiestnosti * 5) - 2);
+        //todo dokončiť pridavanie ľudí
+        //this.rozlozenieMiestnosti.getBunker().getZdroje().pridajVodu((2 * this.sirkaMiestnosti * 5) - 2);
         Random random = new Random();
         this.maxTime = random.nextInt(300) + 30;
         super.odpocitavanie = this.maxTime;
