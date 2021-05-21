@@ -33,7 +33,7 @@ public class Elektraren extends sk.falloutshelter.fri.prostredie.miestnosti.Mies
         this.ySuradnica = Bunker.Y_SURADNICA_BUNKRA + this.riadok * RozlozenieMiestnosti.VYSKA_MIESTNOSTI;
         //this.image = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/builderMiestnost/builderMiestnost-1.png").getImage();
 
-        this.stavMiestnosti = StavMiestnosti.Pracuje;
+        super.stavMiestnosti = StavMiestnosti.Pracuje;
         this.pocetLudi = 2;
         this.sirkaMiestnosti = 1;
 
@@ -45,8 +45,8 @@ public class Elektraren extends sk.falloutshelter.fri.prostredie.miestnosti.Mies
     }
 
     public void pridajCloveka() {
-        if (this.stavMiestnosti == StavMiestnosti.NemaLudi) {
-            this.stavMiestnosti = StavMiestnosti.Pracuje;
+        if (super.stavMiestnosti == StavMiestnosti.NemaLudi) {
+            super.stavMiestnosti = StavMiestnosti.Pracuje;
         }
         if (this.pocetLudi < this.sirkaMiestnosti * 2) {
             this.pocetLudi++;
