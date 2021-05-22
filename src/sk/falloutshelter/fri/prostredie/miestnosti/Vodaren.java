@@ -54,6 +54,8 @@ public class Vodaren extends Miestnosti {
             this.maxTime = ((this.pocetLudi - 1) * 54 - 300) * (-1);
             if (super.odpocitavanie > this.maxTime) {
                 super.odpocitavanie = this.maxTime;
+            } else if (super.odpocitavanie == 0){
+                super.odpocitavanie = this.maxTime;
             }
         }
     }
@@ -108,7 +110,7 @@ public class Vodaren extends Miestnosti {
     }
 
     private void reWork() {
-        this.rozlozenieMiestnosti.getBunker().getZdroje().pridajVodu((2 * this.velkostMiestnosti * 5) - 2);
+        this.rozlozenieMiestnosti.getBunker().getZdroje().pridajVodu((2 * super.velkostMiestnosti * 5) - 2);
         Random random = new Random();
         this.rozlozenieMiestnosti.getBunker().getZdroje().pridajCaps(random.nextInt(60) + 15);
         super.odpocitavanie = this.maxTime;

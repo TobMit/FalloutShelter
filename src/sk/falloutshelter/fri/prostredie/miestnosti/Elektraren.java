@@ -54,6 +54,8 @@ public class Elektraren extends sk.falloutshelter.fri.prostredie.miestnosti.Mies
             this.maxTime = ((this.pocetLudi - 1) * 54 - 300) * (-1);
             if (super.odpocitavanie > this.maxTime) {
                 super.odpocitavanie = this.maxTime;
+            } else if (super.odpocitavanie == 0) {
+                super.odpocitavanie = this.maxTime;
             }
         }
     }

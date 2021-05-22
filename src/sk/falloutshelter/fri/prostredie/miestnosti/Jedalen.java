@@ -52,9 +52,8 @@ public class Jedalen extends Miestnosti {
             this.maxTime = ((this.pocetLudi - 1) * 54 - 300) * (-1);
             if (super.odpocitavanie > this.maxTime) {
                 super.odpocitavanie = this.maxTime;
-            } else {
+            } else if (super.odpocitavanie == 0){
                 super.odpocitavanie = this.maxTime;
-
             }
         }
     }
