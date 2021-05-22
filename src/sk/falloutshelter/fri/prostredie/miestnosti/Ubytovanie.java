@@ -15,15 +15,12 @@ import java.util.Random;
 public class Ubytovanie extends Miestnosti {
 
 
-    private final int riadok;
-    private final int stlpec;
+    private int riadok;
+    private int stlpec;
     private final RozlozenieMiestnosti rozlozenieMiestnosti;
-    private final int xSuradnica;
-    private final int ySuradnica;
+    private int xSuradnica;
+    private int ySuradnica;
     private boolean zobrazInfo;
-    private StavMiestnosti stavMiestnosti;
-    private int sirkaMiestnosti;
-    private int odpocitavanie;
     private int maxTime;
     private Image image;
 
@@ -34,14 +31,13 @@ public class Ubytovanie extends Miestnosti {
         this.rozlozenieMiestnosti = rozlozenieMiestnosti;
         this.xSuradnica = Bunker.X_SURADNICA_BUNKRA + this.stlpec * RozlozenieMiestnosti.SIRKA_MIESTNOSTI;
         this.ySuradnica = Bunker.Y_SURADNICA_BUNKRA + this.riadok * RozlozenieMiestnosti.VYSKA_MIESTNOSTI;
-        //this.image = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/builderMiestnost/builderMiestnost-1.png").getImage();
 
         super.stavMiestnosti = StavMiestnosti.Pracuje;
         Random random = new Random();
         //todo dočasná zmena
 //        super.odpocitavanie = random.nextInt(300) + 30;
         super.odpocitavanie = 10;
-        this.sirkaMiestnosti = 1;
+        super.velkostMiestnosti = 1;
         this.zobrazInfo = false;
 
         if (!(riadok == 0 && stlpec == 0)) {
@@ -56,7 +52,7 @@ public class Ubytovanie extends Miestnosti {
 
     @Override
     public void zobraz(Graphics grafika) {
-        switch (this.sirkaMiestnosti) {
+        switch (super.velkostMiestnosti) {
             case 1:
                 this.image = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/ubytovanie/1trieda/ubytovanie1.jpg").getImage();
                 break;
@@ -88,7 +84,7 @@ public class Ubytovanie extends Miestnosti {
 
     @Override
     public void klik(int x, int y) throws KlikException {
-        if (x > this.xSuradnica && y > this.ySuradnica && x < this.xSuradnica + RozlozenieMiestnosti.SIRKA_MIESTNOSTI * this.sirkaMiestnosti && y < this.ySuradnica + RozlozenieMiestnosti.VYSKA_MIESTNOSTI) {
+        if (x > this.xSuradnica && y > this.ySuradnica && x < this.xSuradnica + RozlozenieMiestnosti.SIRKA_MIESTNOSTI * this.velkostMiestnosti && y < this.ySuradnica + RozlozenieMiestnosti.VYSKA_MIESTNOSTI) {
             if (super.stavMiestnosti == StavMiestnosti.Pracuje) {
                 this.zobrazInfo = true;
             } else if (super.stavMiestnosti == StavMiestnosti.Spracovane) {
@@ -103,7 +99,7 @@ public class Ubytovanie extends Miestnosti {
 
     private void reWork() {
         Miestnosti[] mestnost = this.rozlozenieMiestnosti.getMiestnostiSMaloLudmi();
-        for (int i = 0; i < this.sirkaMiestnosti; i++) {
+        for (int i = 0; i < this.velkostMiestnosti; i++) {
             Miestnosti miestnost = JpanelVyberMiestnosti.zobrazVyberoveMenu(mestnost, new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/novyClen.png"));
             if (miestnost == null) {
                 i--;
@@ -122,11 +118,12 @@ public class Ubytovanie extends Miestnosti {
         return "Ubytovanie";
     }
 
-    public int getSirkaMiestnosti() {
-        return sirkaMiestnosti;
+    @Override
+    public void setSuradnice (int riadok, int stlpec) {
+        this.riadok = riadok;
+        this.stlpec = stlpec;
+        this.xSuradnica = Bunker.X_SURADNICA_BUNKRA + this.stlpec * RozlozenieMiestnosti.SIRKA_MIESTNOSTI;
+        this.ySuradnica = Bunker.Y_SURADNICA_BUNKRA + this.riadok * RozlozenieMiestnosti.VYSKA_MIESTNOSTI;
     }
 
-    public void setSirkaMiestnosti() {
-        this.sirkaMiestnosti++;
-    }
 }

@@ -178,16 +178,27 @@ public class RozlozenieMiestnosti implements IKlik, ITik {
      * @param stlpec x os
      */
     public void pridajMiestnosti(int riadok, int stlpec) {
-        //todo Keď sa pridá miestnosť zvyši sa počet daného typu v globálnom počítani miestnosti. - skontrolovať
-        //todo keď sa miestnosť doplní, tak aby z reworkom sa dala aj určitá finančná odmena.
         if (this.miestnostNaPostavenie != null && this.miestnosti[riadok][stlpec] instanceof BuilderMiestnost) {
             Zdroje zdroje = this.bunker.getZdroje();
             if (this.miestnostNaPostavenie instanceof Elektraren) {
                 this.miestnosti[riadok][stlpec] = new Elektraren(riadok, stlpec, this);
                 zdroje.nakupuj(300);
             } else if (this.miestnostNaPostavenie instanceof Ubytovanie) {
-                this.miestnosti[riadok][stlpec] = new Ubytovanie(riadok, stlpec, this);
-                zdroje.nakupuj(200);
+
+                if (stlpec - 1 >= 0 && this.miestnosti[riadok][stlpec - 1] instanceof Ubytovanie && this.miestnosti[riadok][stlpec - 1].getVelkostMiesnosti() < 3) {
+                    this.miestnosti[riadok][stlpec] = this.miestnosti[riadok][stlpec - 1];
+                    this.miestnosti[riadok][stlpec].zvetsiMiestnost();
+                    zdroje.nakupuj(200);
+                } else if (stlpec + 1 < this.miestnosti[riadok].length && this.miestnosti[riadok][stlpec + 1] instanceof Ubytovanie && this.miestnosti[riadok][stlpec + 1].getVelkostMiesnosti() < 3) {
+                    this.miestnosti[riadok][stlpec] = this.miestnosti[riadok][stlpec + 1];
+                    this.miestnosti[riadok][stlpec].setSuradnice(riadok, stlpec);
+                    this.miestnosti[riadok][stlpec].zvetsiMiestnost();
+                    zdroje.nakupuj(200);
+                } else {
+                    this.miestnosti[riadok][stlpec] = new Ubytovanie(riadok, stlpec, this);
+                    zdroje.nakupuj(200);
+                }
+
             } else if (this.miestnostNaPostavenie instanceof Vytah) {
                 this.miestnosti[riadok][stlpec] = new Vytah(riadok, stlpec, this);
                 zdroje.nakupuj(50);
@@ -202,6 +213,7 @@ public class RozlozenieMiestnosti implements IKlik, ITik {
             this.hra.setStavObrazokvy(StavObrazovky.HraBezi);
         }
     }
+
 
     /**
      * Prepošle klik každej miestnosti.

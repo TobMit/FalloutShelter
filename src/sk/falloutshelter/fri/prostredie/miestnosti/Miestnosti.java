@@ -58,4 +58,16 @@ public abstract class Miestnosti implements IZobraz, IKlik, ITik {
     public String toString() {
         return "Global Miestnost - Musela nastať niekde chyba, pretože toto sa nemalo nikdy zobraziť. XD";
     }
+
+    public int getVelkostMiesnosti() {
+        return velkostMiestnosti;
+    }
+
+    public void zvetsiMiestnost() {
+        this.velkostMiestnosti++;
+    }
+
+    public void setSuradnice(int riadok, int stlpec) {
+
+    }
 }
