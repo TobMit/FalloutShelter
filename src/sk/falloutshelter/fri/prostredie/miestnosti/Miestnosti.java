@@ -28,6 +28,7 @@ public abstract class Miestnosti implements IZobraz, IKlik, ITik {
     }
     
     public void tik() {
+
         if (this.odpocitavanie <= 0 && (this.stavMiestnosti == StavMiestnosti.Pracuje)) {
             this.stavMiestnosti = StavMiestnosti.Spracovane;
         }
@@ -37,8 +38,10 @@ public abstract class Miestnosti implements IZobraz, IKlik, ITik {
             return;
         }
 
-        if (this.odpocitavanie > 0) {
-            this.odpocitavanie--;
+        if (this.stavMiestnosti != StavMiestnosti.NemaEnergiu) {
+            if (this.odpocitavanie > 0) {
+                this.odpocitavanie--;
+            }
         }
     }
 

@@ -62,6 +62,9 @@ public class Jedalen extends Miestnosti {
 
     @Override
     public void zobraz(Graphics grafika) {
+        if (this.rozlozenieMiestnosti.getBunker().getZdroje().getEnergia() <= 0) {
+            super.stavMiestnosti = StavMiestnosti.NemaEnergiu;
+        }
         grafika.setColor(Color.yellow);
         grafika.fillRect(Bunker.X_SURADNICA_BUNKRA + this.stlpec * RozlozenieMiestnosti.SIRKA_MIESTNOSTI, Bunker.Y_SURADNICA_BUNKRA + this.riadok * RozlozenieMiestnosti.VYSKA_MIESTNOSTI, RozlozenieMiestnosti.SIRKA_MIESTNOSTI, RozlozenieMiestnosti.VYSKA_MIESTNOSTI);
 
@@ -86,7 +89,7 @@ public class Jedalen extends Miestnosti {
     @Override
     public void klik(int x, int y) throws KlikException {
         if (x > this.xSuradnica && y > this.ySuradnica && x < this.xSuradnica + RozlozenieMiestnosti.SIRKA_MIESTNOSTI * this.sirkaMiestnosti && y < this.ySuradnica + RozlozenieMiestnosti.VYSKA_MIESTNOSTI) {
-            if (super.stavMiestnosti == StavMiestnosti.Pracuje || super.stavMiestnosti == StavMiestnosti.NemaLudi) {
+            if (super.stavMiestnosti == StavMiestnosti.Pracuje || super.stavMiestnosti == StavMiestnosti.NemaLudi || super.stavMiestnosti == StavMiestnosti.NemaEnergiu) {
                 this.zobrazInfo = true;
             } else if (super.stavMiestnosti == StavMiestnosti.Spracovane) {
                 this.reWork();

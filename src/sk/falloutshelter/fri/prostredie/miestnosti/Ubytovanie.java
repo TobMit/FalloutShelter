@@ -80,9 +80,9 @@ public class Ubytovanie extends Miestnosti {
         if (x > this.xSuradnica && y > this.ySuradnica && x < this.xSuradnica + RozlozenieMiestnosti.SIRKA_MIESTNOSTI * this.sirkaMiestnosti && y < this.ySuradnica + RozlozenieMiestnosti.VYSKA_MIESTNOSTI) {
             if (super.stavMiestnosti == StavMiestnosti.Pracuje) {
                 this.zobrazInfo = true;
-                throw new KlikException("klik");
             } else if (super.stavMiestnosti == StavMiestnosti.Spracovane) {
                 this.reWork();
+                throw new KlikException("klik");
             }
         } else {
             this.zobrazInfo = false;

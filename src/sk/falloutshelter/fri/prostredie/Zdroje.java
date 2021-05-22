@@ -32,6 +32,11 @@ public class Zdroje implements IZobraz {
         this.voda -= (voda + this.ludia);
         this.energia -= energia;
         this.jedlo -= this.ludia;
+
+    }
+
+    public int getEnergia() {
+        return energia;
     }
 
     public void nakupuj(int cena) {

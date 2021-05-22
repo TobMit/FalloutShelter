@@ -6,5 +6,5 @@ package sk.falloutshelter.fri.prostredie.miestnosti;
  * @author Tobias
  */
 public enum StavMiestnosti {
-    Pracuje, Spracovane, NemaLudi
+    Pracuje, Spracovane, NemaEnergiu, NemaLudi
 }
