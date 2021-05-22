@@ -82,12 +82,13 @@ public class Vodaren extends Miestnosti {
 
 
     @Override
-    public void klik(int x, int y) {
+    public void klik(int x, int y) throws KlikException {
         if (x > this.xSuradnica && y > this.ySuradnica && x < this.xSuradnica + RozlozenieMiestnosti.SIRKA_MIESTNOSTI * this.sirkaMiestnosti && y < this.ySuradnica + RozlozenieMiestnosti.VYSKA_MIESTNOSTI) {
             if (super.stavMiestnosti == StavMiestnosti.Pracuje || super.stavMiestnosti == StavMiestnosti.NemaLudi) {
                 this.zobrazInfo = true;
             } else if (super.stavMiestnosti == StavMiestnosti.Spracovane) {
                 this.reWork();
+                throw new KlikException("Klik");
             }
         } else {
             this.zobrazInfo = false;

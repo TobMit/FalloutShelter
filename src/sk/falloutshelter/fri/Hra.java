@@ -125,9 +125,6 @@ public class Hra {
 
         }
 
-//        if (this.stavObrazokvy == StavObrazovky.Stavanie) {
-//            System.out.println(this.tik);
-//        }
 
 
 

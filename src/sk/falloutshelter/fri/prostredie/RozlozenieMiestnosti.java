@@ -210,7 +210,11 @@ public class RozlozenieMiestnosti implements IKlik, ITik {
     public void klik(int x, int y) {
         for (Miestnosti[] miestnostis : this.miestnosti) {
             for (Miestnosti miestnost : miestnostis) {
-                miestnost.klik(x, y);
+                try {
+                    miestnost.klik(x, y);
+                } catch (KlikException e) {
+                    return;
+                }
             }
         }
     }

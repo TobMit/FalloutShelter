@@ -22,7 +22,7 @@ public class Ubytovanie extends Miestnosti {
     private final int ySuradnica;
     private boolean zobrazInfo;
     private StavMiestnosti stavMiestnosti;
-    private final int sirkaMiestnosti;
+    private int sirkaMiestnosti;
     private int odpocitavanie;
     private int maxTime;
 
@@ -76,10 +76,11 @@ public class Ubytovanie extends Miestnosti {
 
 
     @Override
-    public void klik(int x, int y) {
+    public void klik(int x, int y) throws KlikException {
         if (x > this.xSuradnica && y > this.ySuradnica && x < this.xSuradnica + RozlozenieMiestnosti.SIRKA_MIESTNOSTI * this.sirkaMiestnosti && y < this.ySuradnica + RozlozenieMiestnosti.VYSKA_MIESTNOSTI) {
             if (super.stavMiestnosti == StavMiestnosti.Pracuje) {
                 this.zobrazInfo = true;
+                throw new KlikException("klik");
             } else if (super.stavMiestnosti == StavMiestnosti.Spracovane) {
                 this.reWork();
             }
@@ -108,5 +109,13 @@ public class Ubytovanie extends Miestnosti {
     @Override
     public String toString() {
         return "Ubytovanie";
+    }
+
+    public int getSirkaMiestnosti() {
+        return sirkaMiestnosti;
+    }
+
+    public void setSirkaMiestnosti() {
+        this.sirkaMiestnosti++;
     }
 }
