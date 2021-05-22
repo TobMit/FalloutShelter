@@ -39,7 +39,6 @@ public class Jedalen extends Miestnosti {
         if (!(riadok == 0 && stlpec == 0)) {
             this.rozlozenieMiestnosti.novaJedalen();
         }
-        this.pocetLudi = 0;
     }
 
     public void pridajCloveka() {
@@ -53,6 +52,9 @@ public class Jedalen extends Miestnosti {
             this.maxTime = ((this.pocetLudi - 1) * 54 - 300) * (-1);
             if (super.odpocitavanie > this.maxTime) {
                 super.odpocitavanie = this.maxTime;
+            } else {
+                super.odpocitavanie = this.maxTime;
+
             }
         }
     }
@@ -61,6 +63,13 @@ public class Jedalen extends Miestnosti {
     public void zobraz(Graphics grafika) {
         if (this.rozlozenieMiestnosti.getBunker().getZdroje().getEnergia() <= 0) {
             super.stavMiestnosti = StavMiestnosti.NemaEnergiu;
+            System.out.println("som tu");
+        } else {
+            if (this.pocetLudi != 0) {
+                super.stavMiestnosti = StavMiestnosti.Pracuje;
+            } else {
+                super.stavMiestnosti = StavMiestnosti.NemaLudi;
+            }
         }
         switch (super.velkostMiestnosti) {
             case 1:
@@ -75,7 +84,7 @@ public class Jedalen extends Miestnosti {
         }
         grafika.drawImage(this.image, this.xSuradnica, this.ySuradnica, null);
         if (super.stavMiestnosti == StavMiestnosti.Spracovane) {
-            Image spracovaneImag = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/jedalen/dogenerovanaJedalen-1.png").getImage();
+            Image spracovaneImag = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/jedalen/1trieda/dogenerovanaJedalen-1.png").getImage();
             grafika.drawImage(spracovaneImag, this.xSuradnica, this.ySuradnica, null);
         }
 
@@ -107,7 +116,7 @@ public class Jedalen extends Miestnosti {
     }
 
     private void reWork() {
-        this.rozlozenieMiestnosti.getBunker().getZdroje().pridajJedlo((2 * this.velkostMiestnosti * 5) - 2);
+        this.rozlozenieMiestnosti.getBunker().getZdroje().pridajJedlo((2 * super.velkostMiestnosti * 5) - 2);
         Random random = new Random();
         this.rozlozenieMiestnosti.getBunker().getZdroje().pridajCaps(random.nextInt(80) + 15);
         super.odpocitavanie = this.maxTime;

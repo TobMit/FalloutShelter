@@ -12,19 +12,14 @@ import java.util.Random;
  * @author Tobias
  */
 public class Elektraren extends sk.falloutshelter.fri.prostredie.miestnosti.Miestnosti {
-
-    //todo dokončiť, Elektráreň a ostané okrem vodárne nedoknčené.
     private int riadok;
     private int stlpec;
     private final RozlozenieMiestnosti rozlozenieMiestnosti;
     private int xSuradnica;
     private int ySuradnica;
     private boolean zobrazInfo;
-    private StavMiestnosti stavMiestnosti;
     private int pocetLudi;
-    private int velkostMiestnosti;
     private int maxTime = -1;
-    private int odpocitavanie;
     private Image image;
 
     public Elektraren(int riadok, int stlpec, RozlozenieMiestnosti rozlozenieMiestnosti) {
@@ -34,15 +29,13 @@ public class Elektraren extends sk.falloutshelter.fri.prostredie.miestnosti.Mies
         this.rozlozenieMiestnosti = rozlozenieMiestnosti;
         this.xSuradnica = Bunker.X_SURADNICA_BUNKRA + this.stlpec * RozlozenieMiestnosti.SIRKA_MIESTNOSTI;
         this.ySuradnica = Bunker.Y_SURADNICA_BUNKRA + this.riadok * RozlozenieMiestnosti.VYSKA_MIESTNOSTI;
-        //this.image = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/builderMiestnost/builderMiestnost-1.png").getImage();
 
         super.stavMiestnosti = StavMiestnosti.NemaLudi;
         this.pocetLudi = 0;
         super.pocetLudi = this.pocetLudi;
         super.velkostMiestnosti = 1;
         this.zobrazInfo = false;
-        this.odpocitavanie = this.maxTime;
-
+        //super.odpocitavanie = this.maxTime;
         if (!(riadok == 0 && stlpec == 0)) {
             this.rozlozenieMiestnosti.novaElektraren();
         }
@@ -82,7 +75,8 @@ public class Elektraren extends sk.falloutshelter.fri.prostredie.miestnosti.Mies
         grafika.drawImage(this.image, this.xSuradnica, this.ySuradnica, null);
 
         if (super.stavMiestnosti == StavMiestnosti.Spracovane) {
-            Image spracovaneImag = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/elektraren/dogenerovanaElektraren-1.png").getImage();
+            Image spracovaneImag = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/elektraren/1trieda/dogenerovanaElektraren-1.png").getImage();
+            System.out.println("som tu");
             grafika.drawImage(spracovaneImag, this.xSuradnica, this.ySuradnica, null);
         }
 
@@ -114,7 +108,7 @@ public class Elektraren extends sk.falloutshelter.fri.prostredie.miestnosti.Mies
     }
 
     private void reWork() {
-        this.rozlozenieMiestnosti.getBunker().getZdroje().pridajEnergie((2 * this.velkostMiestnosti * 5) - 2);
+        this.rozlozenieMiestnosti.getBunker().getZdroje().pridajEnergie((2 * super.velkostMiestnosti * 5) - 2);
         Random random = new Random();
         this.rozlozenieMiestnosti.getBunker().getZdroje().pridajCaps(random.nextInt(60) + 5);
         super.odpocitavanie = this.maxTime;

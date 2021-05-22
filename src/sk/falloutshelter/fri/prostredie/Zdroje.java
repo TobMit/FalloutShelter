@@ -40,7 +40,7 @@ public class Zdroje implements IZobraz {
     }
 
     public int getEnergia() {
-        return energia;
+        return this.energia;
     }
 
     public void nakupuj(int cena) {
