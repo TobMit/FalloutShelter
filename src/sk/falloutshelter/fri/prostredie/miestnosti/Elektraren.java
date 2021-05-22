@@ -14,15 +14,15 @@ import java.util.Random;
 public class Elektraren extends sk.falloutshelter.fri.prostredie.miestnosti.Miestnosti {
 
     //todo dokončiť, Elektráreň a ostané okrem vodárne nedoknčené.
-    private final int riadok;
-    private final int stlpec;
+    private int riadok;
+    private int stlpec;
     private final RozlozenieMiestnosti rozlozenieMiestnosti;
-    private final int xSuradnica;
-    private final int ySuradnica;
+    private int xSuradnica;
+    private int ySuradnica;
     private boolean zobrazInfo;
     private StavMiestnosti stavMiestnosti;
     private int pocetLudi;
-    private int sirkaMiestnosti;
+    private int velkostMiestnosti;
     private int maxTime = -1;
     private int odpocitavanie;
     private Image image;
@@ -39,7 +39,7 @@ public class Elektraren extends sk.falloutshelter.fri.prostredie.miestnosti.Mies
         super.stavMiestnosti = StavMiestnosti.NemaLudi;
         this.pocetLudi = 0;
         super.pocetLudi = this.pocetLudi;
-        this.sirkaMiestnosti = 1;
+        super.velkostMiestnosti = 1;
         this.zobrazInfo = false;
         this.odpocitavanie = this.maxTime;
 
@@ -54,7 +54,7 @@ public class Elektraren extends sk.falloutshelter.fri.prostredie.miestnosti.Mies
         if (super.stavMiestnosti == StavMiestnosti.NemaLudi) {
             super.stavMiestnosti = StavMiestnosti.Pracuje;
         }
-        if (this.pocetLudi < this.sirkaMiestnosti * 2) {
+        if (this.pocetLudi < super.velkostMiestnosti * 2) {
             this.pocetLudi++;
             super.pocetLudi++;
             this.rozlozenieMiestnosti.getBunker().getZdroje().pridajCloveka();
@@ -68,7 +68,7 @@ public class Elektraren extends sk.falloutshelter.fri.prostredie.miestnosti.Mies
     @Override
     public void zobraz(Graphics grafika) {
         //System.out.println(this.sirkaMiestnosti);
-        switch (this.sirkaMiestnosti) {
+        switch (super.velkostMiestnosti) {
             case 1:
                 this.image = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/elektraren/1trieda/ekektraen 1.jpg").getImage();
                 break;
@@ -101,7 +101,7 @@ public class Elektraren extends sk.falloutshelter.fri.prostredie.miestnosti.Mies
 
     @Override
     public void klik(int x, int y) throws KlikException {
-        if (x > this.xSuradnica && y > this.ySuradnica && x < this.xSuradnica + RozlozenieMiestnosti.SIRKA_MIESTNOSTI * this.sirkaMiestnosti && y < this.ySuradnica + RozlozenieMiestnosti.VYSKA_MIESTNOSTI) {
+        if (x > this.xSuradnica && y > this.ySuradnica && x < this.xSuradnica + RozlozenieMiestnosti.SIRKA_MIESTNOSTI * super.velkostMiestnosti && y < this.ySuradnica + RozlozenieMiestnosti.VYSKA_MIESTNOSTI) {
             if (super.stavMiestnosti == StavMiestnosti.Pracuje || super.stavMiestnosti == StavMiestnosti.NemaLudi) {
                 this.zobrazInfo = true;
             } else if (super.stavMiestnosti == StavMiestnosti.Spracovane) {
@@ -114,7 +114,7 @@ public class Elektraren extends sk.falloutshelter.fri.prostredie.miestnosti.Mies
     }
 
     private void reWork() {
-        this.rozlozenieMiestnosti.getBunker().getZdroje().pridajEnergie((2 * this.sirkaMiestnosti * 5) - 2);
+        this.rozlozenieMiestnosti.getBunker().getZdroje().pridajEnergie((2 * this.velkostMiestnosti * 5) - 2);
         Random random = new Random();
         this.rozlozenieMiestnosti.getBunker().getZdroje().pridajCaps(random.nextInt(60) + 5);
         super.odpocitavanie = this.maxTime;
@@ -127,6 +127,14 @@ public class Elektraren extends sk.falloutshelter.fri.prostredie.miestnosti.Mies
             return String.format("Elektraren %d. poschodie, %d v poradi", this.riadok, this.stlpec);
         }
         return "Elektraren";
+    }
+
+    @Override
+    public void setSuradnice (int riadok, int stlpec) {
+        this.riadok = riadok;
+        this.stlpec = stlpec;
+        this.xSuradnica = Bunker.X_SURADNICA_BUNKRA + this.stlpec * RozlozenieMiestnosti.SIRKA_MIESTNOSTI;
+        this.ySuradnica = Bunker.Y_SURADNICA_BUNKRA + this.riadok * RozlozenieMiestnosti.VYSKA_MIESTNOSTI;
     }
 
 

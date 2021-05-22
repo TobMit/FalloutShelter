@@ -24,7 +24,7 @@ public class Zdroje implements IZobraz {
         this.voda = 0;
         this.energia = 0;
         this.jedlo = 0;
-        this.caps = 1000;
+        this.caps = 1500;
         this.ludia = 0;
     }
 

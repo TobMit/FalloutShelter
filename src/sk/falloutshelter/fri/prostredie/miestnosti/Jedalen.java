@@ -12,16 +12,13 @@ import java.util.Random;
  * @author Tobias
  */
 public class Jedalen extends Miestnosti {
-    private final int riadok;
-    private final int stlpec;
+    private int riadok;
+    private int stlpec;
     private final RozlozenieMiestnosti rozlozenieMiestnosti;
     private boolean zobrazInfo;
-    private int sirkaMiestnosti;
-    private final int xSuradnica;
-    private final int ySuradnica;
-    private StavMiestnosti stavMiestnosti;
+    private int xSuradnica;
+    private int ySuradnica;
     private int pocetLudi;
-    private int odpocitavanie;
     private int maxTime = -1;
     private Image image;
 
@@ -31,12 +28,11 @@ public class Jedalen extends Miestnosti {
         this.stlpec = stlpec;
         this.xSuradnica = Bunker.X_SURADNICA_BUNKRA + this.stlpec * RozlozenieMiestnosti.SIRKA_MIESTNOSTI;
         this.ySuradnica = Bunker.Y_SURADNICA_BUNKRA + this.riadok * RozlozenieMiestnosti.VYSKA_MIESTNOSTI;
-        //this.image = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/builderMiestnost/builderMiestnost-1.png").getImage();
 
         super.stavMiestnosti = StavMiestnosti.NemaLudi;
         this.pocetLudi = 0;
         super.pocetLudi = this.pocetLudi;
-        this.sirkaMiestnosti = 1;
+        super.velkostMiestnosti = 1;
         this.zobrazInfo = false;
 
         this.rozlozenieMiestnosti = rozlozenieMiestnosti;
@@ -44,14 +40,13 @@ public class Jedalen extends Miestnosti {
             this.rozlozenieMiestnosti.novaJedalen();
         }
         this.pocetLudi = 0;
-        this.sirkaMiestnosti = 1;
     }
 
     public void pridajCloveka() {
         if (super.stavMiestnosti == StavMiestnosti.NemaLudi) {
             super.stavMiestnosti = StavMiestnosti.Pracuje;
         }
-        if (this.pocetLudi < this.sirkaMiestnosti * 2) {
+        if (this.pocetLudi < super.velkostMiestnosti * 2) {
             this.pocetLudi++;
             super.pocetLudi++;
             this.rozlozenieMiestnosti.getBunker().getZdroje().pridajCloveka();
@@ -67,7 +62,7 @@ public class Jedalen extends Miestnosti {
         if (this.rozlozenieMiestnosti.getBunker().getZdroje().getEnergia() <= 0) {
             super.stavMiestnosti = StavMiestnosti.NemaEnergiu;
         }
-        switch (this.sirkaMiestnosti) {
+        switch (super.velkostMiestnosti) {
             case 1:
                 this.image = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/jedalen/1trieda/jedalen1.jpg").getImage();
                 break;
@@ -99,7 +94,7 @@ public class Jedalen extends Miestnosti {
 
     @Override
     public void klik(int x, int y) throws KlikException {
-        if (x > this.xSuradnica && y > this.ySuradnica && x < this.xSuradnica + RozlozenieMiestnosti.SIRKA_MIESTNOSTI * this.sirkaMiestnosti && y < this.ySuradnica + RozlozenieMiestnosti.VYSKA_MIESTNOSTI) {
+        if (x > this.xSuradnica && y > this.ySuradnica && x < this.xSuradnica + RozlozenieMiestnosti.SIRKA_MIESTNOSTI * super.velkostMiestnosti && y < this.ySuradnica + RozlozenieMiestnosti.VYSKA_MIESTNOSTI) {
             if (super.stavMiestnosti == StavMiestnosti.Pracuje || super.stavMiestnosti == StavMiestnosti.NemaLudi || super.stavMiestnosti == StavMiestnosti.NemaEnergiu) {
                 this.zobrazInfo = true;
             } else if (super.stavMiestnosti == StavMiestnosti.Spracovane) {
@@ -112,7 +107,7 @@ public class Jedalen extends Miestnosti {
     }
 
     private void reWork() {
-        this.rozlozenieMiestnosti.getBunker().getZdroje().pridajJedlo((2 * this.sirkaMiestnosti * 5) - 2);
+        this.rozlozenieMiestnosti.getBunker().getZdroje().pridajJedlo((2 * this.velkostMiestnosti * 5) - 2);
         Random random = new Random();
         this.rozlozenieMiestnosti.getBunker().getZdroje().pridajCaps(random.nextInt(80) + 15);
         super.odpocitavanie = this.maxTime;
@@ -125,6 +120,14 @@ public class Jedalen extends Miestnosti {
             return String.format("Jedalen %d. poschodie, %d v poradi", this.riadok, this.stlpec);
         }
         return "Jedalen";
+    }
+
+    @Override
+    public void setSuradnice (int riadok, int stlpec) {
+        this.riadok = riadok;
+        this.stlpec = stlpec;
+        this.xSuradnica = Bunker.X_SURADNICA_BUNKRA + this.stlpec * RozlozenieMiestnosti.SIRKA_MIESTNOSTI;
+        this.ySuradnica = Bunker.Y_SURADNICA_BUNKRA + this.riadok * RozlozenieMiestnosti.VYSKA_MIESTNOSTI;
     }
 
 }

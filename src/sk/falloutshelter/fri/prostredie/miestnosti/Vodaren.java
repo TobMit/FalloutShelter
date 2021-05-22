@@ -12,16 +12,13 @@ import java.util.Random;
  * @author Tobias
  */
 public class Vodaren extends Miestnosti {
-    private final int riadok;
-    private final int stlpec;
+    private int riadok;
+    private int stlpec;
     private final RozlozenieMiestnosti rozlozenieMiestnosti;
-    private final int ySuradnica;
-    private final int xSuradnica;
+    private int ySuradnica;
+    private int xSuradnica;
     private boolean zobrazInfo;
-    private StavMiestnosti stavMiestnosti;
     private int pocetLudi;
-    private int sirkaMiestnosti;
-    private int odpocitavanie;
     // keď je zaporne číslo tak nevyrábame
     private int maxTime = -1;
     private Image image;
@@ -38,7 +35,7 @@ public class Vodaren extends Miestnosti {
         super.stavMiestnosti = StavMiestnosti.NemaLudi;
         this.pocetLudi = 0;
         super.pocetLudi = 0;
-        this.sirkaMiestnosti = 1;
+        super.velkostMiestnosti = 1;
         this.zobrazInfo = false;
 
         if (!(riadok == 0 && stlpec == 0)) {
@@ -50,7 +47,7 @@ public class Vodaren extends Miestnosti {
         if (super.stavMiestnosti == StavMiestnosti.NemaLudi) {
             super.stavMiestnosti = StavMiestnosti.Pracuje;
         }
-        if (this.pocetLudi < this.sirkaMiestnosti * 2) {
+        if (this.pocetLudi < super.velkostMiestnosti * 2) {
             this.pocetLudi++;
             super.pocetLudi++;
             this.rozlozenieMiestnosti.getBunker().getZdroje().pridajCloveka();
@@ -66,7 +63,7 @@ public class Vodaren extends Miestnosti {
         if (this.rozlozenieMiestnosti.getBunker().getZdroje().getEnergia() <= 0) {
             super.stavMiestnosti = StavMiestnosti.NemaEnergiu;
         }
-        switch (this.sirkaMiestnosti) {
+        switch (super.velkostMiestnosti) {
             case 1:
                 this.image = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/vodaren/1trieda/vodaren1.jpg").getImage();
                 break;
@@ -98,7 +95,7 @@ public class Vodaren extends Miestnosti {
 
     @Override
     public void klik(int x, int y) throws KlikException {
-        if (x > this.xSuradnica && y > this.ySuradnica && x < this.xSuradnica + RozlozenieMiestnosti.SIRKA_MIESTNOSTI * this.sirkaMiestnosti && y < this.ySuradnica + RozlozenieMiestnosti.VYSKA_MIESTNOSTI) {
+        if (x > this.xSuradnica && y > this.ySuradnica && x < this.xSuradnica + RozlozenieMiestnosti.SIRKA_MIESTNOSTI * super.velkostMiestnosti && y < this.ySuradnica + RozlozenieMiestnosti.VYSKA_MIESTNOSTI) {
             if (super.stavMiestnosti == StavMiestnosti.Pracuje || super.stavMiestnosti == StavMiestnosti.NemaLudi || super.stavMiestnosti == StavMiestnosti.NemaEnergiu) {
                 this.zobrazInfo = true;
             } else if (super.stavMiestnosti == StavMiestnosti.Spracovane) {
@@ -111,7 +108,7 @@ public class Vodaren extends Miestnosti {
     }
 
     private void reWork() {
-        this.rozlozenieMiestnosti.getBunker().getZdroje().pridajVodu((2 * this.sirkaMiestnosti * 5) - 2);
+        this.rozlozenieMiestnosti.getBunker().getZdroje().pridajVodu((2 * this.velkostMiestnosti * 5) - 2);
         Random random = new Random();
         this.rozlozenieMiestnosti.getBunker().getZdroje().pridajCaps(random.nextInt(60) + 15);
         super.odpocitavanie = this.maxTime;
@@ -124,6 +121,14 @@ public class Vodaren extends Miestnosti {
             return String.format("Vodaren %d. poschodie, %d v poradi", this.riadok, this.stlpec);
         }
         return "Vodaren";
+    }
+
+    @Override
+    public void setSuradnice (int riadok, int stlpec) {
+        this.riadok = riadok;
+        this.stlpec = stlpec;
+        this.xSuradnica = Bunker.X_SURADNICA_BUNKRA + this.stlpec * RozlozenieMiestnosti.SIRKA_MIESTNOSTI;
+        this.ySuradnica = Bunker.Y_SURADNICA_BUNKRA + this.riadok * RozlozenieMiestnosti.VYSKA_MIESTNOSTI;
     }
 
 }
