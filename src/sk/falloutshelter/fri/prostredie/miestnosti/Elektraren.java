@@ -25,6 +25,7 @@ public class Elektraren extends sk.falloutshelter.fri.prostredie.miestnosti.Mies
     private int sirkaMiestnosti;
     private int maxTime = -1;
     private int odpocitavanie;
+    private Image image;
 
     public Elektraren(int riadok, int stlpec, RozlozenieMiestnosti rozlozenieMiestnosti) {
         super(riadok, stlpec, rozlozenieMiestnosti);
@@ -67,8 +68,19 @@ public class Elektraren extends sk.falloutshelter.fri.prostredie.miestnosti.Mies
     @Override
     public void zobraz(Graphics grafika) {
         //System.out.println(this.sirkaMiestnosti);
-        grafika.setColor(Color.black);
-        grafika.fillRect(this.xSuradnica, this.ySuradnica, RozlozenieMiestnosti.SIRKA_MIESTNOSTI, RozlozenieMiestnosti.VYSKA_MIESTNOSTI);
+        switch (this.sirkaMiestnosti) {
+            case 1:
+                this.image = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/elektraren/1trieda/ekektraen 1.jpg").getImage();
+                break;
+            case 2:
+                this.image = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/elektraren/2trieda/elekrtraen2.jpg").getImage();
+                break;
+            case 3:
+                this.image = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/elektraren/3trieda/Elektraren3.jpg").getImage();
+                break;
+        }
+        grafika.drawImage(this.image, this.xSuradnica, this.ySuradnica, null);
+
         if (super.stavMiestnosti == StavMiestnosti.Spracovane) {
             Image spracovaneImag = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/elektraren/dogenerovanaElektraren-1.png").getImage();
             grafika.drawImage(spracovaneImag, this.xSuradnica, this.ySuradnica, null);
