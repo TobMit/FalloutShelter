@@ -23,6 +23,7 @@ public class Jedalen extends Miestnosti {
     private int pocetLudi;
     private int odpocitavanie;
     private int maxTime = -1;
+    private Image image;
 
     public Jedalen(int riadok, int stlpec, RozlozenieMiestnosti rozlozenieMiestnosti) {
         super(riadok, stlpec, rozlozenieMiestnosti);
@@ -66,9 +67,18 @@ public class Jedalen extends Miestnosti {
         if (this.rozlozenieMiestnosti.getBunker().getZdroje().getEnergia() <= 0) {
             super.stavMiestnosti = StavMiestnosti.NemaEnergiu;
         }
-        grafika.setColor(Color.yellow);
-        grafika.fillRect(Bunker.X_SURADNICA_BUNKRA + this.stlpec * RozlozenieMiestnosti.SIRKA_MIESTNOSTI, Bunker.Y_SURADNICA_BUNKRA + this.riadok * RozlozenieMiestnosti.VYSKA_MIESTNOSTI, RozlozenieMiestnosti.SIRKA_MIESTNOSTI, RozlozenieMiestnosti.VYSKA_MIESTNOSTI);
-
+        switch (this.sirkaMiestnosti) {
+            case 1:
+                this.image = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/jedalen/1trieda/jedalen1.jpg").getImage();
+                break;
+            case 2:
+                this.image = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/jedalen/2trieda/jedalen2.jpg").getImage();
+                break;
+            case 3:
+                this.image = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/jedalen/3trieda/jedalen3.jpg").getImage();
+                break;
+        }
+        grafika.drawImage(this.image, this.xSuradnica, this.ySuradnica, null);
         if (super.stavMiestnosti == StavMiestnosti.Spracovane) {
             Image spracovaneImag = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/jedalen/dogenerovanaJedalen-1.png").getImage();
             grafika.drawImage(spracovaneImag, this.xSuradnica, this.ySuradnica, null);

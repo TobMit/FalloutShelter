@@ -24,6 +24,7 @@ public class Vodaren extends Miestnosti {
     private int odpocitavanie;
     // keď je zaporne číslo tak nevyrábame
     private int maxTime = -1;
+    private Image image;
 
     public Vodaren(int riadok, int stlpec, RozlozenieMiestnosti rozlozenieMiestnosti) {
         super(riadok, stlpec, rozlozenieMiestnosti);
@@ -65,8 +66,18 @@ public class Vodaren extends Miestnosti {
         if (this.rozlozenieMiestnosti.getBunker().getZdroje().getEnergia() <= 0) {
             super.stavMiestnosti = StavMiestnosti.NemaEnergiu;
         }
-        grafika.setColor(Color.blue);
-        grafika.fillRect(this.xSuradnica, this.ySuradnica, RozlozenieMiestnosti.SIRKA_MIESTNOSTI, RozlozenieMiestnosti.VYSKA_MIESTNOSTI);
+        switch (this.sirkaMiestnosti) {
+            case 1:
+                this.image = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/vodaren/1trieda/vodaren1.jpg").getImage();
+                break;
+            case 2:
+                this.image = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/vodaren/2trieda/vodaren2.jpg").getImage();
+                break;
+            case 3:
+                this.image = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/vodaren/3trieda/vodaren3.jpg").getImage();
+                break;
+        }
+        grafika.drawImage(this.image, this.xSuradnica, this.ySuradnica, null);
         if (super.stavMiestnosti == StavMiestnosti.Spracovane) {
             Image spracovaneImag = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/vodaren/dogenerovanaVodaren-1.png").getImage();
             grafika.drawImage(spracovaneImag, this.xSuradnica, this.ySuradnica, null);

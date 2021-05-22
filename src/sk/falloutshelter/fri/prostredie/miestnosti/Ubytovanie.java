@@ -25,6 +25,7 @@ public class Ubytovanie extends Miestnosti {
     private int sirkaMiestnosti;
     private int odpocitavanie;
     private int maxTime;
+    private Image image;
 
     public Ubytovanie(int riadok, int stlpec, RozlozenieMiestnosti rozlozenieMiestnosti) {
         super(riadok, stlpec, rozlozenieMiestnosti);
@@ -55,8 +56,18 @@ public class Ubytovanie extends Miestnosti {
 
     @Override
     public void zobraz(Graphics grafika) {
-        grafika.setColor(Color.red);
-        grafika.fillRect(Bunker.X_SURADNICA_BUNKRA + this.stlpec * RozlozenieMiestnosti.SIRKA_MIESTNOSTI, Bunker.Y_SURADNICA_BUNKRA + this.riadok * RozlozenieMiestnosti.VYSKA_MIESTNOSTI, RozlozenieMiestnosti.SIRKA_MIESTNOSTI, RozlozenieMiestnosti.VYSKA_MIESTNOSTI);
+        switch (this.sirkaMiestnosti) {
+            case 1:
+                this.image = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/ubytovanie/1trieda/ubytovanie1.jpg").getImage();
+                break;
+            case 2:
+                this.image = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/ubytovanie/2trieda/ubytovanie2.jpg").getImage();
+                break;
+            case 3:
+                this.image = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/ubytovanie/3trieda/ubytovanie3.jpg").getImage();
+                break;
+        }
+        grafika.drawImage(this.image, this.xSuradnica, this.ySuradnica, null);
         if (super.stavMiestnosti == StavMiestnosti.Spracovane) {
             //todo dorobiť grafiku
             //Image spracovaneImag = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/vodaren/dogenerovanaVodaren-1.png").getImage();
