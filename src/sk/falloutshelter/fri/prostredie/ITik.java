@@ -6,5 +6,5 @@ package sk.falloutshelter.fri.prostredie;
  * @author Tobias
  */
 public interface ITik {
-    void tik();
+    void tik() throws KoniecHryException;
 }

@@ -28,10 +28,14 @@ public class Zdroje implements IZobraz {
         this.ludia = 0;
     }
 
-    public void odoberZdroje(int voda, int energia) {
+    public void odoberZdroje(int voda, int energia) throws KoniecHryException {
         this.voda -= (voda + this.ludia);
         this.energia -= energia;
         this.jedlo -= this.ludia;
+
+        if (this.jedlo < 0 || this.voda < 0) {
+            throw new KoniecHryException("ľudia zomreli od hladu a smedu");
+        }
 
     }
 

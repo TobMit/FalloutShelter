@@ -1,5 +1,6 @@
 package sk.falloutshelter.fri;
 
+import sk.falloutshelter.fri.prostredie.KoniecHryException;
 import sk.falloutshelter.fri.screan.StavObrazovky;
 import sk.falloutshelter.fri.prostredie.Bunker;
 import sk.falloutshelter.fri.prostredie.Pozadie;
@@ -119,7 +120,12 @@ public class Hra {
 
             if (this.tik > 60) {
                 this.tik = 0;
-                this.bunker.tik();
+                try {
+                    this.bunker.tik();
+                } catch (KoniecHryException e) {
+                    JOptionPane.showConfirmDialog(null,"Ludia zomreli od hadlu a smedu. Koniec hry.");
+                    System.exit(0);
+                }
 
             }
 

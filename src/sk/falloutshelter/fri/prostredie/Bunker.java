@@ -73,7 +73,7 @@ public class Bunker implements IZobraz, IKlik, ITik {
     }
 
     @Override
-    public void tik() {
+    public void tik() throws KoniecHryException {
         this.sekundaTik++;
         this.rozlozenieMiestnosti.tik();
         if (this.sekundaTik > 60) {
