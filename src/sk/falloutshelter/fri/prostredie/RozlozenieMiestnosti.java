@@ -60,13 +60,13 @@ public class RozlozenieMiestnosti implements IKlik, ITik {
         this.miestnosti[0][2] = this.miestnosti[0][1];
         this.miestnosti[0][4] = new Ubytovanie(0, 4, this);
 
-        this.miestnosti[0][3] = new Vytah(0, 3, this);// výťah na prvom poschodí
+        this.miestnosti[0][3] = new Vytah(0, 3, this);
         this.miestnosti[1][3] = new Vytah(1, 3, this);
         this.miestnosti[2][3] = new Vytah(2, 3, this);
-
+        // prvé poschodi
         this.miestnosti[1][2] = new Elektraren(1, 2, this);
         this.miestnosti[1][4] = new Jedalen(1, 4, this);
-
+        // druhe poschodi
         this.miestnosti[2][4] = new Vodaren(2, 4, this);
     }
 
