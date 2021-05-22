@@ -22,7 +22,7 @@ public class Zdroje implements IZobraz {
         this.rozlozenieMiestnosti = rozlozenieMiestnosti;
         this.viditelne = false;
         this.voda = 0;
-        this.energia = 0;
+        this.energia = 1;
         this.jedlo = 0;
         this.caps = 1500;
         this.ludia = 0;

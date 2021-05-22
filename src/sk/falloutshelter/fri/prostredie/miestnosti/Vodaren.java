@@ -78,7 +78,7 @@ public class Vodaren extends Miestnosti {
         }
         grafika.drawImage(this.image, this.xSuradnica, this.ySuradnica, null);
         if (super.stavMiestnosti == StavMiestnosti.Spracovane) {
-            Image spracovaneImag = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/vodaren/dogenerovanaVodaren-1.png").getImage();
+            Image spracovaneImag = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/vodaren/1trieda/dogenerovanaVodaren-1.png").getImage();
             grafika.drawImage(spracovaneImag, this.xSuradnica, this.ySuradnica, null);
         }
 

@@ -65,6 +65,9 @@ public class RozlozenieMiestnosti implements IKlik, ITik {
         this.miestnosti[2][3] = new Vytah(2, 3, this);
 
         this.miestnosti[1][2] = new Elektraren(1, 2, this);
+        this.miestnosti[1][4] = new Jedalen(1, 4, this);
+
+        this.miestnosti[2][4] = new Vodaren(2, 4, this);
     }
 
     public void nacitajMiestnostiZoSuboru() {
