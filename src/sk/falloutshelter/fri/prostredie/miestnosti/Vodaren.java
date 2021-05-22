@@ -5,6 +5,7 @@ import sk.falloutshelter.fri.prostredie.RozlozenieMiestnosti;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Random;
 
 /**
  *
@@ -100,6 +101,8 @@ public class Vodaren extends Miestnosti {
 
     private void reWork() {
         this.rozlozenieMiestnosti.getBunker().getZdroje().pridajVodu((2 * this.sirkaMiestnosti * 5) - 2);
+        Random random = new Random();
+        this.rozlozenieMiestnosti.getBunker().getZdroje().pridajCaps(random.nextInt(60) + 15);
         super.odpocitavanie = this.maxTime;
         super.stavMiestnosti = StavMiestnosti.Pracuje;
     }

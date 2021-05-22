@@ -63,6 +63,10 @@ public class Zdroje implements IZobraz {
         this.energia += mnozstvo;
     }
 
+    public void pridajCaps(int mnozstvo) {
+        this.caps += mnozstvo;
+    }
+
     @Override
     public void zobraz(Graphics grafika) {
         if (this.viditelne) {
