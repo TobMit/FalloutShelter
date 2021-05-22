@@ -2,8 +2,9 @@ package sk.falloutshelter.fri.prostredie.miestnosti;
 
 import sk.falloutshelter.fri.prostredie.Bunker;
 import sk.falloutshelter.fri.prostredie.RozlozenieMiestnosti;
+import sk.falloutshelter.fri.screan.GrafickyZobraovac;
+import sk.falloutshelter.fri.screan.GrafikaSelect;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
 
@@ -65,24 +66,19 @@ public class Vodaren extends Miestnosti {
         if (this.rozlozenieMiestnosti.getBunker().getZdroje().getEnergia() <= 0) {
             super.stavMiestnosti = StavMiestnosti.NemaEnergiu;
         }
-        switch (super.velkostMiestnosti) {
-            case 1:
-                this.image = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/vodaren/1trieda/vodaren1.jpg").getImage();
-                break;
-            case 2:
-                this.image = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/vodaren/2trieda/vodaren2.jpg").getImage();
-                break;
-            case 3:
-                this.image = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/vodaren/3trieda/vodaren3.jpg").getImage();
-                break;
-        }
-        grafika.drawImage(this.image, this.xSuradnica, this.ySuradnica, null);
+        new GrafickyZobraovac("src/sk/falloutshelter/fri/obr/Miestnosti/vodaren/1trieda/vodaren1.jpg",
+                "src/sk/falloutshelter/fri/obr/Miestnosti/vodaren/2trieda/vodaren2.jpg",
+                "src/sk/falloutshelter/fri/obr/Miestnosti/vodaren/3trieda/vodaren3.jpg",
+                grafika, super.velkostMiestnosti, this.xSuradnica, this.ySuradnica);
         if (super.stavMiestnosti == StavMiestnosti.Spracovane) {
-            Image spracovaneImag = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/vodaren/1trieda/dogenerovanaVodaren-1.png").getImage();
-            grafika.drawImage(spracovaneImag, this.xSuradnica, this.ySuradnica, null);
+            new GrafickyZobraovac("src/sk/falloutshelter/fri/obr/Miestnosti/vodaren/1trieda/dogenerovanaVodaren-1.png",
+                    "src/sk/falloutshelter/fri/obr/Miestnosti/vodaren/2trieda/Voda2.png",
+                    "src/sk/falloutshelter/fri/obr/Miestnosti/vodaren/3trieda/Voda3.png",
+                    grafika, super.velkostMiestnosti, this.xSuradnica, this.ySuradnica);
         }
 
         if (this.zobrazInfo) {
+            new GrafikaSelect(grafika, this.xSuradnica, this.ySuradnica, super.velkostMiestnosti);
             grafika.setColor(Color.decode("#18f817"));
             grafika.setFont(new Font("TimesRoman", Font.PLAIN, 45));
 

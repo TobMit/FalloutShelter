@@ -280,7 +280,13 @@ public class RozlozenieMiestnosti implements IKlik, ITik {
         for (Miestnosti[] miestnostis : this.miestnosti) {
             for (Miestnosti miestnost : miestnostis) {
                 if (miestnost.volneMiestoNaLudi() && !(miestnost instanceof Vytah) && !(miestnost instanceof Vchod) && !(miestnost instanceof BuilderMiestnost) && !(miestnost instanceof VyplnaciaMiestnost)) {
-                    rawZoznamMiestnosti.add(miestnost);
+                    if (rawZoznamMiestnosti.size() == 0) {
+                        rawZoznamMiestnosti.add(miestnost);
+                        continue;
+                    }
+                    if (rawZoznamMiestnosti.get(rawZoznamMiestnosti.size() - 1) != miestnost) {
+                        rawZoznamMiestnosti.add(miestnost);
+                    }
                 }
             }
         }
