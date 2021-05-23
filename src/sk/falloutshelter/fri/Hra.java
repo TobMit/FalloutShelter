@@ -121,7 +121,7 @@ public class Hra {
                 try {
                     this.bunker.tik();
                 } catch (KoniecHryException e) {
-                    JOptionPane.showConfirmDialog(null, "Ludia zomreli od hadlu a smedu. Koniec hry.");
+                    JOptionPane.showMessageDialog(null, "Ludia zomreli od hadlu a smedu. Koniec hry.", "Koniec hry.", JOptionPane.PLAIN_MESSAGE);
                     System.exit(0);
                 }
 

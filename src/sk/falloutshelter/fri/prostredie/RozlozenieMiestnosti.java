@@ -74,7 +74,7 @@ public class RozlozenieMiestnosti implements IKlik, ITik {
         this.miestnosti[0][1] = new Vchod(0, 1, this);
         this.miestnosti[0][2] = this.miestnosti[0][1];
 
-        //iba na vytvorenie save
+//        //iba na vytvorenie save
 //        this.miestnosti[0][4] = new Ubytovanie(0, 4, this);
 //
 //        this.miestnosti[0][3] = new Vytah(0, 3, this);
