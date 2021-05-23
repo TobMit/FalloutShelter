@@ -2,8 +2,9 @@ package sk.falloutshelter.fri.prostredie.miestnosti;
 
 import sk.falloutshelter.fri.prostredie.Bunker;
 import sk.falloutshelter.fri.prostredie.RozlozenieMiestnosti;
+import sk.falloutshelter.fri.screan.GrafickyZobraovac;
+import sk.falloutshelter.fri.screan.GrafikaSelect;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
 
@@ -20,7 +21,6 @@ public class Elektraren extends sk.falloutshelter.fri.prostredie.miestnosti.Mies
     private boolean zobrazInfo;
     private int pocetLudi;
     private int maxTime = -1;
-    private Image image;
 
     public Elektraren(int riadok, int stlpec, RozlozenieMiestnosti rozlozenieMiestnosti) {
         super(riadok, stlpec, rozlozenieMiestnosti);
@@ -62,27 +62,19 @@ public class Elektraren extends sk.falloutshelter.fri.prostredie.miestnosti.Mies
 
     @Override
     public void zobraz(Graphics grafika) {
-        //System.out.println(this.sirkaMiestnosti);
-        switch (super.getVelkostMiestnosti()) {
-            case 1:
-                this.image = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/elektraren/1trieda/ekektraen 1.jpg").getImage();
-                break;
-            case 2:
-                this.image = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/elektraren/2trieda/elekrtraen2.jpg").getImage();
-                break;
-            case 3:
-                this.image = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/elektraren/3trieda/Elektraren3.jpg").getImage();
-                break;
-        }
-        grafika.drawImage(this.image, this.xSuradnica, this.ySuradnica, null);
-
+        new GrafickyZobraovac("src/sk/falloutshelter/fri/obr/Miestnosti/elektraren/1trieda/ekektraen 1.jpg",
+                "src/sk/falloutshelter/fri/obr/Miestnosti/elektraren/2trieda/elekrtraen2.jpg",
+                "src/sk/falloutshelter/fri/obr/Miestnosti/elektraren/3trieda/Elektraren3.jpg",
+                grafika, super.getVelkostMiestnosti(), this.xSuradnica, this.ySuradnica);
         if (super.getStavMiestnosti() == StavMiestnosti.Spracovane) {
-            Image spracovaneImag = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/elektraren/1trieda/dogenerovanaElektraren-1.png").getImage();
-            System.out.println("som tu");
-            grafika.drawImage(spracovaneImag, this.xSuradnica, this.ySuradnica, null);
+            new GrafickyZobraovac("src/sk/falloutshelter/fri/obr/Miestnosti/elektraren/1trieda/dogenerovanaElektraren-1.png",
+                    "src/sk/falloutshelter/fri/obr/Miestnosti/elektraren/2trieda/dogenerovaneElektraren2.png",
+                    "src/sk/falloutshelter/fri/obr/Miestnosti/elektraren/3trieda/dogenerovaneElektraren3.png",
+                    grafika, super.getVelkostMiestnosti(), this.xSuradnica, this.ySuradnica);
         }
 
         if (this.zobrazInfo) {
+            new GrafikaSelect(grafika, this.xSuradnica, this.ySuradnica, super.getVelkostMiestnosti());
             grafika.setColor(Color.decode("#18f817"));
             grafika.setFont(new Font("TimesRoman", Font.PLAIN, 45));
 

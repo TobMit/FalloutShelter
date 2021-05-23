@@ -1,6 +1,8 @@
 package sk.falloutshelter.fri.prostredie.miestnosti;
 
 import sk.falloutshelter.fri.prostredie.Bunker;
+import sk.falloutshelter.fri.screan.GrafickyZobraovac;
+import sk.falloutshelter.fri.screan.GrafikaSelect;
 import sk.falloutshelter.fri.screan.JpanelVyberMiestnosti;
 import sk.falloutshelter.fri.prostredie.RozlozenieMiestnosti;
 
@@ -22,7 +24,6 @@ public class Ubytovanie extends Miestnosti {
     private int ySuradnica;
     private boolean zobrazInfo;
     private int maxTime;
-    private Image image;
 
     public Ubytovanie(int riadok, int stlpec, RozlozenieMiestnosti rozlozenieMiestnosti) {
         super(riadok, stlpec, rozlozenieMiestnosti);
@@ -34,7 +35,6 @@ public class Ubytovanie extends Miestnosti {
 
         super.setStavMiestnosti(StavMiestnosti.Pracuje);
         Random random = new Random();
-        //todo dočasná zmena
         this.maxTime = random.nextInt(300) + 30;
         super.setOdpocitavanie(this.maxTime);
         super.setVelkostMiestnosti(1);
@@ -52,25 +52,19 @@ public class Ubytovanie extends Miestnosti {
 
     @Override
     public void zobraz(Graphics grafika) {
-        switch (super.getVelkostMiestnosti()) {
-            case 1:
-                this.image = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/ubytovanie/1trieda/ubytovanie1.jpg").getImage();
-                break;
-            case 2:
-                this.image = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/ubytovanie/2trieda/ubytovanie2.jpg").getImage();
-                break;
-            case 3:
-                this.image = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/ubytovanie/3trieda/ubytovanie3.jpg").getImage();
-                break;
-        }
-        grafika.drawImage(this.image, this.xSuradnica, this.ySuradnica, null);
+        new GrafickyZobraovac("src/sk/falloutshelter/fri/obr/Miestnosti/ubytovanie/1trieda/ubytovanie1.jpg",
+                "src/sk/falloutshelter/fri/obr/Miestnosti/ubytovanie/2trieda/ubytovanie2.jpg",
+                "src/sk/falloutshelter/fri/obr/Miestnosti/ubytovanie/3trieda/ubytovanie3.jpg",
+                grafika, super.getVelkostMiestnosti(), this.xSuradnica, this.ySuradnica);
         if (super.getStavMiestnosti() == StavMiestnosti.Spracovane) {
-            //todo dorobiť grafiku
-            //Image spracovaneImag = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/vodaren/dogenerovanaVodaren-1.png").getImage();
-            //grafika.drawImage(spracovaneImag, this.xSuradnica, this.ySuradnica, null);
+            new GrafickyZobraovac("src/sk/falloutshelter/fri/obr/Miestnosti/Ubytovanie/1trieda/dogenerovaneUbytovanie1.png",
+                    "src/sk/falloutshelter/fri/obr/Miestnosti/Ubytovanie/2trieda/dogenerovaneUbytovanie2.png",
+                    "src/sk/falloutshelter/fri/obr/Miestnosti/Ubytovanie/3trieda/dogenerovaneUbytovanie3.png",
+                    grafika, super.getVelkostMiestnosti(), this.xSuradnica, this.ySuradnica);
         }
 
         if (this.zobrazInfo) {
+            new GrafikaSelect(grafika, this.xSuradnica, this.ySuradnica, super.getVelkostMiestnosti());
             grafika.setColor(Color.decode("#18f817"));
             grafika.setFont(new Font("TimesRoman", Font.PLAIN, 45));
 
@@ -100,6 +94,7 @@ public class Ubytovanie extends Miestnosti {
         for (int i = 0; i < this.getVelkostMiestnosti(); i++) {
             Miestnosti miestnost = JpanelVyberMiestnosti.zobrazVyberoveMenu(mestnost, new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/novyClen.png"));
             if (miestnost == null) {
+                //keď použivateľ nič nevyberie tak sa mu nezníži počet odobratých vygenerovaných ľudí.
                 i--;
                 return;
             }

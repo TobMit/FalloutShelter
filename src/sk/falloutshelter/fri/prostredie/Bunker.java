@@ -28,7 +28,6 @@ public class Bunker implements IZobraz, IKlik, ITik {
         return this.rozlozenieMiestnosti;
     }
 
-    //TODO Pridať a sfunkčniť ludí.
     public Bunker(Hra hra) {
         this.rozlozenieMiestnosti = new RozlozenieMiestnosti(hra, this);
         this.rozlozenieMiestnosti.nacitajMiestnostiZoSuboru();

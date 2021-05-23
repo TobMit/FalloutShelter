@@ -2,8 +2,9 @@ package sk.falloutshelter.fri.prostredie.miestnosti;
 
 import sk.falloutshelter.fri.prostredie.Bunker;
 import sk.falloutshelter.fri.prostredie.RozlozenieMiestnosti;
+import sk.falloutshelter.fri.screan.GrafickyZobraovac;
+import sk.falloutshelter.fri.screan.GrafikaSelect;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
 
@@ -20,7 +21,6 @@ public class Jedalen extends Miestnosti {
     private int ySuradnica;
     private int pocetLudi;
     private int maxTime = -1;
-    private Image image;
 
     public Jedalen(int riadok, int stlpec, RozlozenieMiestnosti rozlozenieMiestnosti) {
         super(riadok, stlpec, rozlozenieMiestnosti);
@@ -62,7 +62,6 @@ public class Jedalen extends Miestnosti {
     public void zobraz(Graphics grafika) {
         if (this.rozlozenieMiestnosti.getBunker().getZdroje().getEnergia() <= 0) {
             super.setStavMiestnosti(StavMiestnosti.NemaEnergiu);
-            //System.out.println("som tu");
         } else {
             if (this.pocetLudi != 0) {
                 super.setStavMiestnosti(StavMiestnosti.Pracuje);
@@ -70,24 +69,19 @@ public class Jedalen extends Miestnosti {
                 super.setStavMiestnosti(StavMiestnosti.NemaLudi);
             }
         }
-        switch (super.getVelkostMiestnosti()) {
-            case 1:
-                this.image = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/jedalen/1trieda/jedalen1.jpg").getImage();
-                break;
-            case 2:
-                this.image = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/jedalen/2trieda/jedalen2.jpg").getImage();
-                break;
-            case 3:
-                this.image = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/jedalen/3trieda/jedalen3.jpg").getImage();
-                break;
-        }
-        grafika.drawImage(this.image, this.xSuradnica, this.ySuradnica, null);
+        new GrafickyZobraovac("src/sk/falloutshelter/fri/obr/Miestnosti/jedalen/1trieda/jedalen1.jpg",
+                "src/sk/falloutshelter/fri/obr/Miestnosti/jedalen/2trieda/jedalen2.jpg",
+                "src/sk/falloutshelter/fri/obr/Miestnosti/jedalen/3trieda/jedalen3.jpg",
+                grafika, super.getVelkostMiestnosti(), this.xSuradnica, this.ySuradnica);
         if (super.getStavMiestnosti() == StavMiestnosti.Spracovane) {
-            Image spracovaneImag = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/jedalen/1trieda/dogenerovanaJedalen-1.png").getImage();
-            grafika.drawImage(spracovaneImag, this.xSuradnica, this.ySuradnica, null);
+            new GrafickyZobraovac("src/sk/falloutshelter/fri/obr/Miestnosti/jedalen/1trieda/dogenerovanaJedalen-1.png",
+                    "src/sk/falloutshelter/fri/obr/Miestnosti/jedalen/2trieda/dogenerovanaJedalen2.png",
+                    "src/sk/falloutshelter/fri/obr/Miestnosti/jedalen/3trieda/dogenerovanaJedalen3.png",
+                    grafika, super.getVelkostMiestnosti(), this.xSuradnica, this.ySuradnica);
         }
 
         if (this.zobrazInfo) {
+            new GrafikaSelect(grafika, this.xSuradnica, this.ySuradnica, super.getVelkostMiestnosti());
             grafika.setColor(Color.decode("#18f817"));
             grafika.setFont(new Font("TimesRoman", Font.PLAIN, 45));
 

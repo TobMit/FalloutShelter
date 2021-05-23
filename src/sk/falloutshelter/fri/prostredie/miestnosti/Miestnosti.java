@@ -12,7 +12,7 @@ import sk.falloutshelter.fri.screan.IZobraz;
  * @author Tobias
  */
 public abstract class Miestnosti implements IZobraz, IKlik, ITik {
-    //todo seteri pre protected na premenné
+    //todo korekcia pre tik keď je väčšia miestnosť
     private final int riadok;
     private final int stlpec;
     private StavMiestnosti stavMiestnosti;

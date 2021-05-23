@@ -4,7 +4,6 @@ import sk.falloutshelter.fri.prostredie.Bunker;
 import sk.falloutshelter.fri.prostredie.RozlozenieMiestnosti;
 import sk.falloutshelter.fri.screan.GrafickyZobraovac;
 import sk.falloutshelter.fri.screan.GrafikaSelect;
-
 import java.awt.*;
 import java.util.Random;
 
@@ -22,7 +21,6 @@ public class Vodaren extends Miestnosti {
     private int pocetLudi;
     // keď je zaporne číslo tak nevyrábame
     private int maxTime = -1;
-    private Image image;
 
     public Vodaren(int riadok, int stlpec, RozlozenieMiestnosti rozlozenieMiestnosti) {
         super(riadok, stlpec, rozlozenieMiestnosti);
@@ -71,8 +69,8 @@ public class Vodaren extends Miestnosti {
                 grafika, super.getVelkostMiestnosti(), this.xSuradnica, this.ySuradnica);
         if (super.getStavMiestnosti() == StavMiestnosti.Spracovane) {
             new GrafickyZobraovac("src/sk/falloutshelter/fri/obr/Miestnosti/vodaren/1trieda/dogenerovanaVodaren-1.png",
-                    "src/sk/falloutshelter/fri/obr/Miestnosti/vodaren/2trieda/Voda2.png",
-                    "src/sk/falloutshelter/fri/obr/Miestnosti/vodaren/3trieda/Voda3.png",
+                    "src/sk/falloutshelter/fri/obr/Miestnosti/vodaren/2trieda/dogenerovaneVodaren2.png",
+                    "src/sk/falloutshelter/fri/obr/Miestnosti/vodaren/3trieda/dogenerovaneVodaren3.png",
                     grafika, super.getVelkostMiestnosti(), this.xSuradnica, this.ySuradnica);
         }
 
