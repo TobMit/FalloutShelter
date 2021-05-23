@@ -3,7 +3,6 @@ package sk.falloutshelter.fri.prostredie;
 import sk.falloutshelter.fri.Hra;
 import sk.falloutshelter.fri.prostredie.miestnosti.Elektraren;
 import sk.falloutshelter.fri.prostredie.miestnosti.Jedalen;
-import sk.falloutshelter.fri.prostredie.miestnosti.KlikException;
 import sk.falloutshelter.fri.prostredie.miestnosti.Miestnosti;
 import sk.falloutshelter.fri.prostredie.miestnosti.Ubytovanie;
 import sk.falloutshelter.fri.prostredie.miestnosti.Vodaren;
@@ -27,7 +26,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- *Táto tireda má nastorosť vytváranie usporiadanie miestnosti a informovať miestnosti o počte ludí v nej
+ * Najrozsiahlejšia a najdôležitejšie trieda hry. Má na starosti udržiavanie, vytváranie, ukladanie a načítavanie miestnosti v hre.
+ * Rozosiela klik, tik a zobraz metódy. Ďalej má na starosť spájanie rovnakých budov do celkov. Výberové menu.
+ * Zobrazenie podpory pre stavanie nových budov. Inými slovami všetko spojené s budovami.
  */
 public class RozlozenieMiestnosti implements IKlik, ITik {
     public static final int SIRKA_MIESTNOSTI = 140;
@@ -58,10 +59,11 @@ public class RozlozenieMiestnosti implements IKlik, ITik {
         this.pocetVytahov = 0;
         // this.nakupovanie uzamika nakupovanie a menu stavu keď sa načítava miestnoť zo súboru. Potom je už nakupovanie odomkntuté.
         this.nakupovanie = false;
-
-
         this.miestnosti = new Miestnosti[11][10];
 
+        /*
+         * Celá matica je naplnená pomocnou triedou BuilderMiestnost
+         */
         for (int i = 0; i < this.miestnosti.length; i++) {
             for (int j = 0; j < this.miestnosti[i].length; j++) {
                 this.miestnosti[i][j] = new BuilderMiestnost(i, j, this);
@@ -71,20 +73,11 @@ public class RozlozenieMiestnosti implements IKlik, ITik {
         this.miestnosti[0][0] = new VyplnaciaMiestnost(0 , 0, this);
         this.miestnosti[0][1] = new Vchod(0, 1, this);
         this.miestnosti[0][2] = this.miestnosti[0][1];
-
-//        //iba na vytvorenie save
-//        this.miestnosti[0][4] = new Ubytovanie(0, 4, this);
-//
-//        this.miestnosti[0][3] = new Vytah(0, 3, this);
-//        this.miestnosti[1][3] = new Vytah(1, 3, this);
-//        this.miestnosti[2][3] = new Vytah(2, 3, this);
-//        // prvé poschodi
-//        this.miestnosti[1][2] = new Elektraren(1, 2, this);
-//        this.miestnosti[1][4] = new Jedalen(1, 4, this);
-//        // druhe poschodi
-//        this.miestnosti[2][4] = new Vodaren(2, 4, this);
     }
 
+    /**
+     * Metóda načíta celu maticu zo súboru a postará sa o to aby každá Miestnosť mala správnu veľkosť a počet ľudí.
+     */
     public void nacitajMiestnostiZoSuboru() {
         File saveSubor = new File("src/sk/falloutshelter/fri/save/bunker.fos");
         try (DataInputStream save = new DataInputStream(new FileInputStream(saveSubor))) {
@@ -98,9 +91,11 @@ public class RozlozenieMiestnosti implements IKlik, ITik {
             }
 
             for (int i = 0; i < this.miestnosti.length; i++) {
+                // velkostMiestnostiTemp - Keď v matici je miestnosť z väčšou veľkosťou ako 1 tak sa ukladajú na ňu iba referencie. To slúži na to aby sa zabránilo vytváranie malých miestnosti, slúži na spracovávanie referencií.
                 int velkostMiestnostiTemp = 0;
                 int pocetLudiTemp = 0;
                 for (int j = 0; j < this.miestnosti[i].length; j++) {
+                    //Spracuvávajú sa referencie na miestnosti. keďže by boli vždy tie istné údaje - referencie ukazujú na jednú miestnosť.
                     if (velkostMiestnostiTemp == 0) {
                         int sirkaMiestnosti = save.readInt();
                         int pocetLudi = save.readInt();
@@ -112,7 +107,7 @@ public class RozlozenieMiestnosti implements IKlik, ITik {
                     if (miestnost == 0x6e756c) {
                         continue;
                     } else if (miestnost == 0x567974) {
-                        //vytah
+                        //vyťah
                         this.miestnostNaPostavenie = new Vytah(0, 0, this);
                         this.pridajMiestnosti(i, j);
                         this.miestnostNaPostavenie = null;
@@ -137,8 +132,8 @@ public class RozlozenieMiestnosti implements IKlik, ITik {
                                 break;
                         }
                         this.miestnostNaPostavenie = null;
-
                         if (velkostMiestnostiTemp == 0) {
+                            //miestnosti sa dá potrebný počet ľudí
                             for (int k = 0; k < pocetLudiTemp; k++) {
                                 this.miestnosti[i][j].pridajCloveka();
                             }
@@ -157,6 +152,9 @@ public class RozlozenieMiestnosti implements IKlik, ITik {
         this.nakupovanie = true;
     }
 
+    /**
+     * Ukladá hru do súboru.
+     */
     public void ulozMiestnostiDoSuboru() {
         File saveSubor = new File("src/sk/falloutshelter/fri/save/bunker.fos");
         try (DataOutputStream save = new DataOutputStream(new FileOutputStream(saveSubor))) {
@@ -204,13 +202,15 @@ public class RozlozenieMiestnosti implements IKlik, ITik {
 
     }
 
+    /**
+     * Každá miestnosť ktorá sa má zobraziť sa zobrazí.
+     */
     public void zobrazMiestnosti(Graphics grafika) {
         for (Miestnosti[] miestnostis : this.miestnosti) {
             for (Miestnosti miestnost : miestnostis) {
                 if (miestnost != null) {
                     miestnost.zobraz(grafika);
                 }
-
                 // keď Builder miestnosti už viac niesu v staviteľskom režime schovajú sa.
                 if (this.hra.getStavObrazokvy() == StavObrazovky.HraBezi && miestnost instanceof BuilderMiestnost) {
                     miestnost.jeVidetelne(false);
@@ -220,6 +220,9 @@ public class RozlozenieMiestnosti implements IKlik, ITik {
         }
     }
 
+    /**
+     * Metóda zobrazí menu miestností ktoré si môžem dovoliť postaviť (mám na to dosť caps). Taktiež sa stará o aby keď hráč nič nekúpil alebo nakoniec nechcel nič postavať aby sa to vrátilo do pôvodného stavu.
+     */
     public void vyberoveMenu() {
         //keď druhý krát zmačknem tlačidlo stavania, tak sa zruší vybrana miestnost na stavanie.
         if (this.hra.getStavObrazokvy() == StavObrazovky.Stavanie) {
@@ -270,8 +273,8 @@ public class RozlozenieMiestnosti implements IKlik, ITik {
     }
 
     /**
-     * Tato metoda zobrazi možnosti stavnia na základe toho aká miestnosť je vybratá.
-     * @param vyberoveMenu - miestnosť ktorú chceme postaviť
+     * Tato metóda zobrazí možnosti stavania na základe toho aká miestnosť je vybratá.
+     * @param vyberoveMenu miestnosť ktorú chceme postaviť
      */
     private void zobrazMoznostiStavania(Miestnosti vyberoveMenu) {
         for (int i = 0; i < this.miestnosti.length; i++) {
@@ -293,15 +296,16 @@ public class RozlozenieMiestnosti implements IKlik, ITik {
         }
     }
 
+
     /**
-     * Miestnost ktorú chcem postaviť získa s prarametra this.miestnostNaPostavenie
+     * Miestnosť ktorú chcem postaviť získa s parametra this.miestnostNaPostavenie
      *
      * Vytváranie miestnosti funguje nasledovne:
-     *      Klkinutím na tlačídlo stavania za zobrazí v Rozlozeni miestnosti menu kde si vyberieme aku miestnost chceme stavať
-     *      Keď vyberieme z menu miestnosť, tak sa na ukaže kde ju môžeme postavať.
-     *      Klikunutím na to miesto sa odošle správa všetkým miestnostiam klik. Miestnost na kotru som klikol (Builder miestnost - tie na klik reagujú iba keď je hra v builder režime).
-     *      Builder miestnost zavloá metódu pridaj miestnost a dá jej svoje súradnice v matici.
-     *      Metóda pridaj miestnosť pridá miestnosť podla toho aká bola vybratá vo výbervom menu a postaví ju na správne miesto - získala od Builder miestnosti.
+     *      Kliknutím na tlačidlo stavania za zobrazí v Rozložení miestnosti menu kde si vyberieme akú miestnosť chceme stavať
+     *      Keď vyberieme z menu miestnosť, tak sa na ukáže kde ju môžeme postavať.
+     *      Kliknutím na to miesto sa odošle správa všetkým miestnostiam klik. Miestnosť na ktorú som klikol (Builder miestnost - tie na klik reagujú iba keď je hra v builder režime).
+     *      Builder miestnosť zavolá metódu pridaj miestnosť a dá jej svoje súradnice v matici.
+     *      Metóda pridaj miestnosť pridá miestnosť podľa toho aká bola vybratá vo výberom menu a postaví ju na správne miesto - získala od Builder miestnosti.
      *
      * @param riadok y os
      * @param stlpec x os
@@ -429,6 +433,9 @@ public class RozlozenieMiestnosti implements IKlik, ITik {
         this.ulozMiestnostiDoSuboru();
     }
 
+    /**
+     * Odošle tik.
+     */
     @Override
     public void tik() {
         for (Miestnosti[] miestnostis : this.miestnosti) {
@@ -439,6 +446,10 @@ public class RozlozenieMiestnosti implements IKlik, ITik {
     }
 
 
+    /**
+     * Pomocná metóda ktorá vytvorí maticu s miestnosťami kde môžeme pridať ľudí.
+     * @return Matica pre menu s miestnosťami ktoré prímu nových ľudí.
+     */
     public Miestnosti[] getMiestnostiSMaloLudmi() {
         ArrayList<Miestnosti> rawZoznamMiestnosti = new ArrayList<>();
         for (Miestnosti[] miestnostis : this.miestnosti) {

@@ -3,6 +3,9 @@ package sk.falloutshelter.fri.screan;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Trieda vykreslí miestnosti podľa veľkosti. Všetky informácie za udávajú do konštruktora.
+ */
 public class GrafickyZobraovac {
     public GrafickyZobraovac(String level1, String level2, String level3, Graphics grafika, int velkostMiestnosti, int xSuradnica, int ySuradnica) {
         Image image;

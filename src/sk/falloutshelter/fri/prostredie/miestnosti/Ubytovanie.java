@@ -1,6 +1,7 @@
 package sk.falloutshelter.fri.prostredie.miestnosti;
 
 import sk.falloutshelter.fri.prostredie.Bunker;
+import sk.falloutshelter.fri.prostredie.KlikException;
 import sk.falloutshelter.fri.screan.GrafickyZobraovac;
 import sk.falloutshelter.fri.screan.GrafikaSelect;
 import sk.falloutshelter.fri.screan.JpanelVyberMiestnosti;
@@ -11,7 +12,7 @@ import java.awt.*;
 import java.util.Random;
 
 /**
- *
+ * Trieda ktorá vytvára miestnosť pre Ubytovanie a všetko čo je s ňou spojené.
  * @author Tobias
  */
 public class Ubytovanie extends Miestnosti {
@@ -53,6 +54,9 @@ public class Ubytovanie extends Miestnosti {
         return false;
     }
 
+    /**
+     * Zobrazí grafiku
+     */
     @Override
     public void zobraz(Graphics grafika) {
         new GrafickyZobraovac("src/sk/falloutshelter/fri/obr/Miestnosti/ubytovanie/1trieda/ubytovanie1.jpg",
@@ -76,7 +80,9 @@ public class Ubytovanie extends Miestnosti {
         }
     }
 
-
+    /**
+     * Reaguje na klik a ak klik ukatzuje na túto miestnosť tak vyhodí exception
+     */
     @Override
     public void klik(int x, int y) throws KlikException {
         if (x > this.xSuradnica && y > this.ySuradnica && x < this.xSuradnica + RozlozenieMiestnosti.SIRKA_MIESTNOSTI * super.getVelkostMiestnosti() && y < this.ySuradnica + RozlozenieMiestnosti.VYSKA_MIESTNOSTI) {
@@ -92,6 +98,9 @@ public class Ubytovanie extends Miestnosti {
 
     }
 
+    /**
+     * reštar práce a menu priradenia ľudí.
+     */
     private void reWork() {
         for (int i = this.temInfoOSpracovanychLudoch; i < this.getVelkostMiestnosti(); i++) {
             Miestnosti[] mestnost = this.rozlozenieMiestnosti.getMiestnostiSMaloLudmi();
@@ -110,6 +119,10 @@ public class Ubytovanie extends Miestnosti {
         this.temInfoOSpracovanychLudoch = 0;
     }
 
+    /**
+     * vráti korektný názov
+     * @return korektný názov
+     */
     @Override
     public String toString() {
         return "Ubytovanie";
@@ -123,6 +136,9 @@ public class Ubytovanie extends Miestnosti {
         this.ySuradnica = Bunker.Y_SURADNICA_BUNKRA + this.riadok * RozlozenieMiestnosti.VYSKA_MIESTNOSTI;
     }
 
+    /**
+     * identifikátor pre ukladanie
+     */
     @Override
     public int toStringInentifikator() {
         //Uby - Ubytovanie;

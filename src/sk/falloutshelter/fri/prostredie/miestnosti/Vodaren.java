@@ -1,6 +1,7 @@
 package sk.falloutshelter.fri.prostredie.miestnosti;
 
 import sk.falloutshelter.fri.prostredie.Bunker;
+import sk.falloutshelter.fri.prostredie.KlikException;
 import sk.falloutshelter.fri.prostredie.RozlozenieMiestnosti;
 import sk.falloutshelter.fri.screan.GrafickyZobraovac;
 import sk.falloutshelter.fri.screan.GrafikaSelect;
@@ -8,7 +9,7 @@ import java.awt.*;
 import java.util.Random;
 
 /**
- *
+ * Trieda ktorá vytvára miestnosť pre Vodáreň a všetko čo je s ňou spojené.
  * @author Tobias
  */
 public class Vodaren extends Miestnosti {
@@ -41,6 +42,9 @@ public class Vodaren extends Miestnosti {
         }
     }
 
+    /**
+     * Keď môže pridá človek a zmení stav miestnosti.
+     */
     public void pridajCloveka() {
         if (super.getStavMiestnosti() == StavMiestnosti.NemaLudi) {
             super.setStavMiestnosti(StavMiestnosti.Pracuje);
@@ -58,6 +62,9 @@ public class Vodaren extends Miestnosti {
         }
     }
 
+    /**
+     * Zobrazí grafiku
+     */
     @Override
     public void zobraz(Graphics grafika) {
         if (this.rozlozenieMiestnosti.getBunker().getZdroje().getEnergia() <= 0) {
@@ -96,6 +103,9 @@ public class Vodaren extends Miestnosti {
     }
 
 
+    /**
+     * Reaguje na klik a ak klik ukatzuje na túto miestnosť tak vyhodí exception
+     */
     @Override
     public void klik(int x, int y) throws KlikException {
         if (x > this.xSuradnica && y > this.ySuradnica && x < this.xSuradnica + RozlozenieMiestnosti.SIRKA_MIESTNOSTI * super.getVelkostMiestnosti() && y < this.ySuradnica + RozlozenieMiestnosti.VYSKA_MIESTNOSTI) {
@@ -110,6 +120,9 @@ public class Vodaren extends Miestnosti {
         }
     }
 
+    /**
+     * reštar práce a doplnenie zdrojov
+     */
     private void reWork() {
         this.rozlozenieMiestnosti.getBunker().getZdroje().pridajVodu((2 * super.getVelkostMiestnosti() * 5) - 2);
         Random random = new Random();
@@ -118,6 +131,10 @@ public class Vodaren extends Miestnosti {
         super.setStavMiestnosti(StavMiestnosti.Pracuje);
     }
 
+    /**
+     * vráti korektný názov
+     * @return korektný názov
+     */
     @Override
     public String toString() {
         if (this.riadok != 0 && this.stlpec != 0) {
@@ -134,6 +151,9 @@ public class Vodaren extends Miestnosti {
         this.ySuradnica = Bunker.Y_SURADNICA_BUNKRA + this.riadok * RozlozenieMiestnosti.VYSKA_MIESTNOSTI;
     }
 
+    /**
+     * identifikátor pre ukladanie
+     */
     @Override
     public int toStringInentifikator() {
         //Vod - Vodaren

@@ -1,13 +1,11 @@
 package sk.falloutshelter.fri.screan;
 
 import sk.falloutshelter.fri.prostredie.RozlozenieMiestnosti;
-
 import javax.swing.*;
 import java.awt.*;
 
 /**
- * Tato trieda plní zatiaľ len jednú funkciu a to je stavanie nových miestnosti.
- *
+ * Trieda obsluhujúce Builder tlačidlo v hre.
  * @author Tobias
  */
 public class Tlacitka implements IZobraz, IKlik {
@@ -17,7 +15,6 @@ public class Tlacitka implements IZobraz, IKlik {
     private final Image image;
     private boolean viditelne;
 
-    //                                     Toto tu je dočastne (možno trvale) xD ka sa nájdu ešte ine spôsoby ako využiť tlačidlo.
     public Tlacitka(int x, int y, RozlozenieMiestnosti rozlozenieMiestnosti, String cestaObrazka) {
         this.x = x;
         this.y = y;
@@ -37,6 +34,9 @@ public class Tlacitka implements IZobraz, IKlik {
         this.viditelne = viditelne;
     }
 
+    /**
+     * Po kliknutí sa v bunkri zobrazí výberové menu kde si hráč môže vybrať čo bude stavať.
+     */
     @Override
     public void klik(int x, int y) {
         if (this.viditelne && x > this.x && y > this.y && x < this.image.getHeight(null) + this.x && y < this.image.getWidth(null) + this.y) {

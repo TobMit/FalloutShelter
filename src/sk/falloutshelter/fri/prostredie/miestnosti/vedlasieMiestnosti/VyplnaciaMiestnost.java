@@ -6,9 +6,7 @@ import sk.falloutshelter.fri.prostredie.miestnosti.Miestnosti;
 import java.awt.*;
 
 /**
- * Tato miestnost slúži len ako prázdna miestnost a aby som nemal null takže príma všeto ale na nič nereaguje
- * možno v budúcnosti bude mať aj nejaké využitie
- *
+ * Tato miestnosť slúži len ako prázdna miestnost a aby som nemal null takže príma všeto ale na nič nereaguje
  * @author Tobias
  */
 public class VyplnaciaMiestnost extends Miestnosti {

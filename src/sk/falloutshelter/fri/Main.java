@@ -1,9 +1,6 @@
 package sk.falloutshelter.fri;
 /**
- * Created by IntelliJ IDEA.
- * User: Tobias
- * Date: 1. 5. 2021
- * Time: 17:51
+ * Main trieda hry.
  */
 public class Main {
 

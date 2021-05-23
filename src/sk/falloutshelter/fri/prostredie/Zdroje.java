@@ -12,8 +12,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
- * 1. 5. 2021 - 17:51
- *
+ * Trieda obsluhujúca zdroje.
  * @author Tobias
  */
 public class Zdroje implements IZobraz {
@@ -33,9 +32,14 @@ public class Zdroje implements IZobraz {
         this.jedlo = 0;
         this.caps = 0;
         this.ludia = 0;
-        //this.ulozDoSuboru();
     }
 
+    /**
+     * Metóda inteligentne odoberá zdroje. Keď je dôležitých zdrojov málo tak vyhodí exception a hra končí.
+     * @param voda spotreba vody
+     * @param energia spotreba energie
+     * @throws KoniecHryException keď je vody a jedla málo hra končí
+     */
     public void odoberZdroje(int voda, int energia) throws KoniecHryException {
         this.voda -= (voda + this.ludia);
         this.energia -= energia;
@@ -81,6 +85,9 @@ public class Zdroje implements IZobraz {
         this.ulozDoSuboru();
     }
 
+    /**
+     * Metóda vykreslí na obrazovku aktuálny stav zásob bunkru.
+     */
     @Override
     public void zobraz(Graphics grafika) {
         if (this.viditelne) {
@@ -117,6 +124,9 @@ public class Zdroje implements IZobraz {
         this.ludia++;
     }
 
+    /**
+     * Načítava zo svojho súboru informácie o zdrojoch.
+     */
     public void nacitajZrojeZoSuboru() {
         File saveSubor = new File("src/sk/falloutshelter/fri/save/zdroje.fos");
         try (DataInputStream save = new DataInputStream(new FileInputStream(saveSubor))) {
@@ -140,6 +150,9 @@ public class Zdroje implements IZobraz {
         }
     }
 
+    /**
+     * Ukladá informácie o zdrojoch do svojho súboru.
+     */
     private void ulozDoSuboru() {
         File saveSubor = new File("src/sk/falloutshelter/fri/save/zdroje.fos");
         try (DataOutputStream save = new DataOutputStream(new FileOutputStream(saveSubor))) {

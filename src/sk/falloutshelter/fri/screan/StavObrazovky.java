@@ -1,8 +1,7 @@
 package sk.falloutshelter.fri.screan;
 
 /**
- * 1. 5. 2021 - 17:51
- *
+ * Enum stavov hry.
  * @author Tobias
  */
 public enum StavObrazovky {

@@ -1,6 +1,7 @@
 package sk.falloutshelter.fri.prostredie.miestnosti;
 
 import sk.falloutshelter.fri.prostredie.Bunker;
+import sk.falloutshelter.fri.prostredie.KlikException;
 import sk.falloutshelter.fri.prostredie.RozlozenieMiestnosti;
 import sk.falloutshelter.fri.screan.GrafickyZobraovac;
 import sk.falloutshelter.fri.screan.GrafikaSelect;
@@ -22,6 +23,10 @@ public class Elektraren extends sk.falloutshelter.fri.prostredie.miestnosti.Mies
     private int pocetLudi;
     private int maxTime = -1;
 
+    /**
+     * Trieda ktorá vytvára miestnosť pre Elektráreň a všetko čo je s ňou spojené.
+     * @author Tobias
+     */
     public Elektraren(int riadok, int stlpec, RozlozenieMiestnosti rozlozenieMiestnosti) {
         super(riadok, stlpec, rozlozenieMiestnosti);
         this.riadok = riadok;
@@ -43,6 +48,9 @@ public class Elektraren extends sk.falloutshelter.fri.prostredie.miestnosti.Mies
         //this.pridajCloveka();
     }
 
+    /**
+     * Keď môže pridá človek a zmení stav miestnosti.
+     */
     public void pridajCloveka() {
         if (super.getStavMiestnosti() == StavMiestnosti.NemaLudi) {
             super.setStavMiestnosti(StavMiestnosti.Pracuje);
@@ -60,6 +68,9 @@ public class Elektraren extends sk.falloutshelter.fri.prostredie.miestnosti.Mies
         }
     }
 
+    /**
+     * Zobrazí grafiku
+     */
     @Override
     public void zobraz(Graphics grafika) {
         new GrafickyZobraovac("src/sk/falloutshelter/fri/obr/Miestnosti/elektraren/1trieda/ekektraen 1.jpg",
@@ -86,6 +97,9 @@ public class Elektraren extends sk.falloutshelter.fri.prostredie.miestnosti.Mies
         }
     }
 
+    /**
+     * Reaguje na klik a ak klik ukatzuje na túto miestnosť tak vyhodí exception
+     */
 
     @Override
     public void klik(int x, int y) throws KlikException {
@@ -101,6 +115,9 @@ public class Elektraren extends sk.falloutshelter.fri.prostredie.miestnosti.Mies
         }
     }
 
+    /**
+     * reštar práce a doplnenie zdrojov
+     */
     private void reWork() {
         this.rozlozenieMiestnosti.getBunker().getZdroje().pridajEnergie((2 * super.getVelkostMiestnosti() * 5) - 2);
         Random random = new Random();
@@ -109,6 +126,10 @@ public class Elektraren extends sk.falloutshelter.fri.prostredie.miestnosti.Mies
         super.setStavMiestnosti(StavMiestnosti.Pracuje);
     }
 
+    /**
+     * vráti korektný názov
+     * @return korektný názov
+     */
     @Override
     public String toString() {
         if (this.riadok != 0 && this.stlpec != 0) {
@@ -125,6 +146,9 @@ public class Elektraren extends sk.falloutshelter.fri.prostredie.miestnosti.Mies
         this.ySuradnica = Bunker.Y_SURADNICA_BUNKRA + this.riadok * RozlozenieMiestnosti.VYSKA_MIESTNOSTI;
     }
 
+    /**
+     * identifikátor pre ukladanie
+     */
     @Override
     public int toStringInentifikator() {
         //Ele - Elektraren

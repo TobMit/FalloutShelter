@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * Táto miestnosť slúži ako podborná miestnosť ktorá ukažé kde sa môže stavať nová miestnosť. Vlastne je to taký zobrazovač ikonky.
+ * Táto miestnosť slúži ako podporná miestnosť ktorá ukáže kde sa môže stavať nová miestnosť. Vlastne je to taký zobrazovač ikonky.
  *
  * @author Tobias
  */
@@ -31,6 +31,9 @@ public class BuilderMiestnost extends Miestnosti {
         this.image = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/builderMiestnost/builderMiestnost-1.png").getImage();
     }
 
+    /**
+     * Keď je hra v režime stavania a klike sa na miestnosť tak odošle svoje súradnice.
+     */
     @Override
     public void klik(int x, int y) {
         if (!this.videtelne) {

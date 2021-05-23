@@ -7,8 +7,7 @@ import sk.falloutshelter.fri.screan.IZobraz;
 
 
 /**
- * 1. 5. 2021 - 17:51
- *
+ * Hlavná trieda miestnosti. Všetky ostatné miestnosti sú jej potomkovia má na starosti niektoré spoločné úlohy ale väčšina je prepísaná priamo v triedach.
  * @author Tobias
  */
 public abstract class Miestnosti implements IZobraz, IKlik, ITik {
@@ -27,7 +26,10 @@ public abstract class Miestnosti implements IZobraz, IKlik, ITik {
     }
     public void pridajCloveka() {
     }
-    
+
+    /**
+     * Jedna z mála úloh o ktoré sa stará sama. Má na starosť odpočet času dokončenia miestnosti. Ak to stav miestnosti dovoluje.
+     */
     public void tik() {
         this.tiki++;
         if (this.tiki >= this.velkostMiestnosti) {
@@ -107,6 +109,9 @@ public abstract class Miestnosti implements IZobraz, IKlik, ITik {
         this.velkostMiestnosti = velkostMiestnosti;
     }
 
+    /**
+     * identifikátor pre ukladanie
+     */
     public int toStringInentifikator() {
         //nul
         return 0x6e756c;

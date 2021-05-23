@@ -1,10 +1,12 @@
 package sk.falloutshelter.fri.screan;
 
 import sk.falloutshelter.fri.Hra;
-
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Táto trieda zobrazí úvodnú obrazovku a počká na kliknutie a spustí bunker.
+ */
 public class UvodnaObrazovka implements IZobraz, IKlik {
     private final Hra hra;
     private boolean zobrazene;
@@ -28,11 +30,13 @@ public class UvodnaObrazovka implements IZobraz, IKlik {
         this.zobrazene = viditelne;
     }
 
+    /**
+     * Reaguje na tlačidlo „ENTER WAULT 777“
+     */
     @Override
     public void klik(int x, int y) {
         if (this.zobrazene) {
             if (x >= 753 && y >= 328 && x <= 1260 && y <= 909) {
-//                System.out.println("klik");
                 this.hra.prepinacObrazoviek();
             }
         }

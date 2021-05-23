@@ -8,10 +8,7 @@ import java.awt.*;
 
 
 /**
- * 1. 5. 2021 - 17:51
- * Bunker ma nastarosť vytvorenie triedy rozloženia miestností.
- * Jeho hlavnou úlohov sú ludia, drží počet ľudí v bunkry, počet vólnych miest bunkra,
- * Taktiež má nastarosť prenos ludí do miestností a túto informáciu predávať daným miestnostiam.
+ * Táto trieda má na starosť vytvorenie zdrojov a vytvorenie miesta pre Miestnosti. Taktiež spája vykresľovanie a hlavnú slučku hry s miestnosťami preposiela: zobraz, tik, klik. Hlavnou úlohou sú zdroje, takže tie obsluhuje.
  * @author Tobias
  */
 public class Bunker implements IZobraz, IKlik, ITik {
@@ -23,11 +20,6 @@ public class Bunker implements IZobraz, IKlik, ITik {
     public static final int Y_SURADNICA_BUNKRA = Hra.GAME_VYSKA / 10 - RozlozenieMiestnosti.VYSKA_MIESTNOSTI  + 5;
     private int sekundaTik;
 
-//    private static final int
-
-    public RozlozenieMiestnosti getRozlozenieMiestnosti() {
-        return this.rozlozenieMiestnosti;
-    }
 
     public Bunker(Hra hra) {
         this.rozlozenieMiestnosti = new RozlozenieMiestnosti(hra, this);
@@ -48,6 +40,9 @@ public class Bunker implements IZobraz, IKlik, ITik {
         }
     }
 
+    /**
+     * Metóda vykresli oblasti kde sa stavajú miestnosti.
+     */
     private void vykresliGrafiku(Graphics grafika) {
         //grafika.setColor(Color.decode("#7a674d"));
         // hodnota a: 127 je 50% priehladnosť - čí menšia hodnota tým menšia priehladnosť
@@ -60,26 +55,34 @@ public class Bunker implements IZobraz, IKlik, ITik {
         return this.zdroje;
     }
 
+    public RozlozenieMiestnosti getRozlozenieMiestnosti() {
+        return this.rozlozenieMiestnosti;
+    }
+
     @Override
     public void jeVidetelne(boolean viditelne) {
         this.jeVidetelne = viditelne;
     }
 
     /**
-     * iba prepošle klik ďalej
+     * Iba prepošle klik ďalej.
      */
     @Override
     public void klik(int x, int y) {
         this.rozlozenieMiestnosti.klik(x, y);
     }
 
+    /**
+     * Podľa veľkosti bunkra odoberá zdroje.
+     * @throws KoniecHryException koniec hry na málo zdrojov
+     */
     @Override
     public void tik() throws KoniecHryException {
         this.sekundaTik++;
         this.rozlozenieMiestnosti.tik();
         if (this.sekundaTik > 60) {
             this.sekundaTik = 0;
-            //                          spotreba na ubytovanie                    vaultDor                  vytahy                                      jedalne                                             Vodarne
+            //                                  spotreba na ubytovanie                    vaultDor                  vytahy                                      jedalne                                             Vodarne
             int odberEnergie = (int)Math.floor(this.rozlozenieMiestnosti.getPocetUbytovania() * 0.5 + 1 + this.rozlozenieMiestnosti.getPocetVytahov() * 0.5 + this.rozlozenieMiestnosti.getPocetJedalni() * 1.25 + this.rozlozenieMiestnosti.getPocetVodarni() * 2);
             int odberVody = (int)Math.floor(this.rozlozenieMiestnosti.getPocetElektrari() * 0.25);
             this.zdroje.odoberZdroje(odberVody, odberEnergie);

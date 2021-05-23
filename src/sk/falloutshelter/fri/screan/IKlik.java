@@ -1,10 +1,9 @@
 package sk.falloutshelter.fri.screan;
 
-import sk.falloutshelter.fri.prostredie.miestnosti.KlikException;
+import sk.falloutshelter.fri.prostredie.KlikException;
 
 /**
- * 1. 5. 2021 - 17:51
- *
+ * Interface pre klik myškou.
  * @author Tobias
  */
 public interface IKlik {

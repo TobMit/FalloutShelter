@@ -13,12 +13,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 /**
- *
+ * Hlavná trieda hry. Má za úlohu načítanie vytvorenie hry. Ovládacie prvky a hlavnú slučku – render obrazu.
  *
  * @author Tobias
  */
 public class Hra {
-private final Pozadie pozadie;
+    private final Pozadie pozadie;
     private final JFrame jframe;
     private final JPanel render;
 
@@ -28,8 +28,8 @@ private final Pozadie pozadie;
     private final Tlacitka builderButton;
     private StavObrazovky stavObrazokvy;
 
-    //tik je pre animáciu
-    private int tik;
+    //tik je počítadlo sekundy
+    private int tikS;
     private final UvodnaObrazovka uvodnaObraovka;
 
     public Hra() {
@@ -59,11 +59,14 @@ private final Pozadie pozadie;
         this.bunker.jeVidetelne(false);
 
         this.builderButton = new Tlacitka(10, 925, this.bunker.getRozlozenieMiestnosti(), "src/sk/falloutshelter/fri/obr/build-ico.png");
-        this.tik = 0;
+        this.tikS = 0;
 
 
     }
 
+    /**
+     * Metóda vytvorí hlavné okno zo všetkými parametrami.
+     */
     private void vytvorenieOkna() {
         this.jframe.add(this.render);
         this.jframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -79,12 +82,15 @@ private final Pozadie pozadie;
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-                System.out.println(e.getX() + " " + e.getY());
+                //System.out.println(e.getX() + " " + e.getY());
                 Hra.this.klik(e.getX(), e.getY());
             }
         });
     }
 
+    /**
+     * Metóda nastavuje čo sa ma zobraziť a čo nie pri zmenu stavu obrazovky.
+     */
     public void prepinacObrazoviek() {
         this.stavObrazokvy = StavObrazovky.HraBezi;
         this.uvodnaObraovka.jeVidetelne(false);
@@ -92,12 +98,22 @@ private final Pozadie pozadie;
         this.bunker.jeVidetelne(true);
         this.builderButton.jeVidetelne(true);
     }
+
+    /**
+     * Klik myšou.
+     * @param x suradnica
+     * @param y suradnica
+     */
     private void klik(int x, int y) {
         this.uvodnaObraovka.klik(x, y);
         this.builderButton.klik(x, y);
         this.bunker.klik(x, y);
     }
 
+    /**
+     * Metóda prekreslí obrazovku podal toho v akom stave sa hra nachádza.
+     * @param grafika grafika kreslenia
+     */
     public void repaint(Graphics grafika) {
 
         if (this.stavObrazokvy == StavObrazovky.UvodnaObrazovka) {
@@ -105,19 +121,19 @@ private final Pozadie pozadie;
             this.uvodnaObraovka.zobraz(grafika);
         } else {
             /*
-             * Odstranenie chyby Bunker = null. Niekedy sa repaint volalo skôr ako sa stihol bunker vôbec vytvoriť tak to pri prvom spustení hádzalo chybu.
+             * Odstránenie chyby Bunker = null. Niekedy sa repaint volalo skôr ako sa stihol bunker vôbec vytvoriť tak to pri prvom spustení hádzalo chybu.
              */
             this.pozadie.zobraz(grafika);
             this.bunker.zobraz(grafika);
             this.builderButton.zobraz(grafika);
-            this.tik++;
+            this.tikS++;
 
-            if (this.tik > 60) {
-                this.tik = 0;
+            if (this.tikS > 60) {
+                this.tikS = 0;
                 try {
                     this.bunker.tik();
                 } catch (KoniecHryException e) {
-                    JOptionPane.showMessageDialog(null, "Ludia zomreli od hadlu a smedu. Koniec hry.", "Koniec hry.", JOptionPane.PLAIN_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Ľudia zomreli od hladu a smädu. Koniec hry.", "Koniec hry.", JOptionPane.PLAIN_MESSAGE);
                     System.exit(0);
                 }
 
@@ -139,7 +155,7 @@ private final Pozadie pozadie;
     }
 
     /**
-     * Hlavná slučka. Udržuje hru aby prebehlo 60 tikou za sekundu.
+     * Hlavná slučka. Udržuje hru aby prebehlo 60 tikov za sekundu.
      */
     public void hraj() {
         long poslednyCasCyklu = System.nanoTime();
@@ -163,7 +179,7 @@ private final Pozadie pozadie;
 
             if (System.currentTimeMillis() - poslenyCysVystupu > 1000) {
                 poslenyCysVystupu += 1000;
-                //System.out.printf("Tik: %d FPS: %d\n", tik, fps);
+                //System.out.printf("Tik: %d FPS: %d\n", tick, fps);
                 fps = 0;
                 tick = 0;
             }

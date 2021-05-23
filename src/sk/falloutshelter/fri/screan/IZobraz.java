@@ -3,8 +3,7 @@ package sk.falloutshelter.fri.screan;
 import java.awt.*;
 
 /**
- * 1. 5. 2021 - 17:51
- *
+ * Interface pre vykresľovanie a obsluhu grafiky.
  * @author Tobias
  */
 public interface IZobraz {
