@@ -1,7 +1,12 @@
 package sk.falloutshelter.fri.prostredie;
 
 import sk.falloutshelter.fri.Hra;
-import sk.falloutshelter.fri.prostredie.miestnosti.*;
+import sk.falloutshelter.fri.prostredie.miestnosti.Elektraren;
+import sk.falloutshelter.fri.prostredie.miestnosti.Jedalen;
+import sk.falloutshelter.fri.prostredie.miestnosti.KlikException;
+import sk.falloutshelter.fri.prostredie.miestnosti.Miestnosti;
+import sk.falloutshelter.fri.prostredie.miestnosti.Ubytovanie;
+import sk.falloutshelter.fri.prostredie.miestnosti.Vodaren;
 import sk.falloutshelter.fri.prostredie.miestnosti.vedlasieMiestnosti.BuilderMiestnost;
 import sk.falloutshelter.fri.prostredie.miestnosti.vedlasieMiestnosti.Vchod;
 import sk.falloutshelter.fri.prostredie.miestnosti.vedlasieMiestnosti.VyplnaciaMiestnost;
