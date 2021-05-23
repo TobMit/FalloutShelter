@@ -12,13 +12,13 @@ import sk.falloutshelter.fri.screan.IZobraz;
  * @author Tobias
  */
 public abstract class Miestnosti implements IZobraz, IKlik, ITik {
+    //todo seteri pre protected na premenné
     private final int riadok;
     private final int stlpec;
-    protected StavMiestnosti stavMiestnosti;
-    protected int odpocitavanie;
-    protected int pocetLudi;
-    protected int velkostMiestnosti = 1;
-    //todo keď zvätšime veľkosť miestnosti tak sa to premietne aj do tejto miestnosti.
+    private StavMiestnosti stavMiestnosti;
+    private int odpocitavanie;
+    private int pocetLudi;
+    private int velkostMiestnosti = 1;
 
     public Miestnosti(int riadok, int stlpec, RozlozenieMiestnosti rozlozenieMiestnosti) {
         this.riadok = riadok;
@@ -60,7 +60,7 @@ public abstract class Miestnosti implements IZobraz, IKlik, ITik {
     }
 
     public int getVelkostMiesnosti() {
-        return velkostMiestnosti;
+        return this.velkostMiestnosti;
     }
 
     public void zvetsiMiestnost() {
@@ -70,4 +70,37 @@ public abstract class Miestnosti implements IZobraz, IKlik, ITik {
     public void setSuradnice(int riadok, int stlpec) {
 
     }
+
+    protected StavMiestnosti getStavMiestnosti() {
+        return this.stavMiestnosti;
+    }
+
+    protected void setStavMiestnosti(StavMiestnosti stavMiestnosti) {
+        this.stavMiestnosti = stavMiestnosti;
+    }
+
+    protected int getOdpocitavanie() {
+        return this.odpocitavanie;
+    }
+
+    protected void setOdpocitavanie(int odpocitavanie) {
+        this.odpocitavanie = odpocitavanie;
+    }
+
+    protected int getPocetLudi() {
+        return this.pocetLudi;
+    }
+
+    protected void setPocetLudi(int pocetLudi) {
+        this.pocetLudi = pocetLudi;
+    }
+
+    protected int getVelkostMiestnosti() {
+        return this.velkostMiestnosti;
+    }
+
+    protected void setVelkostMiestnosti(int velkostMiestnosti) {
+        this.velkostMiestnosti = velkostMiestnosti;
+    }
+
 }

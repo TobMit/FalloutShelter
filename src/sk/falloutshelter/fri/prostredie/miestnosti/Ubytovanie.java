@@ -32,12 +32,12 @@ public class Ubytovanie extends Miestnosti {
         this.xSuradnica = Bunker.X_SURADNICA_BUNKRA + this.stlpec * RozlozenieMiestnosti.SIRKA_MIESTNOSTI;
         this.ySuradnica = Bunker.Y_SURADNICA_BUNKRA + this.riadok * RozlozenieMiestnosti.VYSKA_MIESTNOSTI;
 
-        super.stavMiestnosti = StavMiestnosti.Pracuje;
+        super.setStavMiestnosti(StavMiestnosti.Pracuje);
         Random random = new Random();
         //todo dočasná zmena
         this.maxTime = random.nextInt(300) + 30;
-        super.odpocitavanie = this.maxTime;
-        super.velkostMiestnosti = 1;
+        super.setOdpocitavanie(this.maxTime);
+        super.setVelkostMiestnosti(1);
         this.zobrazInfo = false;
 
         if (!(riadok == 0 && stlpec == 0)) {
@@ -52,7 +52,7 @@ public class Ubytovanie extends Miestnosti {
 
     @Override
     public void zobraz(Graphics grafika) {
-        switch (super.velkostMiestnosti) {
+        switch (super.getVelkostMiestnosti()) {
             case 1:
                 this.image = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/ubytovanie/1trieda/ubytovanie1.jpg").getImage();
                 break;
@@ -64,7 +64,7 @@ public class Ubytovanie extends Miestnosti {
                 break;
         }
         grafika.drawImage(this.image, this.xSuradnica, this.ySuradnica, null);
-        if (super.stavMiestnosti == StavMiestnosti.Spracovane) {
+        if (super.getStavMiestnosti() == StavMiestnosti.Spracovane) {
             //todo dorobiť grafiku
             //Image spracovaneImag = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/vodaren/dogenerovanaVodaren-1.png").getImage();
             //grafika.drawImage(spracovaneImag, this.xSuradnica, this.ySuradnica, null);
@@ -74,7 +74,7 @@ public class Ubytovanie extends Miestnosti {
             grafika.setColor(Color.decode("#18f817"));
             grafika.setFont(new Font("TimesRoman", Font.PLAIN, 45));
 
-            String casDoKonca = "Cas dokoncenia: " + super.odpocitavanie;
+            String casDoKonca = "Cas dokoncenia: " + super.getOdpocitavanie();
             grafika.drawString(casDoKonca, 45, 646);
         }
     }
@@ -82,10 +82,10 @@ public class Ubytovanie extends Miestnosti {
 
     @Override
     public void klik(int x, int y) throws KlikException {
-        if (x > this.xSuradnica && y > this.ySuradnica && x < this.xSuradnica + RozlozenieMiestnosti.SIRKA_MIESTNOSTI * super.velkostMiestnosti && y < this.ySuradnica + RozlozenieMiestnosti.VYSKA_MIESTNOSTI) {
-            if (super.stavMiestnosti == StavMiestnosti.Pracuje) {
+        if (x > this.xSuradnica && y > this.ySuradnica && x < this.xSuradnica + RozlozenieMiestnosti.SIRKA_MIESTNOSTI * super.getVelkostMiestnosti() && y < this.ySuradnica + RozlozenieMiestnosti.VYSKA_MIESTNOSTI) {
+            if (super.getStavMiestnosti() == StavMiestnosti.Pracuje) {
                 this.zobrazInfo = true;
-            } else if (super.stavMiestnosti == StavMiestnosti.Spracovane) {
+            } else if (super.getStavMiestnosti() == StavMiestnosti.Spracovane) {
                 this.reWork();
                 throw new KlikException("klik");
             }
@@ -97,7 +97,7 @@ public class Ubytovanie extends Miestnosti {
 
     private void reWork() {
         Miestnosti[] mestnost = this.rozlozenieMiestnosti.getMiestnostiSMaloLudmi();
-        for (int i = 0; i < this.velkostMiestnosti; i++) {
+        for (int i = 0; i < this.getVelkostMiestnosti(); i++) {
             Miestnosti miestnost = JpanelVyberMiestnosti.zobrazVyberoveMenu(mestnost, new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/novyClen.png"));
             if (miestnost == null) {
                 i--;
@@ -107,8 +107,8 @@ public class Ubytovanie extends Miestnosti {
         }
         Random random = new Random();
         this.maxTime = random.nextInt(300) + 30;
-        super.odpocitavanie = this.maxTime;
-        super.stavMiestnosti = StavMiestnosti.Pracuje;
+        super.setOdpocitavanie(this.maxTime);
+        super.setStavMiestnosti(StavMiestnosti.Pracuje);
     }
 
     @Override

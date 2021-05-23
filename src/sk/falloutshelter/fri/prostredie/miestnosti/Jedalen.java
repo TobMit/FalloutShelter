@@ -29,10 +29,10 @@ public class Jedalen extends Miestnosti {
         this.xSuradnica = Bunker.X_SURADNICA_BUNKRA + this.stlpec * RozlozenieMiestnosti.SIRKA_MIESTNOSTI;
         this.ySuradnica = Bunker.Y_SURADNICA_BUNKRA + this.riadok * RozlozenieMiestnosti.VYSKA_MIESTNOSTI;
 
-        super.stavMiestnosti = StavMiestnosti.NemaLudi;
+        super.setStavMiestnosti(StavMiestnosti.NemaLudi);
         this.pocetLudi = 0;
-        super.pocetLudi = this.pocetLudi;
-        super.velkostMiestnosti = 1;
+        super.setPocetLudi(this.pocetLudi);
+        super.setVelkostMiestnosti(1);
         this.zobrazInfo = false;
 
         this.rozlozenieMiestnosti = rozlozenieMiestnosti;
@@ -42,18 +42,18 @@ public class Jedalen extends Miestnosti {
     }
 
     public void pridajCloveka() {
-        if (super.stavMiestnosti == StavMiestnosti.NemaLudi) {
-            super.stavMiestnosti = StavMiestnosti.Pracuje;
+        if (super.getStavMiestnosti() == StavMiestnosti.NemaLudi) {
+            super.setStavMiestnosti(StavMiestnosti.Pracuje);
         }
-        if (this.pocetLudi < super.velkostMiestnosti * 2) {
+        if (this.pocetLudi < super.getVelkostMiestnosti() * 2) {
             this.pocetLudi++;
-            super.pocetLudi++;
+            super.setPocetLudi(super.getPocetLudi() + 1);
             this.rozlozenieMiestnosti.getBunker().getZdroje().pridajCloveka();
             this.maxTime = ((this.pocetLudi - 1) * 54 - 300) * (-1);
-            if (super.odpocitavanie > this.maxTime) {
-                super.odpocitavanie = this.maxTime;
-            } else if (super.odpocitavanie == 0) {
-                super.odpocitavanie = this.maxTime;
+            if (super.getOdpocitavanie() > this.maxTime) {
+                super.setOdpocitavanie(this.maxTime);
+            } else if (super.getOdpocitavanie() == 0) {
+                super.setOdpocitavanie(this.maxTime);
             }
         }
     }
@@ -61,16 +61,16 @@ public class Jedalen extends Miestnosti {
     @Override
     public void zobraz(Graphics grafika) {
         if (this.rozlozenieMiestnosti.getBunker().getZdroje().getEnergia() <= 0) {
-            super.stavMiestnosti = StavMiestnosti.NemaEnergiu;
-            System.out.println("som tu");
+            super.setStavMiestnosti(StavMiestnosti.NemaEnergiu);
+            //System.out.println("som tu");
         } else {
             if (this.pocetLudi != 0) {
-                super.stavMiestnosti = StavMiestnosti.Pracuje;
+                super.setStavMiestnosti(StavMiestnosti.Pracuje);
             } else {
-                super.stavMiestnosti = StavMiestnosti.NemaLudi;
+                super.setStavMiestnosti(StavMiestnosti.NemaLudi);
             }
         }
-        switch (super.velkostMiestnosti) {
+        switch (super.getVelkostMiestnosti()) {
             case 1:
                 this.image = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/jedalen/1trieda/jedalen1.jpg").getImage();
                 break;
@@ -82,7 +82,7 @@ public class Jedalen extends Miestnosti {
                 break;
         }
         grafika.drawImage(this.image, this.xSuradnica, this.ySuradnica, null);
-        if (super.stavMiestnosti == StavMiestnosti.Spracovane) {
+        if (super.getStavMiestnosti() == StavMiestnosti.Spracovane) {
             Image spracovaneImag = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/jedalen/1trieda/dogenerovanaJedalen-1.png").getImage();
             grafika.drawImage(spracovaneImag, this.xSuradnica, this.ySuradnica, null);
         }
@@ -91,7 +91,7 @@ public class Jedalen extends Miestnosti {
             grafika.setColor(Color.decode("#18f817"));
             grafika.setFont(new Font("TimesRoman", Font.PLAIN, 45));
 
-            String casDoKonca = "Cas dokoncenia: " + super.odpocitavanie;
+            String casDoKonca = "Cas dokoncenia: " + super.getOdpocitavanie();
             grafika.drawString(casDoKonca, 45, 646);
 
             String pocetDwelerov = "Pocet ludi: " + this.pocetLudi;
@@ -102,10 +102,10 @@ public class Jedalen extends Miestnosti {
 
     @Override
     public void klik(int x, int y) throws KlikException {
-        if (x > this.xSuradnica && y > this.ySuradnica && x < this.xSuradnica + RozlozenieMiestnosti.SIRKA_MIESTNOSTI * super.velkostMiestnosti && y < this.ySuradnica + RozlozenieMiestnosti.VYSKA_MIESTNOSTI) {
-            if (super.stavMiestnosti == StavMiestnosti.Pracuje || super.stavMiestnosti == StavMiestnosti.NemaLudi || super.stavMiestnosti == StavMiestnosti.NemaEnergiu) {
+        if (x > this.xSuradnica && y > this.ySuradnica && x < this.xSuradnica + RozlozenieMiestnosti.SIRKA_MIESTNOSTI * super.getVelkostMiestnosti() && y < this.ySuradnica + RozlozenieMiestnosti.VYSKA_MIESTNOSTI) {
+            if (super.getStavMiestnosti() == StavMiestnosti.Pracuje || super.getStavMiestnosti() == StavMiestnosti.NemaLudi || super.getStavMiestnosti() == StavMiestnosti.NemaEnergiu) {
                 this.zobrazInfo = true;
-            } else if (super.stavMiestnosti == StavMiestnosti.Spracovane) {
+            } else if (super.getStavMiestnosti() == StavMiestnosti.Spracovane) {
                 this.reWork();
                 throw new KlikException("klik");
             }
@@ -115,11 +115,11 @@ public class Jedalen extends Miestnosti {
     }
 
     private void reWork() {
-        this.rozlozenieMiestnosti.getBunker().getZdroje().pridajJedlo((2 * super.velkostMiestnosti * 5) - 2);
+        this.rozlozenieMiestnosti.getBunker().getZdroje().pridajJedlo((2 * super.getVelkostMiestnosti() * 5) - 2);
         Random random = new Random();
         this.rozlozenieMiestnosti.getBunker().getZdroje().pridajCaps(random.nextInt(80) + 15);
-        super.odpocitavanie = this.maxTime;
-        super.stavMiestnosti = StavMiestnosti.Pracuje;
+        super.setOdpocitavanie(this.maxTime);
+        super.setStavMiestnosti(StavMiestnosti.Pracuje);
     }
 
     @Override

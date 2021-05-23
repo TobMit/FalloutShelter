@@ -103,7 +103,6 @@ public class RozlozenieMiestnosti implements IKlik, ITik {
 
         //Kým beží táto metóda. Hra čaká.
         ImageIcon icon = new ImageIcon("src/sk/falloutshelter/fri/obr/build-ico.png");
-        //todo keď niečo kúpim tak aby to znišilo finanncie
 
         ArrayList<Miestnosti> rawZoznamMiestnosti = new ArrayList<>();
         if (this.bunker.getZdroje().mozemKupit(50)) {
@@ -187,11 +186,13 @@ public class RozlozenieMiestnosti implements IKlik, ITik {
                 if (stlpec - 1 >= 0 && this.miestnosti[riadok][stlpec - 1] instanceof Elektraren && this.miestnosti[riadok][stlpec - 1].getVelkostMiesnosti() < 3) {
                     this.miestnosti[riadok][stlpec] = this.miestnosti[riadok][stlpec - 1];
                     this.miestnosti[riadok][stlpec].zvetsiMiestnost();
+                    this.novaElektraren();
                     zdroje.nakupuj(300);
                 } else if (stlpec + 1 < this.miestnosti[riadok].length && this.miestnosti[riadok][stlpec + 1] instanceof Elektraren && this.miestnosti[riadok][stlpec + 1].getVelkostMiesnosti() < 3) {
                     this.miestnosti[riadok][stlpec] = this.miestnosti[riadok][stlpec + 1];
                     this.miestnosti[riadok][stlpec].setSuradnice(riadok, stlpec);
                     this.miestnosti[riadok][stlpec].zvetsiMiestnost();
+                    this.novaElektraren();
                     zdroje.nakupuj(300);
                 } else {
                     this.miestnosti[riadok][stlpec] = new Elektraren(riadok, stlpec, this);
@@ -201,11 +202,13 @@ public class RozlozenieMiestnosti implements IKlik, ITik {
                 if (stlpec - 1 >= 0 && this.miestnosti[riadok][stlpec - 1] instanceof Ubytovanie && this.miestnosti[riadok][stlpec - 1].getVelkostMiesnosti() < 3) {
                     this.miestnosti[riadok][stlpec] = this.miestnosti[riadok][stlpec - 1];
                     this.miestnosti[riadok][stlpec].zvetsiMiestnost();
+                    this.noveUbytovanie();
                     zdroje.nakupuj(200);
                 } else if (stlpec + 1 < this.miestnosti[riadok].length && this.miestnosti[riadok][stlpec + 1] instanceof Ubytovanie && this.miestnosti[riadok][stlpec + 1].getVelkostMiesnosti() < 3) {
                     this.miestnosti[riadok][stlpec] = this.miestnosti[riadok][stlpec + 1];
                     this.miestnosti[riadok][stlpec].setSuradnice(riadok, stlpec);
                     this.miestnosti[riadok][stlpec].zvetsiMiestnost();
+                    this.noveUbytovanie();
                     zdroje.nakupuj(200);
                 } else {
                     this.miestnosti[riadok][stlpec] = new Ubytovanie(riadok, stlpec, this);
@@ -218,11 +221,13 @@ public class RozlozenieMiestnosti implements IKlik, ITik {
                 if (stlpec - 1 >= 0 && this.miestnosti[riadok][stlpec - 1] instanceof Jedalen && this.miestnosti[riadok][stlpec - 1].getVelkostMiesnosti() < 3) {
                     this.miestnosti[riadok][stlpec] = this.miestnosti[riadok][stlpec - 1];
                     this.miestnosti[riadok][stlpec].zvetsiMiestnost();
+                    this.novaJedalen();
                     zdroje.nakupuj(200);
                 } else if (stlpec + 1 < this.miestnosti[riadok].length && this.miestnosti[riadok][stlpec + 1] instanceof Jedalen && this.miestnosti[riadok][stlpec + 1].getVelkostMiesnosti() < 3) {
                     this.miestnosti[riadok][stlpec] = this.miestnosti[riadok][stlpec + 1];
                     this.miestnosti[riadok][stlpec].setSuradnice(riadok, stlpec);
                     this.miestnosti[riadok][stlpec].zvetsiMiestnost();
+                    this.novaJedalen();
                     zdroje.nakupuj(200);
                 } else {
                     this.miestnosti[riadok][stlpec] = new Jedalen(riadok, stlpec, this);
@@ -232,11 +237,13 @@ public class RozlozenieMiestnosti implements IKlik, ITik {
                 if (stlpec - 1 >= 0 && this.miestnosti[riadok][stlpec - 1] instanceof Vodaren && this.miestnosti[riadok][stlpec - 1].getVelkostMiesnosti() < 3) {
                     this.miestnosti[riadok][stlpec] = this.miestnosti[riadok][stlpec - 1];
                     this.miestnosti[riadok][stlpec].zvetsiMiestnost();
+                    this.novaVodaren();
                     zdroje.nakupuj(250);
                 } else if (stlpec + 1 < this.miestnosti[riadok].length && this.miestnosti[riadok][stlpec + 1] instanceof Vodaren && this.miestnosti[riadok][stlpec + 1].getVelkostMiesnosti() < 3) {
                     this.miestnosti[riadok][stlpec] = this.miestnosti[riadok][stlpec + 1];
                     this.miestnosti[riadok][stlpec].setSuradnice(riadok, stlpec);
                     this.miestnosti[riadok][stlpec].zvetsiMiestnost();
+                    this.novaVodaren();
                     zdroje.nakupuj(250);
                 } else {
                     this.miestnosti[riadok][stlpec] = new Vodaren(riadok, stlpec, this);
