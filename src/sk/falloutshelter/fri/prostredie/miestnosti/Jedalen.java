@@ -29,7 +29,7 @@ public class Jedalen extends Miestnosti {
         this.xSuradnica = Bunker.X_SURADNICA_BUNKRA + this.stlpec * RozlozenieMiestnosti.SIRKA_MIESTNOSTI;
         this.ySuradnica = Bunker.Y_SURADNICA_BUNKRA + this.riadok * RozlozenieMiestnosti.VYSKA_MIESTNOSTI;
 
-        super.setStavMiestnosti(StavMiestnosti.NemaLudi);
+        super.setStavMiestnosti(StavMiestnosti.Pracuje);
         this.pocetLudi = 0;
         super.setPocetLudi(this.pocetLudi);
         super.setVelkostMiestnosti(1);
@@ -63,10 +63,12 @@ public class Jedalen extends Miestnosti {
         if (this.rozlozenieMiestnosti.getBunker().getZdroje().getEnergia() <= 0) {
             super.setStavMiestnosti(StavMiestnosti.NemaEnergiu);
         } else {
-            if (this.pocetLudi != 0) {
-                super.setStavMiestnosti(StavMiestnosti.Pracuje);
-            } else {
-                super.setStavMiestnosti(StavMiestnosti.NemaLudi);
+            if (super.getStavMiestnosti() != StavMiestnosti.Spracovane) {
+                if (this.pocetLudi != 0) {
+                    super.setStavMiestnosti(StavMiestnosti.Pracuje);
+                } else {
+                    super.setStavMiestnosti(StavMiestnosti.NemaLudi);
+                }
             }
         }
         new GrafickyZobraovac("src/sk/falloutshelter/fri/obr/Miestnosti/jedalen/1trieda/jedalen1.jpg",

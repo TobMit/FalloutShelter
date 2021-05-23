@@ -36,7 +36,8 @@ public class Ubytovanie extends Miestnosti {
         super.setStavMiestnosti(StavMiestnosti.Pracuje);
         Random random = new Random();
         this.maxTime = random.nextInt(300) + 30;
-        super.setOdpocitavanie(this.maxTime);
+        //dočasne 15
+        super.setOdpocitavanie(15);
         super.setVelkostMiestnosti(1);
         this.zobrazInfo = false;
 

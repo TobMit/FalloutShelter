@@ -62,6 +62,14 @@ public class Vodaren extends Miestnosti {
     public void zobraz(Graphics grafika) {
         if (this.rozlozenieMiestnosti.getBunker().getZdroje().getEnergia() <= 0) {
             super.setStavMiestnosti(StavMiestnosti.NemaEnergiu);
+        } else {
+            if (super.getStavMiestnosti() != StavMiestnosti.Spracovane) {
+                if (this.pocetLudi != 0) {
+                    super.setStavMiestnosti(StavMiestnosti.Pracuje);
+                } else {
+                    super.setStavMiestnosti(StavMiestnosti.NemaLudi);
+                }
+            }
         }
         new GrafickyZobraovac("src/sk/falloutshelter/fri/obr/Miestnosti/vodaren/1trieda/vodaren1.jpg",
                 "src/sk/falloutshelter/fri/obr/Miestnosti/vodaren/2trieda/vodaren2.jpg",
