@@ -3,6 +3,13 @@ package sk.falloutshelter.fri.prostredie;
 import sk.falloutshelter.fri.screan.IZobraz;
 
 import java.awt.*;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * 1. 5. 2021 - 17:51
@@ -22,10 +29,11 @@ public class Zdroje implements IZobraz {
         this.rozlozenieMiestnosti = rozlozenieMiestnosti;
         this.viditelne = false;
         this.voda = 0;
-        this.energia = 1;
+        this.energia = 0;
         this.jedlo = 0;
-        this.caps = 1500;
+        this.caps = 0;
         this.ludia = 0;
+        //this.ulozDoSuboru();
     }
 
     public void odoberZdroje(int voda, int energia) throws KoniecHryException {
@@ -36,6 +44,7 @@ public class Zdroje implements IZobraz {
         if (this.jedlo < 0 || this.voda < 0) {
             throw new KoniecHryException("ľudia zomreli od hladu a smedu");
         }
+        this.ulozDoSuboru();
 
     }
 
@@ -45,6 +54,7 @@ public class Zdroje implements IZobraz {
 
     public void nakupuj(int cena) {
         this.caps -= cena;
+        this.ulozDoSuboru();
     }
 
     public boolean mozemKupit(int cena) {
@@ -53,18 +63,22 @@ public class Zdroje implements IZobraz {
 
     public void pridajVodu(int mnozstvo) {
         this.voda += mnozstvo;
+        this.ulozDoSuboru();
     }
 
     public void pridajJedlo(int mnozstvo) {
         this.jedlo += mnozstvo;
+        this.ulozDoSuboru();
     }
 
     public void pridajEnergie(int mnozstvo) {
         this.energia += mnozstvo;
+        this.ulozDoSuboru();
     }
 
     public void pridajCaps(int mnozstvo) {
         this.caps += mnozstvo;
+        this.ulozDoSuboru();
     }
 
     @Override
@@ -101,5 +115,47 @@ public class Zdroje implements IZobraz {
 
     public void pridajCloveka() {
         this.ludia++;
+    }
+
+    public void nacitajZrojeZoSuboru() {
+        File saveSubor = new File("src/sk/falloutshelter/fri/save/zdroje.fos");
+        try (DataInputStream save = new DataInputStream(new FileInputStream(saveSubor))) {
+            int subor = save.readInt();
+            if (subor != 0x464f53) {
+                return;
+            }
+            int znacka = save.readInt();
+            if (znacka != 0x5a4452) {
+                return;
+            }
+            this.energia = save.readInt();
+            this.voda = save.readInt();
+            this.jedlo = save.readInt();
+            this.caps = save.readInt();
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Nepodarilo sa nacitat save. Hra bola poškodená. Prosím reinstalujte hru.");
+        } catch (IOException e) {
+            System.out.println("Nepodarilo sa nacitat save.");
+        }
+    }
+
+    private void ulozDoSuboru() {
+        File saveSubor = new File("src/sk/falloutshelter/fri/save/zdroje.fos");
+        try (DataOutputStream save = new DataOutputStream(new FileOutputStream(saveSubor))) {
+            // 0x464f53  -- v preklade FOS (ako názov hry)
+            save.writeInt(0x464f53);
+            // ďaľej je bezbečnostná informácie akotra oddeluje bunker a zdroje od seba. -> 0x5a4452   (ZDR - zdroje)
+            save.writeInt(0x5a4452);
+            save.writeInt(this.energia);
+            save.writeInt(this.voda);
+            save.writeInt(this.jedlo);
+            save.writeInt(this.caps);
+        } catch (FileNotFoundException e) {
+            System.out.println("Nepodarilo sa ulozit hru. Hra bola poškodená. Prosím reinstalujte hru.");
+        } catch (IOException e) {
+            System.out.println("Nepodarilo sa ulozit save.");
+            e.printStackTrace(System.out);
+        }
     }
 }

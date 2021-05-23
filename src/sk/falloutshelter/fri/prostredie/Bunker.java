@@ -33,6 +33,7 @@ public class Bunker implements IZobraz, IKlik, ITik {
         this.rozlozenieMiestnosti = new RozlozenieMiestnosti(hra, this);
         this.rozlozenieMiestnosti.nacitajMiestnostiZoSuboru();
         this.zdroje = new Zdroje(this.rozlozenieMiestnosti);
+        this.zdroje.nacitajZrojeZoSuboru();
         this.sekundaTik = 0;
 
     }
