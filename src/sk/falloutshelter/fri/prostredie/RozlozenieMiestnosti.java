@@ -30,8 +30,6 @@ import java.util.ArrayList;
  *Táto tireda má nastorosť vytváranie usporiadanie miestnosti a informovať miestnosti o počte ludí v nej
  */
 public class RozlozenieMiestnosti implements IKlik, ITik {
-    //todo Pridať každej miestnosti svoj vhlad a grafiku
-    //todo Načitavanie miestnostií zo súboru
     public static final int SIRKA_MIESTNOSTI = 140;
     public static final int VYSKA_MIESTNOSTI = 90;
     private final Miestnosti[][] miestnosti;

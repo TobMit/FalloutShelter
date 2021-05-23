@@ -13,16 +13,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 /**
- * 1. 5. 2021 - 17:51
+ *
  *
  * @author Tobias
  */
 public class Hra {
-
-    //TODO úvodu obrazovku a načitavanie zo súboru na výber budú 3 save a viac nie, potom má hráč smolu - zatiaľ iba jeden save
-
-
-    private final Pozadie pozadie;
+private final Pozadie pozadie;
     private final JFrame jframe;
     private final JPanel render;
 
