@@ -9,8 +9,6 @@ import sk.falloutshelter.fri.screan.UvodnaObrazovka;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -36,7 +34,7 @@ public class Hra {
 
     //tik je pre animáciu
     private int tik;
-    private UvodnaObrazovka uvodnaObraovka;
+    private final UvodnaObrazovka uvodnaObraovka;
 
     public Hra() {
         this.jframe = new JFrame();
@@ -123,7 +121,7 @@ public class Hra {
                 try {
                     this.bunker.tik();
                 } catch (KoniecHryException e) {
-                    JOptionPane.showConfirmDialog(null,"Ludia zomreli od hadlu a smedu. Koniec hry.");
+                    JOptionPane.showConfirmDialog(null, "Ludia zomreli od hadlu a smedu. Koniec hry.");
                     System.exit(0);
                 }
 
@@ -152,7 +150,7 @@ public class Hra {
         long poslenyCysVystupu = System.currentTimeMillis();
         double nespracovaneTiky = 0;
         double perTik = Math.pow(10, 9) / 60;
-        int tik = 0;
+        int tick = 0;
         int fps = 0;
         while (true) {
             long aktualnyCas = System.nanoTime();
@@ -161,7 +159,7 @@ public class Hra {
 
             while (nespracovaneTiky >= 1) {
                 this.render.repaint();
-                tik++;
+                tick++;
                 nespracovaneTiky--;
             }
 
@@ -169,9 +167,9 @@ public class Hra {
 
             if (System.currentTimeMillis() - poslenyCysVystupu > 1000) {
                 poslenyCysVystupu += 1000;
-                //System.out.printf("Tik: %d FPS: %d\n", tik, fps);
+                //System.out.printf("Tik: %d FPS: %d\n", tick, fps);
                 fps = 0;
-                tik = 0;
+                tick = 0;
             }
         }
     }

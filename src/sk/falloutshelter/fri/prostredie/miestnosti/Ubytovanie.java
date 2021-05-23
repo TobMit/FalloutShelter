@@ -35,8 +35,8 @@ public class Ubytovanie extends Miestnosti {
         super.stavMiestnosti = StavMiestnosti.Pracuje;
         Random random = new Random();
         //todo dočasná zmena
-//        super.odpocitavanie = random.nextInt(300) + 30;
-        super.odpocitavanie = 10;
+        this.maxTime = random.nextInt(300) + 30;
+        super.odpocitavanie = this.maxTime;
         super.velkostMiestnosti = 1;
         this.zobrazInfo = false;
 
@@ -76,8 +76,6 @@ public class Ubytovanie extends Miestnosti {
 
             String casDoKonca = "Cas dokoncenia: " + super.odpocitavanie;
             grafika.drawString(casDoKonca, 45, 646);
-        } else {
-            this.zobrazInfo = false;
         }
     }
 

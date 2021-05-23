@@ -31,7 +31,6 @@ public class Vodaren extends Miestnosti {
         this.rozlozenieMiestnosti = rozlozenieMiestnosti;
         this.xSuradnica = Bunker.X_SURADNICA_BUNKRA + this.stlpec * RozlozenieMiestnosti.SIRKA_MIESTNOSTI;
         this.ySuradnica = Bunker.Y_SURADNICA_BUNKRA + this.riadok * RozlozenieMiestnosti.VYSKA_MIESTNOSTI;
-        //this.image = new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/builderMiestnost/builderMiestnost-1.png").getImage();
 
         super.stavMiestnosti = StavMiestnosti.NemaLudi;
         this.pocetLudi = 0;
@@ -55,7 +54,7 @@ public class Vodaren extends Miestnosti {
             this.maxTime = ((this.pocetLudi - 1) * 54 - 300) * (-1);
             if (super.odpocitavanie > this.maxTime) {
                 super.odpocitavanie = this.maxTime;
-            } else if (super.odpocitavanie == 0){
+            } else if (super.odpocitavanie == 0) {
                 super.odpocitavanie = this.maxTime;
             }
         }
