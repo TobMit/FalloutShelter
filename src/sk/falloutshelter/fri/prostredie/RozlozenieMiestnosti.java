@@ -17,6 +17,13 @@ import sk.falloutshelter.fri.screan.StavObrazovky;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -30,6 +37,7 @@ public class RozlozenieMiestnosti implements IKlik, ITik {
     private final Miestnosti[][] miestnosti;
     private final Hra hra;
     private final Bunker bunker;
+    private boolean nakupovanie;
     private int pocetJedalni;
     private int pocetUbytovania;
     private int pocetVodarni;
@@ -50,6 +58,8 @@ public class RozlozenieMiestnosti implements IKlik, ITik {
         this.pocetVodarni = 0;
         this.pocetJedalni = 0;
         this.pocetVytahov = 0;
+        // this.nakupovanie uzamika nakupovanie a menu stavu keď sa načítava miestnoť zo súboru. Potom je už nakupovanie odomkntuté.
+        this.nakupovanie = false;
 
 
         this.miestnosti = new Miestnosti[11][10];
@@ -59,26 +69,140 @@ public class RozlozenieMiestnosti implements IKlik, ITik {
                 this.miestnosti[i][j] = new BuilderMiestnost(i, j, this);
             }
         }
-
+        // tieto miestnosti budú vždy
         this.miestnosti[0][0] = new VyplnaciaMiestnost(0 , 0, this);
         this.miestnosti[0][1] = new Vchod(0, 1, this);
         this.miestnosti[0][2] = this.miestnosti[0][1];
-        this.miestnosti[0][4] = new Ubytovanie(0, 4, this);
 
-        this.miestnosti[0][3] = new Vytah(0, 3, this);
-        this.miestnosti[1][3] = new Vytah(1, 3, this);
-        this.miestnosti[2][3] = new Vytah(2, 3, this);
-        // prvé poschodi
-        this.miestnosti[1][2] = new Elektraren(1, 2, this);
-        this.miestnosti[1][4] = new Jedalen(1, 4, this);
-        // druhe poschodi
-        this.miestnosti[2][4] = new Vodaren(2, 4, this);
+        //iba na vytvorenie save
+//        this.miestnosti[0][4] = new Ubytovanie(0, 4, this);
+//
+//        this.miestnosti[0][3] = new Vytah(0, 3, this);
+//        this.miestnosti[1][3] = new Vytah(1, 3, this);
+//        this.miestnosti[2][3] = new Vytah(2, 3, this);
+//        // prvé poschodi
+//        this.miestnosti[1][2] = new Elektraren(1, 2, this);
+//        this.miestnosti[1][4] = new Jedalen(1, 4, this);
+//        // druhe poschodi
+//        this.miestnosti[2][4] = new Vodaren(2, 4, this);
     }
 
     public void nacitajMiestnostiZoSuboru() {
+        File saveSubor = new File("src/sk/falloutshelter/fri/save/bunker.fos");
+        try (DataInputStream save = new DataInputStream(new FileInputStream(saveSubor))) {
+            int subor = save.readInt();
+            if (subor != 0x464f53) {
+                return;
+            }
+            int znacka = save.readInt();
+            if (znacka != 0x42554e) {
+                return;
+            }
+
+            for (int i = 0; i < this.miestnosti.length; i++) {
+                int velkostMiestnostiTemp = 0;
+                int pocetLudiTemp = 0;
+                for (int j = 0; j < this.miestnosti[i].length; j++) {
+                    if (velkostMiestnostiTemp == 0) {
+                        int sirkaMiestnosti = save.readInt();
+                        int pocetLudi = save.readInt();
+                        velkostMiestnostiTemp = sirkaMiestnosti;
+                        pocetLudiTemp = pocetLudi;
+                    }
+                    int miestnost = save.readInt();
+                    //vedlajsie miestnosti
+                    if (miestnost == 0x6e756c) {
+                        continue;
+                    } else if (miestnost == 0x567974) {
+                        //vytah
+                        this.miestnostNaPostavenie = new Vytah(0, 0, this);
+                        this.pridajMiestnosti(i, j);
+                        this.miestnostNaPostavenie = null;
+                    } else {
+                        velkostMiestnostiTemp--;
+                        switch (miestnost) {
+                            case 0x456c65:
+                                this.miestnostNaPostavenie = new Elektraren( 0, 0, this);
+                                this.pridajMiestnosti(i, j);
+                                break;
+                            case 0x556279:
+                                this.miestnostNaPostavenie = new Ubytovanie( 0, 0, this);
+                                this.pridajMiestnosti(i, j);
+                                break;
+                            case 0x4a6564:
+                                this.miestnostNaPostavenie = new Jedalen( 0, 0, this);
+                                this.pridajMiestnosti(i, j);
+                                break;
+                            case 0x566f64:
+                                this.miestnostNaPostavenie = new Vodaren( 0, 0, this);
+                                this.pridajMiestnosti(i, j);
+                                break;
+                        }
+                        this.miestnostNaPostavenie = null;
+
+                        if (velkostMiestnostiTemp == 0) {
+                            for (int k = 0; k < pocetLudiTemp; k++) {
+                                this.miestnosti[i][j].pridajCloveka();
+                            }
+                            pocetLudiTemp = 0;
+                        }
+                    }
+                }
+            }
+
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Nepodarilo sa nacitat save. Hra bola poškodená. Prosím reinstalujte hru.");
+        } catch (IOException e) {
+            System.out.println("Nepodarilo sa nacitat save.");
+        }
+        this.nakupovanie = true;
     }
 
     public void ulozMiestnostiDoSuboru() {
+        File saveSubor = new File("src/sk/falloutshelter/fri/save/bunker.fos");
+        try (DataOutputStream save = new DataOutputStream(new FileOutputStream(saveSubor))) {
+            // 0x464f53  -- v preklade FOS (ako názov hry)
+            save.writeInt(0x464f53);
+            // ďaľej je bezbečnostná informácie akotra oddeluje bunker a zdroje od seba. -> 0x42554e   (BUN - bunker)
+            save.writeInt(0x42554e);
+
+            for (int i = 0; i < this.miestnosti.length; i++) {
+                int velkostMiestnostiTemp = 0;
+                for (int j = 0; j < this.miestnosti[i].length; j++) {
+                    if (this.miestnosti[i][j] instanceof VyplnaciaMiestnost || this.miestnosti[i][j] instanceof Vchod || this.miestnosti[i][j] instanceof BuilderMiestnost) {
+                        //sirka miestnosti
+                        save.writeInt(0);
+                        // pocet ludi
+                        save.writeInt(0);
+                        save.writeInt(this.miestnosti[i][j].toStringInentifikator());
+                        continue;
+                    } else if (this.miestnosti[i][j] instanceof Vytah) {
+                        //sirka miestnosti
+                        save.writeInt(0);
+                        //pocet ludi
+                        save.writeInt(0);
+                        save.writeInt(this.miestnosti[i][j].toStringInentifikator());
+                    } else {
+                        if (velkostMiestnostiTemp == 0) {
+                            velkostMiestnostiTemp = this.miestnosti[i][j].getVelkostMiesnosti();
+                            save.writeInt(this.miestnosti[i][j].getVelkostMiesnosti());
+                            save.writeInt(this.miestnosti[i][j].getPocetLudi());
+                        }
+                        save.writeInt(this.miestnosti[i][j].toStringInentifikator());
+                        velkostMiestnostiTemp--;
+                    }
+                }
+            }
+
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Nepodarilo sa ulozit hru. Hra bola poškodená. Prosím reinstalujte hru.");
+        } catch (IOException e) {
+            System.out.println("Nepodarilo sa ulozit save.");
+            e.printStackTrace(System.out);
+        }
+
 
     }
 
@@ -192,71 +316,99 @@ public class RozlozenieMiestnosti implements IKlik, ITik {
                     this.miestnosti[riadok][stlpec] = this.miestnosti[riadok][stlpec - 1];
                     this.miestnosti[riadok][stlpec].zvetsiMiestnost();
                     this.novaElektraren();
-                    zdroje.nakupuj(300);
+                    if (this.nakupovanie) {
+                        zdroje.nakupuj(300);
+                    }
                 } else if (stlpec + 1 < this.miestnosti[riadok].length && this.miestnosti[riadok][stlpec + 1] instanceof Elektraren && this.miestnosti[riadok][stlpec + 1].getVelkostMiesnosti() < 3) {
                     this.miestnosti[riadok][stlpec] = this.miestnosti[riadok][stlpec + 1];
                     this.miestnosti[riadok][stlpec].setSuradnice(riadok, stlpec);
                     this.miestnosti[riadok][stlpec].zvetsiMiestnost();
                     this.novaElektraren();
-                    zdroje.nakupuj(300);
+                    if (this.nakupovanie) {
+                        zdroje.nakupuj(300);
+                    }
                 } else {
                     this.miestnosti[riadok][stlpec] = new Elektraren(riadok, stlpec, this);
-                    zdroje.nakupuj(300);
+                    if (this.nakupovanie) {
+                        zdroje.nakupuj(300);
+                    }
                 }
             } else if (this.miestnostNaPostavenie instanceof Ubytovanie) {
                 if (stlpec - 1 >= 0 && this.miestnosti[riadok][stlpec - 1] instanceof Ubytovanie && this.miestnosti[riadok][stlpec - 1].getVelkostMiesnosti() < 3) {
                     this.miestnosti[riadok][stlpec] = this.miestnosti[riadok][stlpec - 1];
                     this.miestnosti[riadok][stlpec].zvetsiMiestnost();
                     this.noveUbytovanie();
-                    zdroje.nakupuj(200);
+                    if (this.nakupovanie) {
+                        zdroje.nakupuj(200);
+                    }
                 } else if (stlpec + 1 < this.miestnosti[riadok].length && this.miestnosti[riadok][stlpec + 1] instanceof Ubytovanie && this.miestnosti[riadok][stlpec + 1].getVelkostMiesnosti() < 3) {
                     this.miestnosti[riadok][stlpec] = this.miestnosti[riadok][stlpec + 1];
                     this.miestnosti[riadok][stlpec].setSuradnice(riadok, stlpec);
                     this.miestnosti[riadok][stlpec].zvetsiMiestnost();
                     this.noveUbytovanie();
-                    zdroje.nakupuj(200);
+                    if (this.nakupovanie) {
+                        zdroje.nakupuj(200);
+                    }
                 } else {
                     this.miestnosti[riadok][stlpec] = new Ubytovanie(riadok, stlpec, this);
-                    zdroje.nakupuj(200);
+                    if (this.nakupovanie) {
+                        zdroje.nakupuj(200);
+                    }
                 }
             } else if (this.miestnostNaPostavenie instanceof Vytah) {
                 this.miestnosti[riadok][stlpec] = new Vytah(riadok, stlpec, this);
-                zdroje.nakupuj(50);
+                if (this.nakupovanie) {
+                    zdroje.nakupuj(50);
+                }
             } else if (this.miestnostNaPostavenie instanceof Jedalen) {
                 if (stlpec - 1 >= 0 && this.miestnosti[riadok][stlpec - 1] instanceof Jedalen && this.miestnosti[riadok][stlpec - 1].getVelkostMiesnosti() < 3) {
                     this.miestnosti[riadok][stlpec] = this.miestnosti[riadok][stlpec - 1];
                     this.miestnosti[riadok][stlpec].zvetsiMiestnost();
                     this.novaJedalen();
-                    zdroje.nakupuj(200);
+                    if (this.nakupovanie) {
+                        zdroje.nakupuj(200);
+                    }
                 } else if (stlpec + 1 < this.miestnosti[riadok].length && this.miestnosti[riadok][stlpec + 1] instanceof Jedalen && this.miestnosti[riadok][stlpec + 1].getVelkostMiesnosti() < 3) {
                     this.miestnosti[riadok][stlpec] = this.miestnosti[riadok][stlpec + 1];
                     this.miestnosti[riadok][stlpec].setSuradnice(riadok, stlpec);
                     this.miestnosti[riadok][stlpec].zvetsiMiestnost();
                     this.novaJedalen();
-                    zdroje.nakupuj(200);
+                    if (this.nakupovanie) {
+                        zdroje.nakupuj(200);
+                    }
                 } else {
                     this.miestnosti[riadok][stlpec] = new Jedalen(riadok, stlpec, this);
-                    zdroje.nakupuj(200);
+                    if (this.nakupovanie) {
+                        zdroje.nakupuj(200);
+                    }
                 }
             } else if (this.miestnostNaPostavenie instanceof Vodaren) {
                 if (stlpec - 1 >= 0 && this.miestnosti[riadok][stlpec - 1] instanceof Vodaren && this.miestnosti[riadok][stlpec - 1].getVelkostMiesnosti() < 3) {
                     this.miestnosti[riadok][stlpec] = this.miestnosti[riadok][stlpec - 1];
                     this.miestnosti[riadok][stlpec].zvetsiMiestnost();
                     this.novaVodaren();
-                    zdroje.nakupuj(250);
+                    if (this.nakupovanie) {
+                        zdroje.nakupuj(250);
+                    }
                 } else if (stlpec + 1 < this.miestnosti[riadok].length && this.miestnosti[riadok][stlpec + 1] instanceof Vodaren && this.miestnosti[riadok][stlpec + 1].getVelkostMiesnosti() < 3) {
                     this.miestnosti[riadok][stlpec] = this.miestnosti[riadok][stlpec + 1];
                     this.miestnosti[riadok][stlpec].setSuradnice(riadok, stlpec);
                     this.miestnosti[riadok][stlpec].zvetsiMiestnost();
                     this.novaVodaren();
-                    zdroje.nakupuj(250);
+                    if (this.nakupovanie) {
+                        zdroje.nakupuj(250);
+                    }
                 } else {
                     this.miestnosti[riadok][stlpec] = new Vodaren(riadok, stlpec, this);
-                    zdroje.nakupuj(250);
+                    if (this.nakupovanie) {
+                        zdroje.nakupuj(250);
+                    }
                 }
             }
             this.miestnostNaPostavenie = null;
-            this.hra.setStavObrazokvy(StavObrazovky.HraBezi);
+            if (this.nakupovanie) {
+                this.hra.setStavObrazokvy(StavObrazovky.HraBezi);
+            }
         }
     }
 
@@ -271,10 +423,12 @@ public class RozlozenieMiestnosti implements IKlik, ITik {
                 try {
                     miestnost.klik(x, y);
                 } catch (KlikException e) {
+                    this.ulozMiestnostiDoSuboru();
                     return;
                 }
             }
         }
+        this.ulozMiestnostiDoSuboru();
     }
 
     @Override

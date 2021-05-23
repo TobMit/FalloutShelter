@@ -134,4 +134,9 @@ public class Jedalen extends Miestnosti {
         this.ySuradnica = Bunker.Y_SURADNICA_BUNKRA + this.riadok * RozlozenieMiestnosti.VYSKA_MIESTNOSTI;
     }
 
+    @Override
+    public int toStringInentifikator() {
+        //Jed - Jedalen
+        return 0x4a6564;
+    }
 }

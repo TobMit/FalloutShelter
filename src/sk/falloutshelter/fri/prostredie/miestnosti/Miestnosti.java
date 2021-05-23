@@ -91,7 +91,7 @@ public abstract class Miestnosti implements IZobraz, IKlik, ITik {
         this.odpocitavanie = odpocitavanie;
     }
 
-    protected int getPocetLudi() {
+    public int getPocetLudi() {
         return this.pocetLudi;
     }
 
@@ -107,4 +107,8 @@ public abstract class Miestnosti implements IZobraz, IKlik, ITik {
         this.velkostMiestnosti = velkostMiestnosti;
     }
 
+    public int toStringInentifikator() {
+        //nul
+        return 0x6e756c;
+    }
 }

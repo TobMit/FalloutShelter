@@ -125,5 +125,9 @@ public class Elektraren extends sk.falloutshelter.fri.prostredie.miestnosti.Mies
         this.ySuradnica = Bunker.Y_SURADNICA_BUNKRA + this.riadok * RozlozenieMiestnosti.VYSKA_MIESTNOSTI;
     }
 
-
+    @Override
+    public int toStringInentifikator() {
+        //Ele - Elektraren
+        return 0x456c65;
+    }
 }

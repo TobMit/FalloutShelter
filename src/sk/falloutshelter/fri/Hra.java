@@ -167,7 +167,7 @@ public class Hra {
 
             if (System.currentTimeMillis() - poslenyCysVystupu > 1000) {
                 poslenyCysVystupu += 1000;
-                //System.out.printf("Tik: %d FPS: %d\n", tick, fps);
+                //System.out.printf("Tik: %d FPS: %d\n", tik, fps);
                 fps = 0;
                 tick = 0;
             }

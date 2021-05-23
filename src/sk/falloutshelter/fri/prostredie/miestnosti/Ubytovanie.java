@@ -123,4 +123,9 @@ public class Ubytovanie extends Miestnosti {
         this.ySuradnica = Bunker.Y_SURADNICA_BUNKRA + this.riadok * RozlozenieMiestnosti.VYSKA_MIESTNOSTI;
     }
 
+    @Override
+    public int toStringInentifikator() {
+        //Uby - Ubytovanie;
+        return 0x556279;
+    }
 }

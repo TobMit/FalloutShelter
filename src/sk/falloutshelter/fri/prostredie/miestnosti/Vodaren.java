@@ -134,4 +134,9 @@ public class Vodaren extends Miestnosti {
         this.ySuradnica = Bunker.Y_SURADNICA_BUNKRA + this.riadok * RozlozenieMiestnosti.VYSKA_MIESTNOSTI;
     }
 
+    @Override
+    public int toStringInentifikator() {
+        //Vod - Vodaren
+        return 0x566f64;
+    }
 }
