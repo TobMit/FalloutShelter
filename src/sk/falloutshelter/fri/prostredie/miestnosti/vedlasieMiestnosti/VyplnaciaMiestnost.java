@@ -35,4 +35,9 @@ public class VyplnaciaMiestnost extends Miestnosti {
     public void tik() {
 
     }
+
+    @Override
+    public String toString() {
+        return "NullMiestnost";
+    }
 }

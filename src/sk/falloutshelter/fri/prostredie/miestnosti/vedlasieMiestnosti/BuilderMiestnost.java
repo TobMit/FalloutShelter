@@ -55,7 +55,7 @@ public class BuilderMiestnost extends Miestnosti {
     }
 
     @Override
-    public void tik() {
-
+    public String toString() {
+        return "BuilderRoom";
     }
 }
