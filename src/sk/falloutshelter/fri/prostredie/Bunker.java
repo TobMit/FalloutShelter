@@ -6,6 +6,7 @@ import sk.falloutshelter.fri.screan.IZobraz;
 
 import java.awt.*;
 
+
 /**
  * 1. 5. 2021 - 17:51
  * Bunker ma nastarosť vytvorenie triedy rozloženia miestností.
