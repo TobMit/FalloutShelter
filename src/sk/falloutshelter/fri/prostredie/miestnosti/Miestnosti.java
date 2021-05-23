@@ -12,9 +12,9 @@ import sk.falloutshelter.fri.screan.IZobraz;
  * @author Tobias
  */
 public abstract class Miestnosti implements IZobraz, IKlik, ITik {
-    //todo korekcia pre tik keď je väčšia miestnosť
     private final int riadok;
     private final int stlpec;
+    private int tiki;
     private StavMiestnosti stavMiestnosti;
     private int odpocitavanie;
     private int pocetLudi;
@@ -23,25 +23,29 @@ public abstract class Miestnosti implements IZobraz, IKlik, ITik {
     public Miestnosti(int riadok, int stlpec, RozlozenieMiestnosti rozlozenieMiestnosti) {
         this.riadok = riadok;
         this.stlpec = stlpec;
+        this.tiki = 0;
     }
     public void pridajCloveka() {
     }
     
     public void tik() {
-
-        if (this.odpocitavanie <= 0 && (this.stavMiestnosti == StavMiestnosti.Pracuje)) {
-            this.stavMiestnosti = StavMiestnosti.Spracovane;
-        }
-
-        if (this.stavMiestnosti == StavMiestnosti.Spracovane) {
-            this.odpocitavanie = 0;
-            return;
-        }
-
-        if (this.stavMiestnosti != StavMiestnosti.NemaEnergiu) {
-            if (this.odpocitavanie > 0) {
-                this.odpocitavanie--;
+        this.tiki++;
+        if (this.tiki >= this.velkostMiestnosti) {
+            if (this.odpocitavanie <= 0 && (this.stavMiestnosti == StavMiestnosti.Pracuje)) {
+                this.stavMiestnosti = StavMiestnosti.Spracovane;
             }
+
+            if (this.stavMiestnosti == StavMiestnosti.Spracovane) {
+                this.odpocitavanie = 0;
+                return;
+            }
+
+            if (this.stavMiestnosti != StavMiestnosti.NemaEnergiu) {
+                if (this.odpocitavanie > 0) {
+                    this.odpocitavanie--;
+                }
+            }
+            this.tiki = 0;
         }
     }
 

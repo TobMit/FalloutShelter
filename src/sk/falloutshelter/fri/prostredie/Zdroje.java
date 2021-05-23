@@ -150,7 +150,8 @@ public class Zdroje implements IZobraz {
             save.writeInt(this.energia);
             save.writeInt(this.voda);
             save.writeInt(this.jedlo);
-            save.writeInt(this.caps);
+            //todo dočastne prepísane
+            save.writeInt(500);
         } catch (FileNotFoundException e) {
             System.out.println("Nepodarilo sa ulozit hru. Hra bola poškodená. Prosím reinstalujte hru.");
         } catch (IOException e) {

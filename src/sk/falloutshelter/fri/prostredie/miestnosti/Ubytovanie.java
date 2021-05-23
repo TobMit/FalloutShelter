@@ -17,6 +17,7 @@ import java.util.Random;
 public class Ubytovanie extends Miestnosti {
 
 
+    private int temInfoOSpracovanychLudoch;
     private int riadok;
     private int stlpec;
     private final RozlozenieMiestnosti rozlozenieMiestnosti;
@@ -40,6 +41,7 @@ public class Ubytovanie extends Miestnosti {
         super.setOdpocitavanie(15);
         super.setVelkostMiestnosti(1);
         this.zobrazInfo = false;
+        this.temInfoOSpracovanychLudoch = 0;
 
         if (!(riadok == 0 && stlpec == 0)) {
             this.rozlozenieMiestnosti.noveUbytovanie();
@@ -91,20 +93,21 @@ public class Ubytovanie extends Miestnosti {
     }
 
     private void reWork() {
-        Miestnosti[] mestnost = this.rozlozenieMiestnosti.getMiestnostiSMaloLudmi();
-        for (int i = 0; i < this.getVelkostMiestnosti(); i++) {
+        for (int i = this.temInfoOSpracovanychLudoch; i < this.getVelkostMiestnosti(); i++) {
+            Miestnosti[] mestnost = this.rozlozenieMiestnosti.getMiestnostiSMaloLudmi();
             Miestnosti miestnost = JpanelVyberMiestnosti.zobrazVyberoveMenu(mestnost, new ImageIcon("src/sk/falloutshelter/fri/obr/Miestnosti/novyClen.png"));
             if (miestnost == null) {
                 //keď použivateľ nič nevyberie tak sa mu nezníži počet odobratých vygenerovaných ľudí.
-                i--;
                 return;
             }
             miestnost.pridajCloveka();
+            this.temInfoOSpracovanychLudoch++;
         }
         Random random = new Random();
         this.maxTime = random.nextInt(300) + 30;
         super.setOdpocitavanie(this.maxTime);
         super.setStavMiestnosti(StavMiestnosti.Pracuje);
+        this.temInfoOSpracovanychLudoch = 0;
     }
 
     @Override
