@@ -1,9 +1,9 @@
 package sk.falloutshelter.fri.screan;
 
 import sk.falloutshelter.fri.Hra;
-import javax.swing.*;
-import java.awt.*;
-
+import java.awt.Graphics;
+import javax.swing.ImageIcon;
+import java.awt.Image;
 /**
  * Táto trieda zobrazí úvodnú obrazovku a počká na kliknutie a spustí bunker.
  */

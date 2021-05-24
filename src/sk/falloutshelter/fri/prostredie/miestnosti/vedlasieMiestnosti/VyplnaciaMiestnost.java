@@ -2,8 +2,7 @@ package sk.falloutshelter.fri.prostredie.miestnosti.vedlasieMiestnosti;
 
 import sk.falloutshelter.fri.prostredie.RozlozenieMiestnosti;
 import sk.falloutshelter.fri.prostredie.miestnosti.Miestnosti;
-
-import java.awt.*;
+import java.awt.Graphics;
 
 /**
  * Tato miestnosť slúži len ako prázdna miestnost a aby som nemal null takže príma všeto ale na nič nereaguje

@@ -7,8 +7,12 @@ import sk.falloutshelter.fri.prostredie.Pozadie;
 import sk.falloutshelter.fri.screan.Tlacitka;
 import sk.falloutshelter.fri.screan.UvodnaObrazovka;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Color;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JOptionPane;
+import javax.swing.WindowConstants;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 

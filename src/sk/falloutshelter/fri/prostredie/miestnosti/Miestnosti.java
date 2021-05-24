@@ -11,8 +11,6 @@ import sk.falloutshelter.fri.screan.IZobraz;
  * @author Tobias
  */
 public abstract class Miestnosti implements IZobraz, IKlik, ITik {
-    private final int riadok;
-    private final int stlpec;
     private int tiki;
     private StavMiestnosti stavMiestnosti;
     private int odpocitavanie;
@@ -20,8 +18,6 @@ public abstract class Miestnosti implements IZobraz, IKlik, ITik {
     private int velkostMiestnosti = 1;
 
     public Miestnosti(int riadok, int stlpec, RozlozenieMiestnosti rozlozenieMiestnosti) {
-        this.riadok = riadok;
-        this.stlpec = stlpec;
         this.tiki = 0;
     }
     public void pridajCloveka() {

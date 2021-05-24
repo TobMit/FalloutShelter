@@ -4,8 +4,8 @@ import sk.falloutshelter.fri.Hra;
 import sk.falloutshelter.fri.screan.IKlik;
 import sk.falloutshelter.fri.screan.IZobraz;
 
-import java.awt.*;
-
+import java.awt.Graphics;
+import java.awt.Color;
 
 /**
  * Táto trieda má na starosť vytvorenie zdrojov a vytvorenie miesta pre Miestnosti. Taktiež spája vykresľovanie a hlavnú slučku hry s miestnosťami preposiela: zobraz, tik, klik. Hlavnou úlohou sú zdroje, takže tie obsluhuje.

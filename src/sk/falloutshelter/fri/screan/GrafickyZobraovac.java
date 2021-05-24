@@ -1,7 +1,8 @@
 package sk.falloutshelter.fri.screan;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.ImageIcon;
+import java.awt.Graphics;
+import java.awt.Image;
 
 /**
  * Trieda vykreslí miestnosti podľa veľkosti. Všetky informácie za udávajú do konštruktora.

@@ -7,8 +7,10 @@ import sk.falloutshelter.fri.screan.GrafikaSelect;
 import sk.falloutshelter.fri.screan.JpanelVyberMiestnosti;
 import sk.falloutshelter.fri.prostredie.RozlozenieMiestnosti;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Font;
+import java.awt.Color;
+import java.awt.Graphics;
+import javax.swing.ImageIcon;
 import java.util.Random;
 
 /**

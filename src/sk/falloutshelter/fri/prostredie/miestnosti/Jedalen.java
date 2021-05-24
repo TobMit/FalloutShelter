@@ -6,7 +6,9 @@ import sk.falloutshelter.fri.prostredie.RozlozenieMiestnosti;
 import sk.falloutshelter.fri.screan.GrafickyZobraovac;
 import sk.falloutshelter.fri.screan.GrafikaSelect;
 
-import java.awt.*;
+import java.awt.Font;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.util.Random;
 
 /**

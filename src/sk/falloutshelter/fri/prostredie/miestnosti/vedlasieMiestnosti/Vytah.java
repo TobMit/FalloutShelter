@@ -3,8 +3,9 @@ package sk.falloutshelter.fri.prostredie.miestnosti.vedlasieMiestnosti;
 import sk.falloutshelter.fri.prostredie.Bunker;
 import sk.falloutshelter.fri.prostredie.RozlozenieMiestnosti;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Image;
+import java.awt.Graphics;
+import javax.swing.ImageIcon;
 
 /**
  * Táto miestnosť slúži na to aby sa mohlo stavať aj v nižších vrstvách bunkra.

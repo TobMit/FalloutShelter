@@ -2,7 +2,8 @@ package sk.falloutshelter.fri.screan;
 
 
 import sk.falloutshelter.fri.prostredie.miestnosti.Miestnosti;
-import javax.swing.*;
+import javax.swing.JOptionPane;
+import javax.swing.ImageIcon;
 
 /**
  * Trieda má na starosť vykresliť a zobraziť výberové menu. Všetky položky aj obrázky sa je dávajú v parametre konštruktora.

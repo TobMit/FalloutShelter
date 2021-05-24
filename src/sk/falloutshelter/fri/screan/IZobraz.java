@@ -1,6 +1,6 @@
 package sk.falloutshelter.fri.screan;
 
-import java.awt.*;
+import java.awt.Graphics;
 
 /**
  * Interface pre vykresľovanie a obsluhu grafiky.

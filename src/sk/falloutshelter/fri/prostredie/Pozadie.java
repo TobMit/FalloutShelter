@@ -2,8 +2,9 @@ package sk.falloutshelter.fri.prostredie;
 
 import sk.falloutshelter.fri.screan.IZobraz;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.ImageIcon;
+import java.awt.Graphics;
+import java.awt.Image;
 
 /**
  * Táto trieda má za úlohu vykresľovať pozadie hry.
@@ -12,7 +13,7 @@ import java.awt.*;
  */
 public class Pozadie implements IZobraz {
     private boolean jeViditelne;
-    private Image image;
+    private final Image image;
 
     public Pozadie() {
         this.image = new ImageIcon("src/sk/falloutshelter/fri/obr/pozadie2.jpg").getImage();

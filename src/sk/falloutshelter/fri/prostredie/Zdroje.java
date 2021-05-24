@@ -2,7 +2,9 @@ package sk.falloutshelter.fri.prostredie;
 
 import sk.falloutshelter.fri.screan.IZobraz;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Font;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;

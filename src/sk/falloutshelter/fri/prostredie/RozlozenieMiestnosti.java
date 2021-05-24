@@ -14,8 +14,8 @@ import sk.falloutshelter.fri.screan.IKlik;
 import sk.falloutshelter.fri.screan.JpanelVyberMiestnosti;
 import sk.falloutshelter.fri.screan.StavObrazovky;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.ImageIcon;
+import java.awt.Graphics;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;

@@ -1,7 +1,8 @@
 package sk.falloutshelter.fri.screan;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 
 /**
  * Trieda vykreslí vybratie miestnosti. Veľkosť „selektového obrázka“ sa zadáva v konštruktore podľa veľkosti triedy.

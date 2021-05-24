@@ -1,8 +1,9 @@
 package sk.falloutshelter.fri.screan;
 
 import sk.falloutshelter.fri.prostredie.RozlozenieMiestnosti;
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.ImageIcon;
+import java.awt.Graphics;
+import java.awt.Image;
 
 /**
  * Trieda obsluhujúce Builder tlačidlo v hre.
